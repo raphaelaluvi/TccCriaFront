@@ -18,14 +18,13 @@ export default function Header() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/sobre" className={({ isActive }) => isActive ? styles.active : ""}>
-              Sobre Nós
-            </NavLink>
-            
-          </li>
-          <li>
             <NavLink to="/planos" className={({ isActive }) => isActive ? styles.active : ""}>
               Planos
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/sobre" className={({ isActive }) => isActive ? styles.active : ""}>
+              Sobre Nós
             </NavLink>
           </li>
           <li>
