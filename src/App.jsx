@@ -1,16 +1,23 @@
+import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
-import Banner from "./components/Banner/Banner";
-import Infoplano from "./components/Infoplano/Infoplano";
 import Footer from "./components/Footer/Footer";
-// importar outros componentes depois: Programs, Why, Stats, Planos, Contato, Footer
+
+// páginas do site
+import Home from "./pages/Home";
+import Sobre from "./pages/Sobre";
+import Planos from "./pages/Planos";
+import Contato from "./pages/Contato";
+
 function App() {
   return (
     <>
       <Header />
-      <main>
-        <Banner />
-        <Infoplano />
-      </main>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/planos" element={<Planos />} />
+          <Route path="/sobre" element={<Sobre />} />
+          <Route path="/contato" element={<Contato />} />
+        </Routes>
       <Footer />
     </>
   );
