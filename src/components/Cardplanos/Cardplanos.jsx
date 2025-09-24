@@ -11,6 +11,7 @@ const CardPlanos = ({ planos }) => {
           Escolha o plano que melhor se adapta às suas necessidades.
         </p>
 
+
         {planos.map((categoria, index) => (
           <div key={index}>
             <h2>
