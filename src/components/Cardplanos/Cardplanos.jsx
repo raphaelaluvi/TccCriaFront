@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import styles from "./Cardplanos.module.css";
 
 const CardPlanos = ({ planos }) => {
-  // Estado para controlar qual modal está aberto (null = nenhum)
   const [modalAberto, setModalAberto] = useState(null);
+
+  // Busca o plano que está aberto
+  const planoSelecionado = planos
+    .flatMap((categoria) => categoria.itens)
+    .find((plano) => plano.modalId === modalAberto);
 
   return (
     <main>
@@ -22,7 +26,7 @@ const CardPlanos = ({ planos }) => {
             </h2>
             <div className={styles["planos-container"]}>
               {categoria.itens.map((plano, idx) => (
-                <div className={styles["plano-card"]} key={idx}>
+                <div className={styles["plano-card"]} key={plano.modalId}>
                   <h3>{plano.nome}</h3>
                   <p className={styles.preco}>{plano.preco}</p>
                   <button
@@ -37,7 +41,7 @@ const CardPlanos = ({ planos }) => {
           </div>
         ))}
 
-        {modalAberto && (
+        {planoSelecionado && (
           <div
             className={styles.modalOverlay}
             onClick={() => setModalAberto(null)}
@@ -46,8 +50,15 @@ const CardPlanos = ({ planos }) => {
               className={styles.modalContent}
               onClick={(e) => e.stopPropagation()}
             >
-              <button onClick={() => setModalAberto(null)}>Fechar</button>
-              <p>Conteúdo do modal com ID: {modalAberto}</p>
+              <button onClick={() => setModalAberto(null)}>X</button>
+              <h2>{planoSelecionado.nome}</h2>
+              <p>{planoSelecionado.preco}</p>
+              <ul>
+                <li>Detalhes do {planoSelecionado.nome}...</li>
+              </ul>
+              <a href="cadastro.html" className={styles.btn}>
+                Adquirir!
+              </a>
             </div>
           </div>
         )}
