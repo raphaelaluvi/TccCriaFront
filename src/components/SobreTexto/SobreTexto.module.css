@@ -1,0 +1,14 @@
+.sobre {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+p {
+  line-height: 1.6;
+  color: #333;
+}
+
+h2{
+    color: #8E24AA;
+}

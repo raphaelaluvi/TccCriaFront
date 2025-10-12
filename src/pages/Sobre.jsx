@@ -1,8 +1,11 @@
+import CarrosselSobre from "../components/CarrosselSobre/CarrosselSobre";
+import SobreTexto from "../components/SobreTexto/SobreTexto";
+
 export default function Sobre() {
     return (
       <main>
-        <h1>Sobre Nós</h1>
-        <p>Texto sobre a empresa ou projeto...</p>
+        <CarrosselSobre />
+        <SobreTexto />
       </main>
     );
   }

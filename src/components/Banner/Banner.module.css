@@ -21,6 +21,11 @@
   font-size: 3rem;
   color: #388E3C;
   margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+.heroText h3 {
+  margin-bottom: 10px;
 }
 
 .heroText p {
