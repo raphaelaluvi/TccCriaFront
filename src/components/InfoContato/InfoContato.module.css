@@ -1,0 +1,133 @@
+.contato {
+    padding: 60px 10%;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.contatoContainer {
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.contatoInfo {
+    flex: 1;
+    min-width: 280px;
+    background: #f9f6ff;
+    border: 2px dashed #8E24AA;
+    border-radius: 20px;
+    padding: 25px;
+    color: #333;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    animation: bounceIn 0.8s ease;
+    flex-wrap: wrap;
+}
+
+.contatoInfo h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #7FFF4F;
+    text-align: center;
+}
+
+.infoItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    font-size: 16px;
+}
+
+.infoItem .icon {
+    font-size: 26px;
+    background: #8E24AA;
+    color: #fff;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.infoItem p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* animação divertida */
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    60% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Formulário */
+.contatoForm {
+    flex: 1;
+    min-width: 280px;
+    text-align: left;
+}
+
+.formGroup {
+    margin-bottom: 15px;
+}
+
+.formGroup label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.formGroup input,
+.formGroup textarea {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+    border-color: #8E24AA;
+}
+
+textarea {
+    resize: none;
+    height: 120px;
+}
+
+/* Mapa */
+.mapa iframe {
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background: #8E24AA;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.3s ease;
+    cursor: pointer;
+    border: none;
+}
