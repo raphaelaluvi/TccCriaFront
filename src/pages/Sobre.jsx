@@ -1,11 +1,10 @@
-import CarrosselSobre from "../components/CarrosselSobre/CarrosselSobre";
-import SobreTexto from "../components/SobreTexto/SobreTexto";
+// import CarrosselSobre from "../components/CarrosselSobre/CarrosselSobre";
+import InfosSobre from "../components/InfosSobre/InfosSobre";
 
 export default function Sobre() {
     return (
       <main>
-        <CarrosselSobre />
-        <SobreTexto />
+        <InfosSobre />
       </main>
     );
   }
