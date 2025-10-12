@@ -43,7 +43,7 @@ export default function InfoPlano() {
             title="Orçamento Escolar"
             icon={acordIcon}
             color="green"
-            link="/planos"
+            link="/contato"
           />
         </div>
       </section>
