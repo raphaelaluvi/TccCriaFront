@@ -51,6 +51,10 @@
   background: #8e24aa;
 }
 
+.card.green {
+  background: #4caf50;
+}
+
 .icone {
   width: 60px;
 }

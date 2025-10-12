@@ -2,6 +2,7 @@ import styles from "./InfoPlano.module.css";
 
 import familiaIcon from "../../assets/icon-familia.png";
 import escolaIcon from "../../assets/icon-escola.png";
+import acordIcon from "../../assets/acordo.png";
 import criancasImg from "../../assets/img-criancaslivros.jpeg";
 
 // Componente Card reutilizável
@@ -36,6 +37,12 @@ export default function InfoPlano() {
             title="Plano Completo"
             icon={escolaIcon}
             color="purple"
+            link="/planos"
+          />
+          <Card
+            title="Orçamento Escolar"
+            icon={acordIcon}
+            color="green"
             link="/planos"
           />
         </div>
