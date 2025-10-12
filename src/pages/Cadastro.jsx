@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom";
 import FormEntrar from "../components/FormEntrar/FormEntrar";
 
 export default function Cadastro() {
-    const fields = [
+    const campos = [
         { id: "cpf", name: "cpf", label: "CPF", type: "text", placeholder: "000.000.000-00", required: true, minLength: 11, maxLength: 11 },
         { id: "nome", name: "nome", label: "Nome completo", type: "text", required: true },
         { id: "email", name: "email", label: "E-mail", type: "email", required: true },
@@ -9,17 +10,17 @@ export default function Cadastro() {
         { id: "senha", name: "senha", label: "Senha", type: "password", required: true },
     ];
 
-    const footerLinks = (
-        <p>Já tem conta? <a href="login.html">Entre aqui</a></p>
+    const links = (
+        <p>Já tem conta? <Link to="/login">Entre aqui</Link></p>
     );
 
     return (
         <main>
             <FormEntrar
                 title="Cadastre-se"
-                fields={fields}
-                buttonText="Cadastrar"
-                footerLinks={footerLinks}
+                campos={campos}
+                textoBotao="Cadastrar"
+                links={links}
             />
         </main>
     );

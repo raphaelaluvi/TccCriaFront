@@ -1,15 +1,16 @@
+import { Link } from "react-router-dom";
 import FormEntrar from "../components/FormEntrar/FormEntrar";
 
 export default function Login() {
-    const fields = [
+    const campos = [
         { id: "email", name: "email", label: "E-mail", type: "email", required: true },
         { id: "senha", name: "senha", label: "Senha", type: "password", required: true },
     ];
 
-    const footerLinks = (
+    const links = (
         <>
             <p><a href="esqueci_senha.html">Esqueceu a senha?</a></p>
-            <p>Não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
+            <p>Não tem conta? <Link to="/cadastro">Cadastre-se</Link></p>
         </>
     );
 
@@ -17,9 +18,9 @@ export default function Login() {
         <main>
             <FormEntrar
                 title="Entrar"
-                fields={fields}
-                buttonText="Entrar"
-                footerLinks={footerLinks}
+                campos={campos}
+                textoBotao="Entrar"
+                links={links}
             />
         </main>
     );

@@ -1,32 +1,32 @@
 import styles from './FormEntrar.module.css';
 
-export default function FormEntrar({ title, fields, buttonText, footerLinks }) {
+export default function FormEntrar({ title, campos, textoBotao, links }) {
   return (
     <div className={styles.formulario}>
       <h2>{title}</h2>
       <form>
-        {fields.map((field) => (
-          <div key={field.id}>
-            <label htmlFor={field.id}>{field.label}</label>
+        {campos.map((campo) => (
+          <div key={campo.id}>
+            <label htmlFor={campo.id}>{campo.label}</label>
             <input
-              type={field.type}
-              id={field.id}
-              name={field.name}
-              placeholder={field.placeholder}
-              required={field.required}
-              minLength={field.minLength}
-              maxLength={field.maxLength}
+              type={campo.type}
+              id={campo.id}
+              name={campo.name}
+              placeholder={campo.placeholder}
+              required={campo.required}
+              minLength={campo.minLength}
+              maxLength={campo.maxLength}
             />
           </div>
         ))}
 
         <button type="submit" className={styles.btn}>
-          {buttonText}
+          {textoBotao}
         </button>
       </form>
 
-      <div className={styles.footer}>
-        {footerLinks}
+      <div>
+        {links}
       </div>
     </div>
   );
