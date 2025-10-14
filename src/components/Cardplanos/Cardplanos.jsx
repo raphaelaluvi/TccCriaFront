@@ -1,8 +1,20 @@
 import React, { useState } from "react";
 import styles from "./Cardplanos.module.css";
+import individual from "../../assets/individual.png";
+import escola from "../../assets/escola.png";
+import escola2 from "../../assets/escola2.png";
+import familia from "../../assets/familia.png";
 
 const CardPlanos = ({ planos }) => {
   const [modalAberto, setModalAberto] = useState(null);
+
+  // Mapeamento de ícones
+  const icones = {
+    individual: individual,
+    escola: escola,
+    escola2: escola2,
+    familia: familia,
+  };
 
   // Busca o plano que está aberto
   const planoSelecionado = planos
@@ -27,7 +39,17 @@ const CardPlanos = ({ planos }) => {
             <div className={styles["planos-container"]}>
               {categoria.itens.map((plano, idx) => (
                 <div className={styles["plano-card"]} key={plano.modalId}>
-                  <h3>{plano.nome}</h3>
+                  <h3>
+                    {/* Ícone antes do nome */}
+                    {plano.tipo && (
+                      <img
+                        src={icones[plano.tipo]}
+                        alt={`${plano.nome} ícone`}
+                        className={styles.icone}
+                      />
+                    )}
+                    {plano.nome}
+                  </h3>
                   <p className={styles.preco}>{plano.preco}</p>
                   <button
                     className={styles.btn}
