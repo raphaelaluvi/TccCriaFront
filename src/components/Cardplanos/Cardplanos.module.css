@@ -29,15 +29,17 @@
 }
 
 .planos-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 30px;
   max-width: 1500px;
   margin: 0 auto;
+  justify-content: center;
 }
 
 .plano-card {
-  background: #fff;
+  flex: 1 1 250px;
+  max-width: 300px;
   border: 2px solid #4CAF50;
   border-radius: 12px;
   padding: 30px 20px;
