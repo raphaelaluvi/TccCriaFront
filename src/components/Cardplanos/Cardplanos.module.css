@@ -2,7 +2,6 @@
 .planos {
   text-align: center;
   padding: 60px 20px;
-  background: #f9f9f9;
 }
 
 .planos h1 {
@@ -39,6 +38,7 @@
 
 .plano-card {
   background: #fff;
+  border: 2px solid #4CAF50;
   border-radius: 12px;
   padding: 30px 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -64,18 +64,22 @@
 }
 
 .plano-card .btn {
+  border: 2px solid #600779;
+  background-color: #9C27B0;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
   display: inline-block;
   padding: 12px 25px;
-  background: #4CAF50;
   color: #fff;
   text-decoration: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-weight: bold;
   transition: 0.3s ease;
 }
 
 .plano-card .btn:hover {
-  background: #3a9140;
+  transform: scale(0.92) rotate(1deg);
+  filter: brightness(0.9);
+  transition: transform 0.08s ease;
 }
 
 /* -------- Modal atualizado -------- */

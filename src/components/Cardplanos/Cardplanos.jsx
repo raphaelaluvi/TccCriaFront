@@ -56,7 +56,7 @@ const CardPlanos = ({ planos }) => {
               <ul>
                 <li>Detalhes do {planoSelecionado.nome}...</li>
               </ul>
-              <a href="cadastro.html" className={styles.btn}>
+              <a href="/cadastro" className={styles.btn}>
                 Adquirir!
               </a>
             </div>

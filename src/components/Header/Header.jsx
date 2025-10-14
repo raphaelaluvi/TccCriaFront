@@ -1,8 +1,12 @@
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Header.module.css";
 import logo from "../../assets/mini-logo.png";
 
 export default function Header() {
+
+  const [menuAtivo, setMenuAtivo] = useState(false);
+
   return (
     <header className={styles.navbar}>
       <div className={styles.logo}>
@@ -10,8 +14,15 @@ export default function Header() {
           <img src={logo} alt="CriaKids Logo" className={styles.logoImg} />
         </NavLink>
       </div>
+
+      <div className={styles["menu-toggle"]} onClick={() => setMenuAtivo(!menuAtivo)}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
       <nav>
-        <ul>
+        <ul className={menuAtivo ? styles.active : ""}>
           <li>
             <NavLink to="/" className={styles.menu}>
               Home
@@ -24,7 +35,7 @@ export default function Header() {
           </li>
           <li>
             <NavLink to="/sobre" className={styles.menu}>
-              Sobre Nós
+              Sobre
             </NavLink>
           </li>
           <li>
