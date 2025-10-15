@@ -64,7 +64,7 @@
 }
 
 .card:hover {
-    transform: scale(1.15) translateY(-10px);
+    transform: scale(1.5) translateY(-10px);
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
     border-left: 6px solid #8E24AA;
     z-index: 10;
@@ -81,7 +81,7 @@
 }
 
 .card:hover img {
-    transform: rotate(6deg) scale(1.1);
+    transform: rotate(-6deg) scale(1.5);
 }
 
 
