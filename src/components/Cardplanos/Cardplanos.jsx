@@ -39,8 +39,7 @@ const CardPlanos = ({ planos }) => {
             <div className={styles["planos-container"]}>
               {categoria.itens.map((plano, idx) => (
                 <div className={styles["plano-card"]} key={plano.modalId}>
-                  <h3>
-                    {/* Ícone antes do nome */}
+                  {/* Ícone antes do nome */}
                     {plano.tipo && (
                       <img
                         src={icones[plano.tipo]}
@@ -48,6 +47,8 @@ const CardPlanos = ({ planos }) => {
                         className={styles.icone}
                       />
                     )}
+                  <h3>
+                    
                     {plano.nome}
                   </h3>
                   <p className={styles.preco}>{plano.preco}</p>
