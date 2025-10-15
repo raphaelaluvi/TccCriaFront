@@ -22,7 +22,7 @@ const CardHistorias = ({
       <img src={img} alt={tituloGrande} />
       <div className={styles.texto}>
         <p>{tituloPequeno}</p>
-        <h3 style={{ color: textColor }}>{tituloGrande}</h3>
+        <h2 style={{ color: textColor }}>{tituloGrande}</h2>
       </div>
     </div>
   );
