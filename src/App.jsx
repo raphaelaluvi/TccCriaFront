@@ -9,19 +9,24 @@ import Planos from "./pages/Planos";
 import Contato from "./pages/Contato";
 import Login from "./pages/Login";
 import Cadastro from "./pages/Cadastro";
+import EscolherCriancas from "./pages/EscolherCriancas";
+import Crianca from "./pages/Crianca";
 
 function App() {
   return (
     <>
       <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/planos" element={<Planos />} />
-          <Route path="/sobre" element={<Sobre />} />
-          <Route path="/contato" element={<Contato />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/cadastro" element={<Cadastro />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/planos" element={<Planos />} />
+        <Route path="/sobre" element={<Sobre />} />
+        <Route path="/contato" element={<Contato />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/cadastro" element={<Cadastro />} />
+        <Route path="/escolhercriancas" element={<EscolherCriancas />} />
+        <Route path="/crianca" element={<Crianca />} />
+
+      </Routes>
       <Footer />
     </>
   );
