@@ -1,0 +1,112 @@
+.container {
+    text-align: center;
+    margin: 40px auto;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+
+.titulo {
+    font-size: 2rem;
+    color: #222;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    animation: aparecerTitulo 1s ease forwards;
+}
+
+@keyframes aparecerTitulo {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cardsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+    padding-bottom: 5%;
+}
+
+.card {
+    flex: 1 1 250px;
+    max-width: 300px;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 25px 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-left: 6px solid transparent;
+    background-color: #fff;
+    position: relative;
+    animation: aparecerCard 0.8s ease forwards;
+}
+
+@keyframes aparecerCard {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.card:hover {
+    transform: scale(1.15) translateY(-10px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+    border-left: 6px solid #8E24AA;
+    z-index: 10;
+}
+
+.card:hover::after {
+    opacity: 1;
+}
+
+.card img {
+    height: 80px;
+    margin-bottom: 15px;
+    transition: transform 0.4s ease;
+}
+
+.card:hover img {
+    transform: rotate(6deg) scale(1.1);
+}
+
+
+.texto p {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #555;
+    text-transform: uppercase;
+}
+
+.texto h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: 5px;
+    animation: pulso 2.5s infinite ease-in-out;
+}
+
+@keyframes pulso {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
