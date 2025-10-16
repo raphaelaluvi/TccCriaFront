@@ -12,6 +12,8 @@ import Cadastro from "./pages/Cadastro";
 import EscolherCriancas from "./pages/EscolherCriancas";
 import Crianca from "./pages/Crianca";
 import Trilha from "./pages/Trilha";
+import PerfilCrianca from "./pages/PerfilCrianca";
+import PerfilResp from "./pages/PerfilResp";
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
         <Route path="/escolhercriancas" element={<EscolherCriancas />} />
         <Route path="/crianca" element={<Crianca />} />
         <Route path="/trilha" element={<Trilha />} />
+        <Route path="/perfilcrianca" element={<PerfilCrianca />} />
+        <Route path="/perfilresponsavel" element={<PerfilResp />} />
       </Routes>
       <Footer />
     </>
