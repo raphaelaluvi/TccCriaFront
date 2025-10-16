@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom"; // ✅ tem que vir antes de usar
 import HistoriaCard from "../components/CardHistorias/CardHistorias";
 import styles from "../components/CardHistorias/CardHistorias.module.css";
 
-import circoImg from "../assets/circo.png";
-import esquiloImg from "../assets/esquilo.png";
-import galaxiaImg from "../assets/galaxia.png";
-import cartuchosImg from "../assets/cartuchos.png";
+import circoImg from "../assets/circo/circo.png";
+import esquiloImg from "../assets/floresta/esquilo.png";
+import galaxiaImg from "../assets/universo/galaxia.png";
+import cartuchosImg from "../assets/oceano/concha.png";
 
 const Crianca = () => {
   const navigate = useNavigate(); // ✅ agora o hook vai funcionar

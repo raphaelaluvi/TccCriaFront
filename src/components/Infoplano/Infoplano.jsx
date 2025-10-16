@@ -1,8 +1,8 @@
 import styles from "./InfoPlano.module.css";
 
-import familiaIcon from "../../assets/familia.png";
-import escolaIcon from "../../assets/escola.png";
-import acordIcon from "../../assets/acordo.png";
+import familiaIcon from "../../assets/planos/familia.png";
+import escolaIcon from "../../assets/planos/escola.png";
+import acordIcon from "../../assets/planos/acordo.png";
 import criancasImg from "../../assets/img-criancaslivros.jpeg";
 
 // Componente Card reutilizável

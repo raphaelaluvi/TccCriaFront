@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import styles from "./InfosSobre.module.css";
 
-import luana from "../../assets/luana.jpg";
-import lucas from "../../assets/lucas.jpg";
-import bolivia from "../../assets/bolivia.jpg";
-import paulo from "../../assets/paulo.jpg";
-import rapha from "../../assets/rapha.jpg";
+import luana from "../../assets/nos/luana.jpg";
+import lucas from "../../assets/nos/lucas.jpg";
+import bolivia from "../../assets/nos/bolivia.jpg";
+import paulo from "../../assets/nos/paulo.jpg";
+import rapha from "../../assets/nos/rapha.jpg";
 
 const imagens = [luana, lucas, bolivia, paulo, rapha];
 
