@@ -9,26 +9,26 @@ import leao from "../assets/circo/leao.png";
 import trapezio from "../assets/circo/trapezio.png";
 import fogos from "../assets/circo/fogos.png";
 
-// 💙 ASTRONAUTAS
-import fogueteImg from "../assets/asteroide.png";
-// import planetaImg from "../assets/planeta.png";
-// import estacaoImg from "../assets/estacao.png";
-// import buracoNegroImg from "../assets/buraconegro.png";
-// import finalEspacoImg from "../assets/finalespaco.png";
+// ASTRONAUTAS
+import foguete from "../assets/universo/foguete.png";
+import planeta from "../assets/universo/planeta.png";
+import espacial from "../assets/universo/espacial.png";
+import buraco from "../assets/universo/buraco.png";
+import terra from "../assets/universo/terra.png";
 
-// 💚 FLORESTA
-// import florestaImg from "../assets/floresta.png";
-// import cachoeiraImg from "../assets/cachoeira.png";
-// import animaisImg from "../assets/animais.png";
-// import arvoreGiganteImg from "../assets/arvoregigante.png";
-// import finalFlorestaImg from "../assets/finalfloresta.png";
+// FLORESTA
+import floresta from "../assets/floresta/floresta.png";
+import cachoeira from "../assets/floresta/cachoeira.png";
+import tigre from "../assets/floresta/tigre.png";
+import arvore from "../assets/floresta/arvore.png";
+import caminho from "../assets/floresta/caminho.png";
 
-// 💛 OCEANO
-// import oceanoImg from "../assets/oceano.png";
-// import peixesImg from "../assets/peixes.png";
-// import recifeImg from "../assets/recife.png";
-// import navioImg from "../assets/navio.png";
-// import finalOceanoImg from "../assets/finaloceano.png";
+// OCEANO
+import mergulho from "../assets/oceano/mergulho.png";
+import peixes from "../assets/oceano/peixes.png";
+import coral from "../assets/oceano/coral.png";
+import navio from "../assets/oceano/navio.png";
+import segredo from "../assets/oceano/segredo.png";
 
 // ==========================
 // DADOS DAS HISTÓRIAS
@@ -54,11 +54,11 @@ const historiasData = {
       "Explore o universo, visite planetas e descubra os segredos das estrelas nesta jornada intergaláctica!",
     bgClass: "trilha-azul",
     niveis: [
-      { nome: "Decolagem do Foguete", img: fogueteImg },
-      { nome: "Planeta Misterioso", img: fogueteImg },
-      { nome: "Estação Espacial", img: fogueteImg },
-      { nome: "Buraco Negro", img: fogueteImg },
-      { nome: "A Chegada em Casa", img: fogueteImg },
+      { nome: "Decolagem do Foguete", img: foguete },
+      { nome: "Planeta Misterioso", img: planeta },
+      { nome: "Estação Espacial", img: espacial },
+      { nome: "Buraco Negro", img: buraco },
+      { nome: "A Chegada em Casa", img: terra },
     ],
   },
 
@@ -68,11 +68,11 @@ const historiasData = {
       "Caminhe pela natureza, descubra animais e segredos escondidos na floresta encantada!",
     bgClass: "trilha-verde",
     niveis: [
-      { nome: "Entrada na Floresta", img: fogueteImg },
-      { nome: "Cachoeira Mágica", img: fogueteImg },
-      { nome: "Encontro com os Animais", img: fogueteImg },
-      { nome: "Árvore Gigante", img: fogueteImg },
-      { nome: "Saída da Floresta", img: fogueteImg },
+      { nome: "Entrada na Floresta", img: floresta },
+      { nome: "Cachoeira Mágica", img: cachoeira },
+      { nome: "Encontro com os Animais", img: tigre },
+      { nome: "Árvore Gigante", img: arvore },
+      { nome: "Saída da Floresta", img: caminho },
     ],
   },
 
@@ -82,11 +82,11 @@ const historiasData = {
       "Mergulhe em um mundo submarino cheio de cores, recifes e criaturas incríveis!",
     bgClass: "trilha-amarela",
     niveis: [
-      { nome: "Mergulho Inicial", img: fogueteImg },
-      { nome: "Peixes Coloridos", img: fogueteImg },
-      { nome: "Recife de Coral", img: fogueteImg },
-      { nome: "Navio Afundado", img: fogueteImg },
-      { nome: "Segredo do Oceano", img: fogueteImg },
+      { nome: "Mergulho Inicial", img: mergulho },
+      { nome: "Peixes Coloridos", img: peixes },
+      { nome: "Recife de Coral", img: coral },
+      { nome: "Navio Afundado", img: navio },
+      { nome: "Segredo do Oceano", img: segredo },
     ],
   },
 };
