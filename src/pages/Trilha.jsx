@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import CardTrilhas from "../components/CardTrilhas/CardTrilhas";
 import styles from "../components/CardTrilhas/CardTrilhas.module.css";
 
-// 🩷 CIRCO
-// import circoImg from "../assets/circo.png";
-// import malabaristaImg from "../assets/malabarista.webp";
-// import leaoImg from "../assets/leao.png";
-// import trapezistaImg from "../assets/trapezista.jpg";
-// import finalCircoImg from "../assets/finalcirco.jpg";
+// CIRCO
+import palhaco from "../assets/circo/palhaco.png";
+import malabarista from "../assets/circo/malabarista.png";
+import leao from "../assets/circo/leao.png";
+import trapezio from "../assets/circo/trapezio.png";
+import fogos from "../assets/circo/fogos.png";
 
 // 💙 ASTRONAUTAS
 import fogueteImg from "../assets/asteroide.png";
@@ -40,11 +40,11 @@ const historiasData = {
       "Avance pelos níveis do circo — complete as atividades e descubra o grande espetáculo final!",
     bgClass: "trilha-rosa",
     niveis: [
-      { nome: "Show dos Palhaços", img: fogueteImg },
-      { nome: "Malabaristas", img: fogueteImg },
-      { nome: "Leões Adestrados", img: fogueteImg },
-      { nome: "Trapezistas", img: fogueteImg },
-      { nome: "O Grande Final", img: fogueteImg },
+      { nome: "Show dos Palhaços", img: palhaco },
+      { nome: "Malabaristas", img: malabarista },
+      { nome: "Leões Adestrados", img: leao },
+      { nome: "Trapezistas", img: trapezio },
+      { nome: "O Grande Final", img: fogos },
     ],
   },
 
