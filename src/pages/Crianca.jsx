@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // ✅ tem que vir antes de usar o hook
 import HistoriaCard from "../components/CardHistorias/CardHistorias";
 import styles from "../components/CardHistorias/CardHistorias.module.css";
 
@@ -8,12 +9,14 @@ import galaxiaImg from "../assets/galaxia.png";
 import cartuchosImg from "../assets/cartuchos.png";
 
 const Crianca = () => {
+  const navigate = useNavigate(); // ✅ agora o hook vai funcionar
+
   const abrirTrilha = (historia) => {
     localStorage.setItem("historiaAtual", historia);
-    window.location.href = `trilha-${historia}.html`;
+    navigate("/trilha"); // ✅ muda de página sem recarregar
   };
 
-  const historias = [
+  const historiasData = [
     {
       img: circoImg,
       tituloPequeno: "ENCANTE-SE COM O SHOW DO",
@@ -56,7 +59,7 @@ const Crianca = () => {
     <main className={styles.container}>
       <h2 className={styles.titulo}>Suas histórias</h2>
       <div className={styles.cardsContainer}>
-        {historias.map((h, index) => (
+        {historiasData.map((h, index) => (
           <HistoriaCard
             key={index}
             img={h.img}
