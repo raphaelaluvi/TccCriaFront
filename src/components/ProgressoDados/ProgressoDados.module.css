@@ -1,0 +1,66 @@
+.main {
+  font-family: "Fredoka", sans-serif;
+  background-color: #f4f9f9;
+  min-height: 100vh;
+  padding-top: 5%;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.titulo {
+  text-align: center;
+  color: #2e7d32;
+  font-weight: bold;
+  padding-bottom: 2rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-bottom: 2rem;
+  justify-content: center;
+}
+
+.col {
+  flex: 1;
+  min-width: 300px;
+}
+
+.statCard {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 10px 0;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.statCard h3 {
+  font-size: 1.8rem;
+  margin: 10px 0;
+  color: #388e3c;
+}
+
+.progress {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 25px;
+  margin-bottom: 10px;
+}
+
+.progressBar {
+  height: 100%;
+  background-color: #4caf50;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  line-height: 25px;
+  transition: width 0.3s ease;
+  border-radius: 12px 0 0 12px;
+}

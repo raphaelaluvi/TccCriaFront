@@ -1,4 +1,3 @@
-// src/components/Dados/Dados.jsx
 import React, { useState } from "react";
 import styles from "./Dados.module.css";
 
