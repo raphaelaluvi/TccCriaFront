@@ -15,6 +15,7 @@ import Trilha from "./pages/Trilha";
 import PerfilCrianca from "./pages/PerfilCrianca";
 import PerfilResp from "./pages/PerfilResp";
 import Progresso from "./pages/Progresso";
+import Atividades from "./pages/Atividades";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/perfilcrianca" element={<PerfilCrianca />} />
         <Route path="/perfilresponsavel" element={<PerfilResp />} />
         <Route path="/progresso" element={<Progresso />} />
+        <Route path="/atividades" element={<Atividades />} />
       </Routes>
       <Footer />
     </>

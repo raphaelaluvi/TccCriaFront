@@ -1,0 +1,232 @@
+/* =============================
+   ESTILOS GERAIS DAS ATIVIDADES
+   ============================= */
+
+.completarAlfabeto,
+.completarPalavra,
+.corrigirOrdem,
+.digitarPalavra,
+.formarPalavra {
+  text-align: center;
+  margin: 40px auto;
+  max-width: 900px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* TÍTULOS E TEXTOS */
+h2 {
+  font-size: 1.8rem;
+  color: #8e24aa;
+  margin-bottom: 10px;
+}
+
+.descricao {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 15px;
+}
+
+.palavraReferencia {
+  font-size: 1.4rem;
+  color: #333;
+  margin: 10px 0 20px;
+}
+
+/* =============================
+   GRID E SLOTS DE LETRAS
+   ============================= */
+
+.gridAlfabeto,
+.slotsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.slotLetra {
+  width: 50px;
+  height: 50px;
+  background-color: #f0e8f9;
+  border: 2px solid #c79ae0;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #5e3483;
+  transition: all 0.2s ease;
+}
+
+.slotSelecionado {
+  background-color: #d1b3ff;
+  border-color: #8e24aa;
+  transform: scale(1.05);
+}
+
+/* =============================
+   TECLADO DE LETRAS
+   ============================= */
+
+.teclado,
+.opcoesLetras {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.btnLetra {
+  background-color: #f5e9ff;
+  color: #5e3483;
+  border: 2px solid #b47bde;
+  border-radius: 10px;
+  width: 45px;
+  height: 45px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnLetra:hover {
+  background-color: #dcb3ff;
+  transform: scale(1.1);
+}
+
+.btnLetra:disabled {
+  background-color: #ddd;
+  color: #999;
+  cursor: not-allowed;
+}
+
+/* =============================
+   BOTÕES GERAIS
+   ============================= */
+
+.botoesContainer {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+/* Botão de Verificar */
+.btnVerificar {
+  background-color: #8e24aa;
+  color: #fff;
+}
+
+.btnVerificar:hover {
+  background-color: #a648c4;
+}
+
+/* Botão de Limpar */
+.btnLimpar {
+  background-color: #f3e5f5;
+  color: #8e24aa;
+  border: 2px solid #d1aeea;
+}
+
+.btnLimpar:hover {
+  background-color: #e1c9f0;
+}
+
+/* Botão Apagar */
+.btnApagar {
+  background-color: #f8d7da;
+  color: #a94442;
+}
+
+.btnApagar:hover {
+  background-color: #f5c6cb;
+}
+
+/* =============================
+   INPUTS DE RESPOSTA
+   ============================= */
+
+.inputExercicio {
+  width: 250px;
+  padding: 10px;
+  font-size: 1.3rem;
+  text-align: center;
+  border: 2px solid #b47bde;
+  border-radius: 12px;
+  margin: 15px auto;
+  display: block;
+  background-color: #f9f3ff;
+  color: #5e3483;
+  font-weight: bold;
+}
+
+/* =============================
+   BOTÕES CIRCULARES (CORRIGIR ORDEM)
+   ============================= */
+
+.btnCircular {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #b47bde;
+  background-color: #f5e9ff;
+  color: #5e3483;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnCircular:hover {
+  background-color: #dcb3ff;
+  transform: scale(1.1);
+}
+
+.selecionado {
+  background-color: #cda8ff;
+  border-color: #8e24aa;
+}
+
+/* =============================
+   RESPONSIVIDADE
+   ============================= */
+
+@media (max-width: 600px) {
+  .slotLetra {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .btnLetra,
+  .btnCircular {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .inputExercicio {
+    width: 200px;
+    font-size: 1.1rem;
+  }
+
+  .botoesContainer {
+    flex-direction: column;
+  }
+}
