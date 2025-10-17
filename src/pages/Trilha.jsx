@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CardTrilhas from "../components/CardTrilhas/CardTrilhas";
 import styles from "../components/CardTrilhas/CardTrilhas.module.css";
 
@@ -95,6 +96,7 @@ const historiasData = {
 // COMPONENTE PRINCIPAL
 // ==========================
 const Trilha = () => {
+  const navigate = useNavigate();
   const [historia, setHistoria] = useState(null);
   const [progresso, setProgresso] = useState({ nivel: 1, feitos: [] });
   const [toastMsg, setToastMsg] = useState("");
@@ -156,9 +158,21 @@ const Trilha = () => {
               feito={feito}
               trancado={trancado}
               onClick={() => {
-                if (trancado)
-                  return showToast("Complete o nível anterior primeiro!");
-                iniciarAtividade(numero);
+                if (numero === 1) {
+                  // Primeiro card: sempre abre /atividades
+                  localStorage.setItem(
+                    "atividadeAtual",
+                    JSON.stringify({
+                      historia: localStorage.getItem("historiaAtual"),
+                      nivel: numero,
+                    })
+                  );
+                  navigate("/atividades");
+                } else if (!trancado) {
+                  iniciarAtividade(numero);
+                } else {
+                  showToast("Complete o nível anterior primeiro!");
+                }
               }}
             />
           );

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styles from "../Atividades.module.css";
 
-const CorrigirOrdemAlfabeto = ({ exercicio, verificarResposta }) => {
+const CorrigirOrdemAlfabeto = ({ exercicio, onVerificar }) => {
   const [letras, setLetras] = useState([...exercicio.posicoes]);
   const [selecionada, setSelecionada] = useState(null);
 
-  const trocar = index => {
+  const trocar = (index) => {
     if (selecionada === null) {
       setSelecionada(index);
     } else if (selecionada === index) {
@@ -21,6 +21,10 @@ const CorrigirOrdemAlfabeto = ({ exercicio, verificarResposta }) => {
   const reset = () => {
     setSelecionada(null);
     setLetras([...exercicio.posicoes]);
+  };
+
+  const verificar = () => {
+    if (onVerificar) onVerificar(letras.join(""));
   };
 
   return (
@@ -43,7 +47,7 @@ const CorrigirOrdemAlfabeto = ({ exercicio, verificarResposta }) => {
       </div>
 
       <div className={styles.botoesContainer}>
-        <button onClick={() => verificarResposta(letras.join(""))} className={`btn ${styles.btnVerificar}`}>
+        <button onClick={verificar} className={`btn ${styles.btnVerificar}`}>
           Verificar
         </button>
         <button onClick={reset} className={`btn ${styles.btnLimpar}`}>

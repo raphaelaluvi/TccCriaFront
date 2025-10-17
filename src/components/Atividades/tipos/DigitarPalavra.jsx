@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import styles from "../Atividades.module.css";
 
-const DigitarPalavra = ({ exercicio, verificarResposta }) => {
+const DigitarPalavra = ({ exercicio, onVerificar }) => {
   const [resposta, setResposta] = useState("");
+
+  if (!exercicio) return null;
+
+  const verificar = () => {
+    if (onVerificar) onVerificar(resposta);
+    setResposta("");
+  };
 
   return (
     <div className={styles.digitarPalavra}>
@@ -29,7 +36,7 @@ const DigitarPalavra = ({ exercicio, verificarResposta }) => {
       </div>
 
       <div className={styles.botoesContainer}>
-        <button onClick={() => verificarResposta(resposta)} className={`btn ${styles.btnVerificar}`}>
+        <button onClick={verificar} className={`btn ${styles.btnVerificar}`}>
           Verificar
         </button>
         <button onClick={() => setResposta("")} className={`btn ${styles.btnLimpar}`}>
