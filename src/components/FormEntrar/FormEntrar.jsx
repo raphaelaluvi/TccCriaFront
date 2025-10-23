@@ -1,10 +1,10 @@
 import styles from './FormEntrar.module.css';
 
-export default function FormEntrar({ title, campos, textoBotao, links }) {
+export default function FormEntrar({ title, campos, textoBotao, links, onSubmit }) {
   return (
     <div className={styles.formulario}>
       <h2>{title}</h2>
-      <form>
+      <form onSubmit={onSubmit}>
         {campos.map((campo) => (
           <div key={campo.id}>
             <label htmlFor={campo.id}>{campo.label}</label>
@@ -25,9 +25,7 @@ export default function FormEntrar({ title, campos, textoBotao, links }) {
         </button>
       </form>
 
-      <div>
-        {links}
-      </div>
+      <div>{links}</div>
     </div>
   );
 }
