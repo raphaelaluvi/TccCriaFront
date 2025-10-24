@@ -9,6 +9,12 @@ const UltimaLetra = ({ exercicio, onVerificar }) => {
     <div>
       <p className={styles.sub}>Qual é a última letra desta palavra?</p>
       <h3 className={styles.palavra}>{exercicio.palavra}</h3>
+      <input
+        type="text"
+        readOnly
+        value={resposta}
+        className={styles.inputExercicio}
+      />
 
       <div className={styles.teclado}>
         {letras.map((l) => (

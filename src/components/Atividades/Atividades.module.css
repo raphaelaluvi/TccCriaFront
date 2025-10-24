@@ -2,6 +2,11 @@
    ESTILOS GERAIS DAS ATIVIDADES
    ============================= */
 
+.container {
+  font-family: "Fredoka", sans-serif;
+  padding: 20px;
+}
+
 .completarAlfabeto,
 .completarPalavra,
 .corrigirOrdem,
@@ -17,7 +22,12 @@
 }
 
 /* TÍTULOS E TEXTOS */
-h2 {
+.container h2,
+.completarAlfabeto h2,
+.completarPalavra h2,
+.corrigirOrdem h2,
+.digitarPalavra h2,
+.formarPalavra h2 {
   font-size: 1.8rem;
   color: #8e24aa;
   margin-bottom: 10px;
@@ -33,6 +43,12 @@ h2 {
   font-size: 1.4rem;
   color: #333;
   margin: 10px 0 20px;
+}
+
+.feedback {
+  color: #2e7d32;
+  font-weight: 600;
+  margin-top: 10px;
 }
 
 /* =============================
@@ -125,6 +141,13 @@ h2 {
   cursor: pointer;
   font-weight: 600;
   transition: all 0.2s ease;
+}
+
+.btn:disabled,
+.btnLetra:disabled,
+.btnCircular:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* Botão de Verificar */

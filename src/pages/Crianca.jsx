@@ -1,19 +1,38 @@
-import React from "react";
-import { useNavigate } from "react-router-dom"; // ✅ tem que vir antes de usar o hook
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import Header from "../components/Header/Header";
 import HistoriaCard from "../components/CardHistorias/CardHistorias";
 import styles from "../components/CardHistorias/CardHistorias.module.css";
+import Modal from "../components/Modal/Modal";
 
 import circoImg from "../assets/circo/circo.png";
 import esquiloImg from "../assets/floresta/esquilo.png";
 import galaxiaImg from "../assets/universo/galaxia.png";
 import cartuchosImg from "../assets/oceano/concha.png";
+import { proximaAtividade } from "../services/atividades";
 
 const Crianca = () => {
-  const navigate = useNavigate(); // ✅ agora o hook vai funcionar
+  const navigate = useNavigate();
+  const [confirmarSair, setConfirmarSair] = useState(false);
+  const { id } = useParams();
+
+  const links = [
+    { label: 'Suas histórias', to: `/crianca/${id}` },
+    { label: 'Progresso', to: `/progresso/${id}` },
+    { label: 'Perfil', to: `/perfilcrianca/${id}` },
+    { label: 'Sair', onClick: () => setConfirmarSair(true) }
+  ];
+
+  const mapHistoria = (slug) => {
+    // mapeia nomes da UI para os esperados pelo backend
+    if (slug === 'floresta') return 'floresta-magica';
+    if (slug === 'astronautas') return 'galaxia';
+    return slug; // circo, oceano
+  };
 
   const abrirTrilha = (historia) => {
-    localStorage.setItem("historiaAtual", historia);
-    navigate("/trilha"); // ✅ muda de página sem recarregar
+    const h = mapHistoria(historia);
+    navigate(`/trilha/${id}/${h}`);
   };
 
   const historiasData = [
@@ -29,7 +48,7 @@ const Crianca = () => {
     {
       img: esquiloImg,
       tituloPequeno: "DESVENDE OS SEGREDOS DA",
-      tituloGrande: "Floresta Mágica",
+      tituloGrande: "Floresta Encantada",
       bgColor: "#c2ecc3",
       borderColor: "#4caf50",
       textColor: "#4caf50",
@@ -56,23 +75,38 @@ const Crianca = () => {
   ];
 
   return (
-    <main className={styles.container}>
-      <h2 className={styles.titulo}>Suas histórias</h2>
-      <div className={styles.cardsContainer}>
-        {historiasData.map((h, index) => (
-          <HistoriaCard
-            key={index}
-            img={h.img}
-            tituloPequeno={h.tituloPequeno}
-            tituloGrande={h.tituloGrande}
-            bgColor={h.bgColor}
-            borderColor={h.borderColor}
-            textColor={h.textColor}
-            onClick={() => abrirTrilha(h.historia)}
-          />
-        ))}
-      </div>
-    </main>
+    <div>
+      <Header links={links} />
+      <main className={styles.container}>
+        <h2 className={styles.titulo}>Suas histórias</h2>
+        <div className={styles.cardsContainer}>
+          {historiasData.map((h, index) => (
+            <HistoriaCard
+              key={index}
+              img={h.img}
+              tituloPequeno={h.tituloPequeno}
+              tituloGrande={h.tituloGrande}
+              bgColor={h.bgColor}
+              borderColor={h.borderColor}
+              textColor={h.textColor}
+              onClick={() => abrirTrilha(h.historia)}
+            />
+          ))}
+        </div>
+      </main>
+
+      {confirmarSair && (
+        <Modal
+          title="Sair do perfil da criança?"
+          primaryText="Sair"
+          onPrimary={() => { setConfirmarSair(false); navigate('/escolhercriancas'); }}
+          onClose={() => setConfirmarSair(false)}
+        >
+          <p>Você tem certeza que deseja sair?</p>
+        </Modal>
+      )}
+
+    </div>
   );
 };
 

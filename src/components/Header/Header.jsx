@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Header.module.css";
 import logo from "../../assets/mini-logo.png";
+const defaultPublicLinks = [
+  { label: 'Home', to: '/' },
+  { label: 'Planos', to: '/planos' },
+  { label: 'Sobre', to: '/sobre' },
+  { label: 'Contatos', to: '/contato' },
+  { label: 'Login', to: '/login' },
+  { label: 'Cadastro', to: '/cadastro' },
+];
 
-export default function Header() {
+export default function Header({ links: propLinks }) {
 
   const [menuAtivo, setMenuAtivo] = useState(false);
+  const links = useMemo(() => propLinks ?? defaultPublicLinks, [propLinks]);
 
   return (
     <header className={styles.navbar}>
@@ -23,36 +32,23 @@ export default function Header() {
 
       <nav>
         <ul className={menuAtivo ? styles.active : ""}>
-          <li>
-            <NavLink to="/" className={styles.menu}>
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/planos" className={styles.menu}>
-              Planos
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/sobre" className={styles.menu}>
-              Sobre
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/contato" className={styles.menu}>
-              Contatos
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/login" className={styles.menu}>
-              Login
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/cadastro" className={styles.menu}>
-              Cadastro
-            </NavLink>
-          </li>
+          {links.map((item, idx) => (
+            <li key={idx}>
+              {item.to ? (
+                <NavLink
+                  to={item.to}
+                  className={({ isActive }) => `${styles.menu} ${isActive ? styles.menuActive : ''}`}
+                  onClick={() => setMenuAtivo(false)}
+                >
+                  {item.label}
+                </NavLink>
+              ) : (
+                <button className={`${styles.menu} ${styles.menuButton}`} onClick={item.onClick}>
+                  {item.label}
+                </button>
+              )}
+            </li>
+          ))}
         </ul>
       </nav>
     </header>

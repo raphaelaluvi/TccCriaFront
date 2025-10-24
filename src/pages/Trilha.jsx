@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import CardTrilhas from "../components/CardTrilhas/CardTrilhas";
 import styles from "../components/CardTrilhas/CardTrilhas.module.css";
+import Modal from "../components/Modal/Modal";
+import { proximaAtividade, refazerAtividade } from "../services/atividades";
+import { getTrilhaNivel } from "../services/trilhas";
 
 // CIRCO
 import palhaco from "../assets/circo/palhaco.png";
@@ -31,14 +34,11 @@ import coral from "../assets/oceano/coral.png";
 import navio from "../assets/oceano/navio.png";
 import segredo from "../assets/oceano/segredo.png";
 
-// ==========================
-// DADOS DAS HISTÓRIAS
-// ==========================
+// Dados estáticos por história (títulos, imagens)
 const historiasData = {
   circo: {
-    titulo: "Trilha de Atividades - Circo Mágico 🎪",
-    descricao:
-      "Avance pelos níveis do circo — complete as atividades e descubra o grande espetáculo final!",
+    titulo: "Trilha de Atividades - Circo Mágico",
+    descricao: "Avance pelos níveis do circo — complete as atividades e descubra o grande espetáculo final!",
     bgClass: "trilha-rosa",
     niveis: [
       { nome: "Show dos Palhaços", img: palhaco },
@@ -49,10 +49,9 @@ const historiasData = {
     ],
   },
 
-  astronautas: {
-    titulo: "Trilha de Atividades - Aventura no Espaço 🚀",
-    descricao:
-      "Explore o universo, visite planetas e descubra os segredos das estrelas nesta jornada intergaláctica!",
+  galaxia: {
+    titulo: "Trilha de Atividades - Aventura no Espaço",
+    descricao: "Explore o universo, visite planetas e descubra os segredos das estrelas nesta jornada!",
     bgClass: "trilha-azul",
     niveis: [
       { nome: "Decolagem do Foguete", img: foguete },
@@ -63,10 +62,9 @@ const historiasData = {
     ],
   },
 
-  floresta: {
-    titulo: "Trilha de Atividades - Mistérios da Floresta 🌳",
-    descricao:
-      "Caminhe pela natureza, descubra animais e segredos escondidos na floresta encantada!",
+  "floresta-magica": {
+    titulo: "Trilha de Atividades - Mistérios da Floresta",
+    descricao: "Caminhe pela natureza, descubra animais e segredos escondidos na floresta encantada!",
     bgClass: "trilha-verde",
     niveis: [
       { nome: "Entrada na Floresta", img: floresta },
@@ -78,9 +76,8 @@ const historiasData = {
   },
 
   oceano: {
-    titulo: "Trilha de Atividades - Mergulho no Oceano 🐠",
-    descricao:
-      "Mergulhe em um mundo submarino cheio de cores, recifes e criaturas incríveis!",
+    titulo: "Trilha de Atividades - Mergulho no Oceano",
+    descricao: "Mergulhe em um mundo submarino cheio de cores, recifes e criaturas incríveis!",
     bgClass: "trilha-amarela",
     niveis: [
       { nome: "Mergulho Inicial", img: mergulho },
@@ -92,52 +89,73 @@ const historiasData = {
   },
 };
 
-// ==========================
-// COMPONENTE PRINCIPAL
-// ==========================
 const Trilha = () => {
   const navigate = useNavigate();
+  const { id, historia: historiaSlug } = useParams();
+  const location = useLocation();
   const [historia, setHistoria] = useState(null);
-  const [progresso, setProgresso] = useState({ nivel: 1, feitos: [] });
   const [toastMsg, setToastMsg] = useState("");
+  const [trilhaData, setTrilhaData] = useState(null); // dados do nível atual
+  const [confirmar, setConfirmar] = useState(null); // { numero, cta }
 
   useEffect(() => {
-    const historiaAtual = localStorage.getItem("historiaAtual");
-    if (!historiaAtual || !historiasData[historiaAtual]) {
-      window.location.href = "/"; // fallback se acessar direto
+    if (!historiaSlug || !historiasData[historiaSlug]) {
+      navigate(`/crianca/${id}`);
       return;
     }
+    setHistoria(historiasData[historiaSlug]);
+  }, [historiaSlug, id, navigate]);
 
-    setHistoria(historiasData[historiaAtual]);
-    const progressoSalvo =
-      JSON.parse(localStorage.getItem(`progresso_${historiaAtual}`)) ||
-      { nivel: 1, feitos: [] };
-    setProgresso(progressoSalvo);
-  }, []);
+  useEffect(() => {
+    let ativo = true;
+    async function carregar() {
+      const nivelMap = { circo: 1, "floresta-magica": 2, galaxia: 3, oceano: 4 };
+      const nivel = nivelMap[historiaSlug] || 1;
+      try {
+        const data = await getTrilhaNivel(id, nivel);
+        if (!ativo) return;
+        setTrilhaData(data);
+      } catch (e) {
+        if (!ativo) return;
+        setTrilhaData({ nivel, atividades: [], cta: { tipo: "iniciar" }, resumo: { total: 0, concluidas: 0, em_andamento: 0, desbloqueadas: 0 } });
+      }
+    }
+    carregar();
+    return () => { ativo = false };
+  }, [id, historiaSlug, location.state?.refresh]);
 
-  function salvarProgresso(novo) {
-    const historiaAtual = localStorage.getItem("historiaAtual");
-    localStorage.setItem(`progresso_${historiaAtual}`, JSON.stringify(novo));
-  }
-
-  function showToast(msg) {
-    setToastMsg(msg);
-    setTimeout(() => setToastMsg(""), 1800);
-  }
-
-  function iniciarAtividade(numero) {
-    const historiaAtual = localStorage.getItem("historiaAtual");
-    localStorage.setItem(
-      "atividadeAtual",
-      JSON.stringify({ historia: historiaAtual, nivel: numero })
-    );
-    showToast(`Iniciando atividade ${numero} de ${historia.titulo}`);
-    setTimeout(() => {
-      window.location.href = "/atividades";
-    }, 800);
-  }
+  const iniciarOuContinuar = async (numero, cta) => {
+    try {
+      if (cta?.tipo === "continuar" && cta.atividade_id) {
+        navigate(`/atividades?atividadeId=${cta.atividade_id}`, { state: { returnTo: `/trilha/${id}/${historiaSlug}` } });
+        return;
+      }
+      const nivelMap = { circo: 1, "floresta-magica": 2, galaxia: 3, oceano: 4 };
+      const nivel = nivelMap[historiaSlug] || 1;
+      const res = await proximaAtividade({ crianca_id: id, nivel, historia: historiaSlug });
+      const atividadeId = res.data?.atividade?.id || res.data?.atividade_id;
+      const exercicios = res.data?.exercicios;
+      if (atividadeId) {
+        navigate(`/atividades?atividadeId=${atividadeId}`, { state: { exercicios, returnTo: `/trilha/${id}/${historiaSlug}` } });
+      }
+    } catch (e) {
+      const status = e?.response?.status;
+      const detail = e?.response?.data?.detail;
+      if (status === 409 && detail?.atividade_pendente?.id) {
+        const atividadeId = detail.atividade_pendente.id;
+        const exercicios = detail.exercicios;
+        navigate(`/atividades?atividadeId=${atividadeId}`, { state: { exercicios, returnTo: `/trilha/${id}/${historiaSlug}` } });
+      } else {
+        setToastMsg(detail?.mensagem || "Não foi possível iniciar/continuar");
+        setTimeout(() => setToastMsg(""), 1800);
+      }
+    }
+  };
 
   if (!historia) return null;
+
+  const atividades = trilhaData?.atividades || [];
+  const ctaTrilha = trilhaData?.cta || { tipo: "iniciar" };
 
   return (
     <main className={`${styles.trilhaContainer} ${styles[historia.bgClass]}`}>
@@ -147,8 +165,21 @@ const Trilha = () => {
       <div className={styles.niveis}>
         {historia.niveis.map((n, i) => {
           const numero = i + 1;
-          const feito = progresso.feitos.includes(numero);
-          const trancado = numero > progresso.nivel;
+          const atividade = atividades[i];
+          let feito = false, trancado = true, andamento = false;
+          let cta = { tipo: "iniciar" };
+          if (atividade) {
+            feito = atividade.status === "concluida";
+            andamento = atividade.status === "em_andamento";
+            trancado = !atividade.desbloqueada;
+            if (andamento) cta = { tipo: "continuar", atividade_id: atividade.id };
+            else if (!feito) cta = { tipo: "iniciar" };
+            else cta = { tipo: "refazer", atividade_id: atividade.id };
+          } else if (i === atividades.length) {
+            // Próximo slot usa CTA do backend
+            cta = ctaTrilha;
+            trancado = cta.tipo === "iniciar" ? false : cta.tipo !== "continuar";
+          }
           return (
             <CardTrilhas
               key={i}
@@ -157,36 +188,41 @@ const Trilha = () => {
               numero={numero}
               feito={feito}
               trancado={trancado}
+              andamento={andamento}
               onClick={() => {
-                if (numero === 1) {
-                  // Primeiro card: sempre abre /atividades
-                  localStorage.setItem(
-                    "atividadeAtual",
-                    JSON.stringify({
-                      historia: localStorage.getItem("historiaAtual"),
-                      nivel: numero,
-                    })
-                  );
-                  navigate("/atividades");
-                } else if (!trancado) {
-                  iniciarAtividade(numero);
-                } else {
-                  showToast("Complete o nível anterior primeiro!");
-                }
+                if (trancado) { setToastMsg("Complete o nível anterior primeiro!"); setTimeout(() => setToastMsg(""), 1800); return; }
+                setConfirmar({ numero, cta });
               }}
             />
           );
         })}
       </div>
 
-      <button
-        className={styles.voltar}
-        onClick={() => (window.location.href = "/crianca")}
-      >
+      <button className={styles.voltar} onClick={() => navigate(`/crianca/${id}`)}>
         Voltar
       </button>
 
       {toastMsg && <div className={styles.toast}>{toastMsg}</div>}
+      {confirmar && (
+        <Modal
+          title={confirmar.cta?.tipo === "continuar" ? "Continuar atividade?" : confirmar.cta?.tipo === "refazer" ? "Refazer atividade?" : "Iniciar atividade?"}
+          primaryText={confirmar.cta?.tipo === "continuar" ? "Continuar" : confirmar.cta?.tipo === "refazer" ? "Refazer" : "Iniciar"}
+          onPrimary={async () => {
+            const { numero, cta } = confirmar; setConfirmar(null);
+            if (cta?.tipo === "refazer" && cta.atividade_id) {
+              try {
+                await refazerAtividade(cta.atividade_id);
+                navigate(`/atividades?atividadeId=${cta.atividade_id}`, { state: { returnTo: `/trilha/${id}/${historiaSlug}` } });
+              } catch { setToastMsg("Erro ao refazer"); setTimeout(() => setToastMsg(""), 1800); }
+            } else {
+              await iniciarOuContinuar(numero, cta);
+            }
+          }}
+          onClose={() => setConfirmar(null)}
+        >
+          <p>{confirmar.cta?.tipo === "continuar" ? "Você irá retomar a atividade em andamento." : confirmar.cta?.tipo === "refazer" ? "Será reiniciada esta atividade com novos exercícios." : "Será aberta/criada a próxima atividade desta trilha."}</p>
+        </Modal>
+      )}
     </main>
   );
 };

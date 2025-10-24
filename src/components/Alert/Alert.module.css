@@ -1,0 +1,27 @@
+ .alert {
+  max-width: 600px;
+  margin: 12px auto;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-family: inherit;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.success {
+  background: #E8F5E9;
+  border: 1px solid #A5D6A7;
+  color: #2E7D32;
+}
+
+.error {
+  background: #FFEBEE;
+  border: 1px solid #EF9A9A;
+  color: #C62828;
+}
+
+.info {
+  background: #E3F2FD;
+  border: 1px solid #90CAF9;
+  color: #1565C0;
+}
+

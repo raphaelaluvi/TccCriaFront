@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { responderExercicio } from "../../services/exercicios";
+import { concluirAtividade, refazerAtividade, listarExerciciosDaAtividade } from "../../services/atividades";
 
 // Importa os tipos de atividades
 import CompletarAlfabeto from "./tipos/CompletarAlfabeto";
@@ -6,55 +8,30 @@ import CompletarPalavra from "./tipos/CompletarPalavra";
 import CorrigirOrdemAlfabeto from "./tipos/CorrigirOrdemAlfabeto";
 import DigitarPalavra from "./tipos/DigitarPalavra";
 import FormarPalavra from "./tipos/FormarPalavra";
+import PrimeiraLetra from "./tipos/PrimeiraLetra";
+import UltimaLetra from "./tipos/UltimaLetra";
+import QuantidadeLetras from "./tipos/QuantidadeLetras";
 
 import styles from "./Atividades.module.css";
 
-const AtividadeController = () => {
+const AtividadeController = ({ atividadeId, exerciciosIniciais = [], onConcluir }) => {
   const [etapa, setEtapa] = useState("inicio"); // inicio | exercicio | fim
-  const [exercicios, setExercicios] = useState([]);
+  const [exercicios, setExercicios] = useState(exerciciosIniciais);
   const [indice, setIndice] = useState(0);
   const [feedback, setFeedback] = useState("");
+  const [enviando, setEnviando] = useState(false);
+  const [finalInfo, setFinalInfo] = useState(null);
 
-  // Simula o carregamento dos exercícios (depois pode vir da API)
   useEffect(() => {
-    setExercicios([
-      {
-        id: "e1",
-        tipo: "completar_alfabeto",
-        posicoes: ["A", "B", "_", "D", "E"],
-        opcoes: ["C", "F", "G"],
-        resposta_correta: "ABCDE",
-      },
-      {
-        id: "e2",
-        tipo: "completar_palavra",
-        palavra: "CASA",
-        posicoes: ["C", "_", "S", "A"],
-        resposta_correta: "CASA",
-      },
-      {
-        id: "e3",
-        tipo: "corrigir_ordem_alfabeto",
-        posicoes: ["A", "C", "B", "D", "E"],
-        resposta_correta: "ABCDE",
-      },
-      {
-        id: "e4",
-        tipo: "digitar_palavra",
-        palavra: "BOLA",
-        resposta_correta: "BOLA",
-      },
-      {
-        id: "e5",
-        tipo: "formar_palavra",
-        resposta_correta: "MESA",
-        opcoes: ["S", "E", "A", "M"],
-      },
-    ]);
-  }, []);
+    setExercicios(exerciciosIniciais);
+  }, [exerciciosIniciais]);
 
   // Inicia o jogo
   const iniciar = () => {
+    if (!exercicios || exercicios.length === 0) {
+      setFeedback('Nenhum exercício disponível.');
+      return;
+    }
     setEtapa("exercicio");
     setIndice(0);
     setFeedback("");
@@ -62,8 +39,8 @@ const AtividadeController = () => {
 
   // Avança para o próximo exercício
   const proximo = () => {
-    if (indice + 1 < exercicios.length) {
-      setIndice(indice + 1);
+    if (indice + 1 < (exercicios?.length || 0)) {
+      setIndice((prev) => prev + 1);
       setFeedback("");
     } else {
       setEtapa("fim");
@@ -71,34 +48,32 @@ const AtividadeController = () => {
   };
 
   // Verifica a resposta
-  const verificarResposta = (resposta) => {
-    const ex = exercicios[indice];
-    let correta = false;
-
-    if (ex.tipo === "completar_alfabeto") {
-      correta = resposta === ex.resposta_correta;
+  const verificarResposta = async (resposta) => {
+    if (enviando) return;
+    const ex = exercicios?.[indice];
+    if (!ex) {
+      // Estado intermediário: evita erro de acesso indefinido
+      setFeedback('Carregando exercício...');
+      return;
     }
-    if (ex.tipo === "completar_palavra") {
-      correta = resposta === ex.resposta_correta;
+    try {
+      setEnviando(true);
+      const r = await responderExercicio(ex.id, resposta);
+      const correta = !!r?.correta;
+      const restantes = Math.max(0, r?.tentativas_restantes ?? 0);
+      setFeedback(correta ? "✅ Resposta correta!" : `❌ Tente novamente! (${restantes} tentativas restantes)`);
+      if (correta || restantes === 0) setTimeout(proximo, 900);
+    } catch (e) {
+      setFeedback('Erro ao enviar resposta');
+    } finally {
+      setEnviando(false);
     }
-    if (ex.tipo === "corrigir_ordem_alfabeto") {
-      correta = resposta === ex.resposta_correta;
-    }
-    if (ex.tipo === "digitar_palavra") {
-      correta = resposta === ex.resposta_correta;
-    }
-    if (ex.tipo === "formar_palavra") {
-      correta = resposta === ex.resposta_correta;
-    }
-
-    setFeedback(correta ? "✅ Resposta correta!" : "❌ Tente novamente!");
-
-    if (correta) setTimeout(proximo, 900);
   };
 
   // Escolhe qual componente renderizar conforme o tipo
   const renderExercicio = () => {
-    const ex = exercicios[indice];
+    const ex = exercicios?.[indice];
+    if (!ex) return <p>Carregando exercício...</p>;
     const props = { exercicio: ex, onVerificar: verificarResposta };
 
     switch (ex.tipo) {
@@ -106,12 +81,20 @@ const AtividadeController = () => {
         return <CompletarAlfabeto {...props} />;
       case "completar_palavra":
         return <CompletarPalavra {...props} />;
+      case "completar_letras":
+        return <CompletarPalavra {...props} />;
       case "corrigir_ordem_alfabeto":
         return <CorrigirOrdemAlfabeto {...props} />;
       case "digitar_palavra":
         return <DigitarPalavra {...props} />;
       case "formar_palavra":
         return <FormarPalavra {...props} />;
+      case "primeira_letra":
+        return <PrimeiraLetra {...props} />;
+      case "ultima_letra":
+        return <UltimaLetra {...props} />;
+      case "quantidade_letras":
+        return <QuantidadeLetras {...props} />;
       default:
         return <p>Tipo de atividade não encontrado.</p>;
     }
@@ -140,6 +123,36 @@ const AtividadeController = () => {
       {etapa === "fim" && (
         <>
           <h3 className={styles.titulo}>🎉 Parabéns! Você concluiu todas!</h3>
+          {finalInfo && (
+            <p className={styles.sub}>Taxa de acerto: {finalInfo.taxa_acerto}%</p>
+          )}
+          {atividadeId && (
+            <div style={{ display: 'flex', gap: 8, justifyContent: 'center', flexWrap: 'wrap' }}>
+              <button className={styles.btn} onClick={async () => {
+                try {
+                  const r = await concluirAtividade(atividadeId);
+                  setFinalInfo(r);
+                  if (onConcluir) onConcluir();
+                } catch {}
+              }}>Concluir atividade</button>
+              <button className={styles.btn} onClick={async () => {
+                try {
+                  await refazerAtividade(atividadeId);
+                  const data = await listarExerciciosDaAtividade(atividadeId);
+                  setExercicios(data.exercicios || []);
+                  setIndice(0);
+                  setFeedback("");
+                  setFinalInfo(null);
+                  setEtapa("exercicio");
+                } catch {
+                  setFeedback('Erro ao refazer atividade');
+                }
+              }}>Refazer</button>
+            </div>
+          )}
+          {!atividadeId && onConcluir && (
+            <button className={styles.btn} onClick={onConcluir}>Voltar à trilha</button>
+          )}
           <button className={styles.btn} onClick={() => setEtapa("inicio")}>
             Jogar novamente
           </button>

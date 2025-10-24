@@ -23,6 +23,8 @@
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 14px;
+  font-family: inherit;
+  box-sizing: border-box;
 }
 
 .formulario .btn {
@@ -34,6 +36,7 @@
   border-radius: 25px;
   font-size: 16px;
   font-weight: bold;
+  font-family: inherit;
   cursor: pointer;
   transition: 0.3s;
 }
@@ -54,4 +57,10 @@
 
 .formulario a:hover {
   color: #E91E63;
+}
+
+/* Ajusta placeholder para herdar fonte do site */
+.formulario input::placeholder {
+  font-family: inherit;
+  color: #9aa0a6;
 }

@@ -4,6 +4,8 @@ import styles from "../Atividades.module.css";
 const FormarPalavra = ({ exercicio, onVerificar }) => {
   const [resposta, setResposta] = useState("");
   const letras = [...exercicio.opcoes];
+  const totalPorLetra = letras.reduce((acc, l) => { acc[l] = (acc[l]||0)+1; return acc; }, {});
+  const usadosPorLetra = resposta.split("").reduce((acc, l) => { acc[l] = (acc[l]||0)+1; return acc; }, {});
   const palavraCorreta = exercicio.resposta_correta;
 
   const handleLetra = (letra) => {
@@ -39,6 +41,7 @@ const FormarPalavra = ({ exercicio, onVerificar }) => {
           <button
             key={i}
             className={styles.btnLetra}
+            disabled={(usadosPorLetra[letra] || 0) >= (totalPorLetra[letra] || 0)}
             onClick={() => handleLetra(letra)}
           >
             {letra}

@@ -1,4 +1,4 @@
-.selecionarContainer {
+﻿.selecionarContainer {
   text-align: center;
   padding: 50px 20px;
 }
@@ -13,7 +13,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 40px;               /* espaçamento entre os cards */
+  gap: 40px;               /* espaÃ§amento entre os cards */
   flex-wrap: wrap;
   margin-top: 40px;
 }
@@ -43,22 +43,19 @@
   width: 100px;
   height: 100px;
   border-radius: 15px;
-  object-fit: cover;
-  display: block;
-  margin-bottom: 10px;
   background: #f5f5f5;
+  margin-bottom: 10px;
 }
 
-/* nome da criança */
-.criancaCard p,
-.criancaCard h3 {
+/* nome da crianÃ§a */
+.criancaCard p {
   font-size: 1.1rem;
   font-weight: bold;
   color: #333;
   margin: 0;
 }
 
-/* botão adicionar */
+/* botÃ£o adicionar */
 .adicionarCard {
   border: 2px dashed #4CAF50;
   background: #fff;
@@ -83,7 +80,7 @@
 
 /* Modal geral */
 .modal {
-  display: none; /* escondido por padrão */
+  display: none; /* escondido por padrÃ£o */
   position: fixed;
   z-index: 1000;
   left: 0;
@@ -94,35 +91,25 @@
   background-color: rgba(0,0,0,0.5); /* fundo escurecido */
 }
 
-/* Conteúdo do modal */
+/* ConteÃºdo do modal */
 .modalContent {
   background-color: #fff;
   border-radius: 16px;
-  max-width: 400px;      /* igual ao card de login */
-  width: 90%;
-  padding: 30px;         /* igual ao card de login */
+  max-width: 500px;      /* largura mÃ¡xima em telas grandes */
+  width: 90%;            /* ocupa quase toda a tela em dispositivos pequenos */
+  padding: 30px 40px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 15px;             /* espaÃ§o entre elementos */
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* igual ao card de login */
+  transform: translate(-50%, -50%); /* centraliza vertical e horizontal */
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
   z-index: 1001;
-  font-family: inherit;
-  text-align: center;
 }
 
-.modalContent h2 {
-  margin: 0 0 10px;
-}
-
-.modalContent form {
-  text-align: left;
-}
-
-/* Botão de fechar */
+/* BotÃ£o de fechar */
 .close {
   position: absolute;
   top: 15px;
@@ -138,42 +125,36 @@
   color: #E91E63;
 }
 
-/* Formulário do cadastro */
+/* FormulÃ¡rio do cadastro */
 #formCadastroCrianca {
   display: flex;
   flex-direction: column;
-  gap: 15px; /* espaçamento entre campos */
+  gap: 15px; /* espaÃ§amento entre campos */
 }
 
 #formCadastroCrianca label {
   font-weight: bold;
   color: #388E3C; /* verde escuro */
-  text-align: left;
-  margin: 10px 0 5px; /* igual ao FormEntrar */
 }
 
 #formCadastroCrianca input,
 #formCadastroCrianca select {
   width: 100%;
   padding: 12px;
-  margin-bottom: 15px;   /* igual ao FormEntrar */
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 14px;
-  font-family: inherit;
-  box-sizing: border-box;
 }
 
 #formCadastroCrianca button {
   width: 100%;
-  padding: 12px;         /* igual ao FormEntrar */
+  padding: 14px;
   background: #E91E63;
   color: #fff;
   border: none;
   border-radius: 25px;
   font-size: 16px;
   font-weight: bold;
-  font-family: inherit;
   cursor: pointer;
   transition: background 0.3s;
 }
@@ -182,18 +163,12 @@
   background: #C2185B;
 }
 
-/* Placeholder consistente */
-#formCadastroCrianca input::placeholder {
-  font-family: inherit;
-  color: #9aa0a6;
-}
-
-/* Cards de crianças */
+/* Cards de crianÃ§as */
 .criancasGrid {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 40px;               /* espaçamento entre os cards */
+  gap: 40px;               /* espaÃ§amento entre os cards */
   flex-wrap: wrap;
   margin-top: 40px;
 }
@@ -227,7 +202,7 @@
   margin-bottom: 10px;
 }
 
-/* nome da criança */
+/* nome da crianÃ§a */
 .criancaCard p {
   font-size: 1.1rem;
   font-weight: bold;
@@ -235,7 +210,7 @@
   margin: 0;
 }
 
-/* botão adicionar */
+/* botÃ£o adicionar */
 .adicionarCard {
   border: 2px dashed #4CAF50;
   background: #fff;
@@ -267,7 +242,6 @@
   border-radius: 25px;
   font-size: 16px;
   font-weight: bold;
-  font-family: inherit;
   cursor: pointer;
   transition: 0.3s;
 }

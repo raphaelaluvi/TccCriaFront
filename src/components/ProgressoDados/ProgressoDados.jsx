@@ -1,32 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./ProgressoDados.module.css";
 
-const ProgressoDados = () => {
-  const [progresso, setProgresso] = useState({
+const ProgressoDados = ({ data }) => {
+  const progresso = data || {
     atividades_concluidas: 0,
     total_exercicios: 0,
     acertos: 0,
     taxa_acerto: 0,
     desempenho_por_tipo: {},
-  });
-
-  // --- Simulação temporária de dados (mock) ---
-  useEffect(() => {
-    // TODO: integrar com backend futuramente
-    // Exemplo de endpoint: `${URL_API}/progresso/progresso_geral/${crianca.id}`
-    const mockData = {
-      atividades_concluidas: 8,
-      total_exercicios: 20,
-      acertos: 15,
-      taxa_acerto: 75,
-      desempenho_por_tipo: {
-        leitura: { taxa_acerto: 80 },
-        escrita: { taxa_acerto: 70 },
-        matemática: { taxa_acerto: 65 },
-      },
-    };
-    setProgresso(mockData);
-  }, []);
+  };
 
   return (
     <main className={styles.main}>
@@ -59,8 +41,8 @@ const ProgressoDados = () => {
           <div className={styles.col}>
             <h4>🎯 Desempenho por tipo</h4>
             <div className={styles.statCard}>
-              {Object.keys(progresso.desempenho_por_tipo).length > 0 ? (
-                Object.entries(progresso.desempenho_por_tipo).map(([tipo, dados]) => {
+              {Object.keys(progresso.desempenho_por_tipo || {}).length > 0 ? (
+                Object.entries(progresso.desempenho_por_tipo || {}).map(([tipo, dados]) => {
                   const taxa = dados.taxa_acerto ?? 0;
                   const nomeTipo =
                     tipo.charAt(0).toUpperCase() + tipo.slice(1).replace(/_/g, " ");

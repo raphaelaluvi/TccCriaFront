@@ -9,6 +9,12 @@ const QuantidadeLetras = ({ exercicio, onVerificar }) => {
     <div>
       <p className={styles.sub}>Quantas letras tem esta palavra?</p>
       <h3 className={styles.palavra}>{exercicio.palavra}</h3>
+      <input
+        type="text"
+        readOnly
+        value={resposta}
+        className={styles.inputExercicio}
+      />
 
       <div className={styles.teclado}>
         {numeros.map((n) => (

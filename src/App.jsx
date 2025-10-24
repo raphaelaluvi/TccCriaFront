@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
+import RequireAuth from "./routes/RequireAuth";
+import PublicLayout from "./layouts/PublicLayout";
+import RedirectIfAuthed from "./routes/RedirectIfAuthed";
 
 // páginas do site
 import Home from "./pages/Home";
@@ -20,23 +21,27 @@ import Atividades from "./pages/Atividades";
 function App() {
   return (
     <>
-      <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/planos" element={<Planos />} />
-        <Route path="/sobre" element={<Sobre />} />
-        <Route path="/contato" element={<Contato />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/cadastro" element={<Cadastro />} />
-        <Route path="/escolhercriancas" element={<EscolherCriancas />} />
-        <Route path="/crianca" element={<Crianca />} />
-        <Route path="/trilha" element={<Trilha />} />
-        <Route path="/perfilcrianca" element={<PerfilCrianca />} />
-        <Route path="/perfilresponsavel" element={<PerfilResp />} />
-        <Route path="/progresso" element={<Progresso />} />
-        <Route path="/atividades" element={<Atividades />} />
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/planos" element={<Planos />} />
+          <Route path="/sobre" element={<Sobre />} />
+          <Route path="/contato" element={<Contato />} />
+          <Route element={<RedirectIfAuthed to="/escolhercriancas" /> }>
+            <Route path="/login" element={<Login />} />
+            <Route path="/cadastro" element={<Cadastro />} />
+          </Route>
+        </Route>
+        <Route element={<RequireAuth />}>
+          <Route path="/escolhercriancas" element={<EscolherCriancas />} />
+          <Route path="/crianca/:id" element={<Crianca />} />
+          <Route path="/trilha/:id/:historia" element={<Trilha />} />
+          <Route path="/perfilcrianca/:id" element={<PerfilCrianca />} />
+          <Route path="/perfilresponsavel" element={<PerfilResp />} />
+          <Route path="/progresso/:id" element={<Progresso />} />
+          <Route path="/atividades" element={<Atividades />} />
+        </Route>
       </Routes>
-      <Footer />
     </>
   );
 }

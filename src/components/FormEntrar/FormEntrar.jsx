@@ -16,6 +16,9 @@ export default function FormEntrar({ title, campos, textoBotao, links, onSubmit 
               required={campo.required}
               minLength={campo.minLength}
               maxLength={campo.maxLength}
+              inputMode={campo.inputMode}
+              pattern={campo.pattern}
+              onInput={campo.onInput}
             />
           </div>
         ))}
