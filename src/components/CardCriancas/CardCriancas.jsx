@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import styles from "./CardCriancas.module.css";
 import avatar from "../../assets/planos/individual.png";
 import formStyles from "../FormEntrar/FormEntrar.module.css";
@@ -11,9 +11,9 @@ export default function CardCriancas({ items = [], onCadastrar }) {
 
   const maskCPF = (v) => {
     v = (v || "").replace(/\D/g, "").slice(0, 11);
-    if (v.length > 9) return `${v.slice(0,3)}.${v.slice(3,6)}.${v.slice(6,9)}-${v.slice(9)}`;
-    if (v.length > 6) return `${v.slice(0,3)}.${v.slice(3,6)}.${v.slice(6)}`;
-    if (v.length > 3) return `${v.slice(0,3)}.${v.slice(3)}`;
+    if (v.length > 9) return `${v.slice(0, 3)}.${v.slice(3, 6)}.${v.slice(6, 9)}-${v.slice(9)}`;
+    if (v.length > 6) return `${v.slice(0, 3)}.${v.slice(3, 6)}.${v.slice(6)}`;
+    if (v.length > 3) return `${v.slice(0, 3)}.${v.slice(3)}`;
     return v;
   };
 
@@ -45,6 +45,11 @@ export default function CardCriancas({ items = [], onCadastrar }) {
 
   return (
     <main className={styles.selecionarContainer}>
+      <div className={styles.bolha}></div>
+      <div className={styles.bolha}></div>
+      <div className={styles.bolha}></div>
+      <div className={styles.bolha}></div>
+      <div className={styles.bolha}></div>
       <h2>Escolha a criança que irá aprender!</h2>
 
       {/* Lista de crianças */}
@@ -66,10 +71,11 @@ export default function CardCriancas({ items = [], onCadastrar }) {
             className={`${styles.criancaCard} ${styles.adicionarCard}`}
             onClick={() => setModalAberto(true)}
           >
-            <div className={styles.adicionarIcone}>
-              <span>+</span>
-            </div>
-            <p>Adicionar Criança</p>
+              <div className={styles.adicionarIcone}>
+                <span>+</span>
+              </div>
+              <p>Adicionar Criança</p>
+
           </div>
         </div>
       ) : (
