@@ -1,4 +1,4 @@
-import styles from "./InfoPlano.module.css";
+import styles from "./Infoplano.module.css";
 
 import familiaIcon from "../../assets/planos/familia.png";
 import escolaIcon from "../../assets/planos/escola.png";
