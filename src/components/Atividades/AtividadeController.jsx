@@ -103,6 +103,16 @@ const AtividadeController = ({ atividadeId, exerciciosIniciais = [], onConcluir 
   // Renderização principal
   return (
     <div className={styles.container}>
+      <div className={`${styles.bolha} ${styles.bolha1}`}></div>
+      <div className={`${styles.bolha} ${styles.bolha2}`}></div>
+      <div className={`${styles.bolha} ${styles.bolha3}`}></div>
+      <div className={`${styles.bolha} ${styles.bolha4}`}></div>
+      <div className={`${styles.bolha} ${styles.bolha5}`}></div>
+      <div className={`${styles.bolha} ${styles.bolha6}`}></div>
+      <div className={`${styles.bolha} ${styles.bolha7}`}></div>
+      <div className={`${styles.bolha} ${styles.bolha8}`}></div>
+      <div className={`${styles.bolha} ${styles.bolha9}`}></div>
+      <div className={`${styles.bolha} ${styles.bolha10}`}></div>
       {etapa === "inicio" && (
         <>
           <h2 className={styles.titulo}>🎮 Jogo de Atividades</h2>
@@ -121,60 +131,60 @@ const AtividadeController = ({ atividadeId, exerciciosIniciais = [], onConcluir 
       )}
 
       {etapa === "fim" && (
-  <div className={styles.fimContainer}>
-    <h3 className={styles.titulo}>🎉 Parabéns! Você concluiu todas!</h3>
+        <div className={styles.fimContainer}>
+          <h3 className={styles.titulo}>🎉 Parabéns! Você concluiu todas!</h3>
 
-    {finalInfo && (
-      <p className={styles.sub}>Taxa de acerto: {finalInfo.taxa_acerto}%</p>
-    )}
+          {finalInfo && (
+            <p className={styles.sub}>Taxa de acerto: {finalInfo.taxa_acerto}%</p>
+          )}
 
-    {atividadeId && (
-      <div className={styles.botoesFim}>
-        <button
-          className={styles.btn}
-          onClick={async () => {
-            try {
-              const r = await concluirAtividade(atividadeId);
-              setFinalInfo(r);
-              if (onConcluir) onConcluir();
-            } catch {}
-          }}
-        >
-          Concluir atividade
-        </button>
+          {atividadeId && (
+            <div className={styles.botoesFim}>
+              <button
+                className={styles.btn}
+                onClick={async () => {
+                  try {
+                    const r = await concluirAtividade(atividadeId);
+                    setFinalInfo(r);
+                    if (onConcluir) onConcluir();
+                  } catch { }
+                }}
+              >
+                Concluir atividade
+              </button>
 
-        <button
-          className={styles.btn}
-          onClick={async () => {
-            try {
-              await refazerAtividade(atividadeId);
-              const data = await listarExerciciosDaAtividade(atividadeId);
-              setExercicios(data.exercicios || []);
-              setIndice(0);
-              setFeedback("");
-              setFinalInfo(null);
-              setEtapa("exercicio");
-            } catch {
-              setFeedback("Erro ao refazer atividade");
-            }
-          }}
-        >
-          Refazer
-        </button>
-      </div>
-    )}
+              <button
+                className={styles.btn}
+                onClick={async () => {
+                  try {
+                    await refazerAtividade(atividadeId);
+                    const data = await listarExerciciosDaAtividade(atividadeId);
+                    setExercicios(data.exercicios || []);
+                    setIndice(0);
+                    setFeedback("");
+                    setFinalInfo(null);
+                    setEtapa("exercicio");
+                  } catch {
+                    setFeedback("Erro ao refazer atividade");
+                  }
+                }}
+              >
+                Refazer
+              </button>
+            </div>
+          )}
 
-    {!atividadeId && onConcluir && (
-      <button className={styles.btn} onClick={onConcluir}>
-        Voltar à trilha
-      </button>
-    )}
+          {!atividadeId && onConcluir && (
+            <button className={styles.btn} onClick={onConcluir}>
+              Voltar à trilha
+            </button>
+          )}
 
-    <button className={styles.btn} onClick={() => setEtapa("inicio")}>
-      Jogar novamente
-    </button>
-  </div>
-)}
+          <button className={styles.btn} onClick={() => setEtapa("inicio")}>
+            Jogar novamente
+          </button>
+        </div>
+      )}
     </div>
   );
 };
