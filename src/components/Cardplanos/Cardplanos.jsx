@@ -40,15 +40,15 @@ const CardPlanos = ({ planos }) => {
               {categoria.itens.map((plano, idx) => (
                 <div className={styles["plano-card"]} key={plano.modalId}>
                   {/* Ícone antes do nome */}
-                    {plano.tipo && (
-                      <img
-                        src={icones[plano.tipo]}
-                        alt={`${plano.nome} ícone`}
-                        className={styles.icone}
-                      />
-                    )}
+                  {plano.tipo && (
+                    <img
+                      src={icones[plano.tipo]}
+                      alt={`${plano.nome} ícone`}
+                      className={styles.icone}
+                    />
+                  )}
                   <h3>
-                    
+
                     {plano.nome}
                   </h3>
                   <p className={styles.preco}>{plano.preco}</p>
@@ -73,11 +73,13 @@ const CardPlanos = ({ planos }) => {
               className={styles.modalContent}
               onClick={(e) => e.stopPropagation()}
             >
-              <button onClick={() => setModalAberto(null)}>X</button>
+              <button className={styles.fechar} onClick={() => setModalAberto(null)}>X</button>
               <h2>{planoSelecionado.nome}</h2>
               <p>{planoSelecionado.preco}</p>
               <ul>
-                <li>Detalhes do {planoSelecionado.nome}...</li>
+                {planoSelecionado.detalhes.map((item, idx) => (
+                  <li key={idx}>{item}</li>
+                ))}
               </ul>
               <a href="/cadastro" className={styles.btn}>
                 Adquirir!
