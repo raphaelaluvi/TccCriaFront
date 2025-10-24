@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; 
 import styles from "./CardCriancas.module.css";
-import avatar from "../../assets/avatar.png";
+import avatar from "../../assets/planos/individual.png";
 import formStyles from "../FormEntrar/FormEntrar.module.css";
 
 export default function CardCriancas({ items = [], onCadastrar }) {
