@@ -1,7 +1,8 @@
 /* Planos */
 .programs {
   display: flex;
-  flex-direction: column; /* empilha o título e os cards */
+  flex-direction: column;
+  /* empilha o título e os cards */
   align-items: center;
   padding: 60px 30px;
   gap: 40px;
@@ -122,4 +123,9 @@
 
 .btn:hover {
   background: #c2185b;
+}
+
+.btn:hover {
+  filter: brightness(0.9);
+  transform: translateY(-3px) scale(1.1) rotate(-3deg);
 }
