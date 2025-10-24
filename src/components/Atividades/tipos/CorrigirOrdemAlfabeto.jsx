@@ -47,11 +47,11 @@ const CorrigirOrdemAlfabeto = ({ exercicio, onVerificar }) => {
       </div>
 
       <div className={styles.botoesContainer}>
+        <button onClick={reset} className={`btn ${styles.btnLimpar}`}>
+          Limpar
+        </button>
         <button onClick={verificar} className={`btn ${styles.btnVerificar}`}>
           Verificar
-        </button>
-        <button onClick={reset} className={`btn ${styles.btnLimpar}`}>
-          Reiniciar
         </button>
       </div>
     </div>

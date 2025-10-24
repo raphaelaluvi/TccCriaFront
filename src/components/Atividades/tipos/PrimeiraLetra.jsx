@@ -29,7 +29,7 @@ const PrimeiraLetra = ({ exercicio, onVerificar }) => {
       </div>
 
       <div className={styles.controls}>
-        <button className={styles.btn} onClick={() => onVerificar(resposta)}>
+        <button className={styles.btnVerificar} onClick={() => onVerificar(resposta)}>
           Verificar
         </button>
       </div>

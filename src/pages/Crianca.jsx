@@ -78,7 +78,6 @@ const Crianca = () => {
     <div>
       <Header links={links} />
       <main className={styles.container}>
-        <h2 className={styles.titulo}>Suas histórias</h2>
         <div className={styles.cardsContainer}>
           {historiasData.map((h, index) => (
             <HistoriaCard

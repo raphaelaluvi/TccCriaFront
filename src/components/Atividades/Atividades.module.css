@@ -1,255 +1,312 @@
 /* =============================
    ESTILOS GERAIS DAS ATIVIDADES
    ============================= */
-
-.container {
-  font-family: "Fredoka", sans-serif;
-  padding: 20px;
+.container,
+#atividade-container {
+    font-family: "Fredoka", sans-serif;
+    background-color: #dc83f5;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    width: 90%;
+    max-width: 500px;
+    margin: 60px auto;
+    text-align: center;
+    padding: 20px;
 }
 
-.completarAlfabeto,
-.completarPalavra,
-.corrigirOrdem,
-.digitarPalavra,
-.formarPalavra {
-  text-align: center;
-  margin: 40px auto;
-  max-width: 900px;
-  padding: 20px;
-  background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* TÍTULOS E TEXTOS */
-.container h2,
-.completarAlfabeto h2,
-.completarPalavra h2,
-.corrigirOrdem h2,
-.digitarPalavra h2,
-.formarPalavra h2 {
-  font-size: 1.8rem;
-  color: #8e24aa;
-  margin-bottom: 10px;
+/* =============================
+   TÍTULOS E TEXTOS
+   ============================= */
+h2 {
+    font-size: 1.8rem;
+    color: #8E24AA;
+    margin-bottom: 10px;
 }
 
 .descricao {
-  font-size: 1.1rem;
-  color: #444;
-  margin-bottom: 15px;
+    font-size: 1.1rem;
+    color: #444;
+    margin-bottom: 15px;
 }
 
-.palavraReferencia {
-  font-size: 1.4rem;
-  color: #333;
-  margin: 10px 0 20px;
+.palavraReferencia,
+#palavra,
+#palavra-formada {
+    font-size: 1.4rem;
+    color: #333;
+    margin: 10px 0 20px;
+    font-weight: bold;
 }
 
-.feedback {
-  color: #2e7d32;
-  font-weight: 600;
-  margin-top: 10px;
+#palavra, #palavra-formada {
+    font-size: 3rem;
+    color: #388E3C;
 }
 
 /* =============================
    GRID E SLOTS DE LETRAS
    ============================= */
-
 .gridAlfabeto,
 .slotsContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 .slotLetra {
-  width: 50px;
-  height: 50px;
-  background-color: #f0e8f9;
-  border: 2px solid #c79ae0;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #5e3483;
-  transition: all 0.2s ease;
+    width: 50px;
+    height: 50px;
+    background-color: #f0e8f9;
+    border: 2px solid #c79ae0;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #5e3483;
+    transition: all 0.2s ease;
 }
 
 .slotSelecionado {
-  background-color: #d1b3ff;
-  border-color: #8e24aa;
-  transform: scale(1.05);
+    background-color: #d1b3ff;
+    border-color: #8E24AA;
+    transform: scale(1.05);
 }
 
 /* =============================
    TECLADO DE LETRAS
    ============================= */
-
+#teclado,
 .teclado,
 .opcoesLetras {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 15px;
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 5px;
 }
 
+#teclado button,
 .btnLetra {
-  background-color: #f5e9ff;
-  color: #5e3483;
-  border: 2px solid #b47bde;
-  border-radius: 10px;
-  width: 45px;
-  height: 45px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s ease;
+    background: #7FFF4F;
+    color: #8E24AA;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.2s, background 0.2s;
+    font-size: 1rem;
+    width: 50px;
+    height: 50px;
+    flex: 1 0 40px;
+    max-width: 50px;
 }
 
+/* Hover e Active */
+#teclado button:hover,
 .btnLetra:hover {
-  background-color: #dcb3ff;
-  transform: scale(1.1);
+    background: #6BE84A;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.25);
 }
 
-.btnLetra:disabled {
-  background-color: #ddd;
-  color: #999;
-  cursor: not-allowed;
+#teclado button:active,
+.btnLetra:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 4px rgba(0,0,0,0.2);
+    background: #5CD340;
 }
 
-/* =============================
-   BOTÕES GERAIS
-   ============================= */
-
-.botoesContainer {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 25px;
-}
-
-.btn {
-  padding: 10px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-.btn:disabled,
-.btnLetra:disabled,
-.btnCircular:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* Botão de Verificar */
-.btnVerificar {
-  background-color: #8e24aa;
-  color: #fff;
-}
-
-.btnVerificar:hover {
-  background-color: #a648c4;
-}
-
-/* Botão de Limpar */
+/* Botões especiais maiores */
+#teclado button.btn-apagar,
+#teclado button.btn-limpar,
+.btnApagar,
 .btnLimpar {
-  background-color: #f3e5f5;
-  color: #8e24aa;
-  border: 2px solid #d1aeea;
+    background: #E91E63;
+    color: #fff;
+    max-width: 120px;
+    padding: 10px;
+    border: 2px solid #E91E63;
+    border-radius: 12px;
 }
 
+#teclado button.btn-apagar:hover,
+#teclado button.btn-limpar:hover,
+.btnApagar:hover,
 .btnLimpar:hover {
-  background-color: #e1c9f0;
-}
-
-/* Botão Apagar */
-.btnApagar {
-  background-color: #f8d7da;
-  color: #a94442;
-}
-
-.btnApagar:hover {
-  background-color: #f5c6cb;
+    background: #C2185B;
 }
 
 /* =============================
    INPUTS DE RESPOSTA
    ============================= */
-
-.inputExercicio {
-  width: 250px;
-  padding: 10px;
-  font-size: 1.3rem;
-  text-align: center;
-  border: 2px solid #b47bde;
-  border-radius: 12px;
-  margin: 15px auto;
-  display: block;
-  background-color: #f9f3ff;
-  color: #5e3483;
-  font-weight: bold;
+.inputExercicio,
+input#resposta {
+    width: 250px;
+    padding: 10px;
+    font-size: 1.3rem;
+    text-align: center;
+    border: 2px solid #b47bde;
+    border-radius: 12px;
+    margin: 15px auto;
+    display: block;
+    background-color: #f9f3ff;
+    color: #5e3483;
+    font-weight: bold;
 }
 
 /* =============================
-   BOTÕES CIRCULARES (CORRIGIR ORDEM)
+   BOTÕES GERAIS
    ============================= */
+.botoesContainer {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
 
+.btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn:disabled,
+.btnLetra:disabled,
+.btnCircular:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Botões específicos */
+.btnVerificar {
+    background-color: #8E24AA;
+    color: #fff;
+    border: 2px solid #8E24AA;
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.btnVerificar:hover {
+    background-color: #C2185B;
+}
+
+/* Botões circulares */
 .btnCircular {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 2px solid #b47bde;
-  background-color: #f5e9ff;
-  color: #5e3483;
-  font-weight: bold;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #b47bde;
+    background-color: #f5e9ff;
+    color: #5e3483;
+    font-weight: bold;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .btnCircular:hover {
-  background-color: #dcb3ff;
-  transform: scale(1.1);
+    background-color: #dcb3ff;
+    transform: scale(1.1);
 }
 
 .selecionado {
-  background-color: #cda8ff;
-  border-color: #8e24aa;
+    background-color: #cda8ff;
+    border-color: #8E24AA;
 }
 
 /* =============================
    RESPONSIVIDADE
    ============================= */
-
 @media (max-width: 600px) {
-  .slotLetra {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
-  }
+    .slotLetra {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
 
-  .btnLetra,
-  .btnCircular {
-    width: 40px;
-    height: 40px;
-    font-size: 1rem;
-  }
+    .btnLetra,
+    .btnCircular,
+    #teclado button {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
 
-  .inputExercicio {
-    width: 200px;
-    font-size: 1.1rem;
-  }
+    .inputExercicio {
+        width: 200px;
+        font-size: 1.1rem;
+    }
 
-  .botoesContainer {
+    .botoesContainer {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 500px) {
+    #teclado button.btn-apagar,
+    #teclado button.btn-limpar {
+        max-width: 90px;
+    }
+}
+
+.fimContainer .titulo {
+  font-size: 1.8rem;
+  color: #8e24aa;
+  margin-bottom: 10px;
+}
+
+.fimContainer .sub {
+  font-size: 1.2rem;
+  color: #444;
+  margin-bottom: 20px;
+}
+
+.botoesFim {
+  display: flex;
+  flex-direction: column; /* empilha os botões */
+  justify-content: center;
+  align-items: center;    /* centraliza horizontalmente */
+  gap: 15px;              /* espaçamento entre os botões */
+  margin-bottom: 20px;
+}
+
+.botoesFim .btn {
+  width: 500px;            /* opcional: largura fixa para uniformidade */
+}
+.botoesFim .btn,
+.fimContainer > .btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  background-color: #8e24aa;
+  color: #fff;
+}
+
+.botoesFim .btn:hover,
+.fimContainer > .btn:hover {
+  background-color: #a648c4;
+}
+
+@media (max-width: 500px) {
+  .botoesFim {
     flex-direction: column;
+    gap: 10px;
   }
 }

@@ -36,12 +36,13 @@ const DigitarPalavra = ({ exercicio, onVerificar }) => {
       </div>
 
       <div className={styles.botoesContainer}>
-        <button onClick={verificar} className={`btn ${styles.btnVerificar}`}>
-          Verificar
-        </button>
         <button onClick={() => setResposta("")} className={`btn ${styles.btnLimpar}`}>
           Limpar
         </button>
+        <button onClick={verificar} className={`btn ${styles.btnVerificar}`}>
+          Verificar
+        </button>
+        
       </div>
     </div>
   );

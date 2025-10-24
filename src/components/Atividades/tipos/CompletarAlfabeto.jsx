@@ -63,10 +63,10 @@ const CompletarAlfabeto = ({ exercicio, onVerificar }) => {
 
       <div className={styles.botoesContainer}>
         <button onClick={limpar} className={`btn ${styles.btnLimpar}`}>
-          Limpar tudo
+          Limpar
         </button>
         <button onClick={verificar} className={`btn ${styles.btnVerificar}`}>
-          Verificar resposta
+          Verificar
         </button>
       </div>
     </div>

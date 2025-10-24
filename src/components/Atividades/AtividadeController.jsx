@@ -121,43 +121,60 @@ const AtividadeController = ({ atividadeId, exerciciosIniciais = [], onConcluir 
       )}
 
       {etapa === "fim" && (
-        <>
-          <h3 className={styles.titulo}>🎉 Parabéns! Você concluiu todas!</h3>
-          {finalInfo && (
-            <p className={styles.sub}>Taxa de acerto: {finalInfo.taxa_acerto}%</p>
-          )}
-          {atividadeId && (
-            <div style={{ display: 'flex', gap: 8, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <button className={styles.btn} onClick={async () => {
-                try {
-                  const r = await concluirAtividade(atividadeId);
-                  setFinalInfo(r);
-                  if (onConcluir) onConcluir();
-                } catch {}
-              }}>Concluir atividade</button>
-              <button className={styles.btn} onClick={async () => {
-                try {
-                  await refazerAtividade(atividadeId);
-                  const data = await listarExerciciosDaAtividade(atividadeId);
-                  setExercicios(data.exercicios || []);
-                  setIndice(0);
-                  setFeedback("");
-                  setFinalInfo(null);
-                  setEtapa("exercicio");
-                } catch {
-                  setFeedback('Erro ao refazer atividade');
-                }
-              }}>Refazer</button>
-            </div>
-          )}
-          {!atividadeId && onConcluir && (
-            <button className={styles.btn} onClick={onConcluir}>Voltar à trilha</button>
-          )}
-          <button className={styles.btn} onClick={() => setEtapa("inicio")}>
-            Jogar novamente
-          </button>
-        </>
-      )}
+  <div className={styles.fimContainer}>
+    <h3 className={styles.titulo}>🎉 Parabéns! Você concluiu todas!</h3>
+
+    {finalInfo && (
+      <p className={styles.sub}>Taxa de acerto: {finalInfo.taxa_acerto}%</p>
+    )}
+
+    {atividadeId && (
+      <div className={styles.botoesFim}>
+        <button
+          className={styles.btn}
+          onClick={async () => {
+            try {
+              const r = await concluirAtividade(atividadeId);
+              setFinalInfo(r);
+              if (onConcluir) onConcluir();
+            } catch {}
+          }}
+        >
+          Concluir atividade
+        </button>
+
+        <button
+          className={styles.btn}
+          onClick={async () => {
+            try {
+              await refazerAtividade(atividadeId);
+              const data = await listarExerciciosDaAtividade(atividadeId);
+              setExercicios(data.exercicios || []);
+              setIndice(0);
+              setFeedback("");
+              setFinalInfo(null);
+              setEtapa("exercicio");
+            } catch {
+              setFeedback("Erro ao refazer atividade");
+            }
+          }}
+        >
+          Refazer
+        </button>
+      </div>
+    )}
+
+    {!atividadeId && onConcluir && (
+      <button className={styles.btn} onClick={onConcluir}>
+        Voltar à trilha
+      </button>
+    )}
+
+    <button className={styles.btn} onClick={() => setEtapa("inicio")}>
+      Jogar novamente
+    </button>
+  </div>
+)}
     </div>
   );
 };
