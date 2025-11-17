@@ -13,12 +13,12 @@ const ProgressoDados = ({ data }) => {
   return (
     <main className={styles.main}>
       <div className={styles.container}>
-        <h2 className={styles.titulo}>📊 Progresso da Criança</h2>
+        <h2 className={styles.pageTitle}>Progresso da Criança</h2>
 
         <div className={styles.row}>
           {/* Coluna estatísticas gerais */}
           <div className={styles.col}>
-            <h4>📋 Estatísticas Gerais</h4>
+            <h4>Estatísticas Gerais</h4>
             <div className={styles.statCard}>
               <p>Atividades concluídas</p>
               <h3>{progresso.atividades_concluidas}</h3>
@@ -39,7 +39,7 @@ const ProgressoDados = ({ data }) => {
 
           {/* Coluna desempenho por tipo */}
           <div className={styles.col}>
-            <h4>🎯 Desempenho por tipo</h4>
+            <h4>Desempenho por tipo</h4>
             <div className={styles.statCard}>
               {Object.keys(progresso.desempenho_por_tipo || {}).length > 0 ? (
                 Object.entries(progresso.desempenho_por_tipo || {}).map(([tipo, dados]) => {

@@ -7,16 +7,20 @@
 
 .container {
   margin: 0 auto;
-  max-width: 1000px;
+  max-width: 85%;
 }
 
-.titulo {
+/* TÍTULOS */
+.pageTitle {
   text-align: center;
   color: #2e7d32;
   font-weight: bold;
   padding-bottom: 2rem;
+  font-size: 1.6rem;
+  margin: 0 auto;
 }
 
+/* LAYOUT GERAL */
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -30,6 +34,7 @@
   min-width: 300px;
 }
 
+/* CARDS */
 .statCard {
   background: #fff;
   border-radius: 12px;
@@ -45,6 +50,7 @@
   color: #388e3c;
 }
 
+/* BARRA DE PROGRESSO */
 .progress {
   width: 100%;
   background-color: #e0e0e0;
@@ -63,4 +69,42 @@
   line-height: 25px;
   transition: width 0.3s ease;
   border-radius: 12px 0 0 12px;
+}
+
+/* ÁREA SUPERIOR (TABS + TÍTULO) */
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.tabsLeft {
+  position: absolute;
+  left: 0;
+  display: flex;
+  gap: 8px;
+}
+
+/* BOTÕES DAS TABS */
+.tabButton {
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: #eee;
+  color: #333;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.tabButton:hover {
+  background: #ddd;
+}
+
+.active {
+  background: #8E24AA;
+  color: #fff;
 }
