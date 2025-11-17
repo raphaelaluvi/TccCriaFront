@@ -100,3 +100,49 @@
   75%  { transform: translateY(-20px) translateX(5px) scale(1.05); }
   100% { transform: translateY(0) translateX(0) scale(1); }
 }
+
+.radioGroup {
+  margin: 15px 0 20px;
+  text-align: left;
+}
+
+.radioLabel {
+  font-weight: bold;
+  color: #dc83f5;
+  margin-bottom: 8px;
+  display: block;
+  font-size: 15px;
+}
+
+.radioOptions {
+  display: flex;
+  text-align: center;
+  flex-wrap: wrap;   /* permite quebrar linha */
+  gap: 10px 40px;    /* espaçamento horizontal e vertical */
+}
+
+.radioItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #fff;
+  font-weight: 500;
+}
+
+.radioItem input[type="radio"] {
+  width: 12px;
+  accent-color: #E91E63; 
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .formulario {
+    padding: 20px;
+    margin: 40px 20px;  /* evita ficar colado na lateral */
+  }
+
+  .radioOptions {
+    gap: 8px 12px; /* diminui o gap em telas menores */
+  }
+}
