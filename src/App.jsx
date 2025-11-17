@@ -17,6 +17,7 @@ import PerfilCrianca from "./pages/PerfilCrianca";
 import PerfilResp from "./pages/PerfilResp";
 import Progresso from "./pages/Progresso";
 import Atividades from "./pages/Atividades";
+import EscolherTurma from "./pages/EscolherTurma";
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
       <Routes>
         <Route element={<PublicLayout />}>
           <Route path="/" element={<Home />} />
+
+          {/* TESTE */}
+          <Route path="/escolherturma" element={<EscolherTurma />} />
           <Route path="/planos" element={<Planos />} />
           <Route path="/sobre" element={<Sobre />} />
           <Route path="/contato" element={<Contato />} />

@@ -1,0 +1,209 @@
+/* === FUNDO GERAL === */
+.selecionarContainer {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: #fff;
+  overflow: hidden; /* remove scroll */
+  position: relative;
+  padding-top: 40px; /* aproxima do header */
+  z-index: 1;
+}
+
+/* título principal */
+.selecionarContainer h2 {
+  font-size: 2rem;
+  color: #8E24AA;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* === GRID DE CRIANÇAS === */
+.criancasGrid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  z-index: 10;
+}
+
+/* === CARD DE CADA CRIANÇA === */
+.criancaCard {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  width: 320px;
+  height: 160px;
+  box-shadow: 0 4px 15px #dc83f5;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.criancaCard:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px #dc83f5;
+}
+
+.criancaAvatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 15px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  background: #f5f5f5;
+}
+
+.criancaCard h3 {
+  color: #8E24AA;
+  font-weight: bold;
+  margin: 0;
+}
+
+.adicionarCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #dc83f5;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+}
+
+.adicionarIcone {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #E91E63;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  transition: 0.3s;
+}
+
+.adicionarCard p {
+  text-align: center;
+  margin: 0;
+}
+
+.adicionarCard:hover .adicionarIcone {
+  transform: rotate(10deg) scale(1.1);
+}
+
+.adicionarIcone span {
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.adicionarCard p {
+  color: #8E24AA;
+  font-weight: bold;
+}
+
+/* === BOTÃO QUANDO NÃO HÁ CRIANÇAS === */
+.btnCadastrar {
+  width: 220px;
+  padding: 12px;
+  background: #E91E63;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: inherit;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btnCadastrar:hover {
+  background: #C2185B;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* === MODAL === */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal form div{
+  margin-bottom: 15px; /* Espaço entre os campos */
+}
+
+select{
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* reaproveita o estilo do formulário de login */
+.modal > div {
+  position: relative;
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px #dc83f5;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  color: #8E24AA;
+}
+
+.modal h2 {
+  color: #8E24AA;
+}
+
+.modal button[aria-label="Fechar"] {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  color: #8E24AA;
+  cursor: pointer;
+}
+
+/* === BOLHAS ANIMADAS === */
+.bolha {
+  position: absolute;
+  border-radius: 50%;
+  animation: flutuar infinite ease-in-out;
+  opacity: 0.7;
+  z-index: -1;
+}
+
+.bolha:nth-child(1) { width: 60px;  height: 60px;  left: 10%;  bottom: 20%;   background: rgba(255, 255, 149, 0.856); animation-duration: 8s; }
+.bolha:nth-child(2) { width: 100px; height: 100px; right: 5%;   bottom: 25%;  background: rgba(255, 220, 150, 0.979); animation-duration: 11s; }
+.bolha:nth-child(3) { width: 80px;  height: 80px;  left: 10%;  bottom: 35%;  background: rgba(200, 255, 200, 0.932); animation-duration: 13s; }
+.bolha:nth-child(4) { width: 120px; height: 120px; right: 25%; top: 25%;    background: rgba(255, 200, 255, 0.911); animation-duration: 10s; }
+.bolha:nth-child(5) { width: 50px;  height: 50px;  left: 20%;  bottom: 20%;   background: rgb(255, 214, 214); animation-duration: 9s; }
+
+@keyframes flutuar {
+  0%   { transform: translateY(0) translateX(0) scale(1); }
+  25%  { transform: translateY(-20px) translateX(10px) scale(1.05); }
+  50%  { transform: translateY(-40px) translateX(-10px) scale(1.1); }
+  75%  { transform: translateY(-20px) translateX(5px) scale(1.05); }
+  100% { transform: translateY(0) translateX(0) scale(1); }
+}
