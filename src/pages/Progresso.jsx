@@ -83,12 +83,11 @@ const Progresso = () => {
   return (
     <div>
       <Header links={links} />
-      <main className={progStyles.main}>
         <div className={progStyles.container}>
 
           {/* TABS + título alinhado */}
           <div className={progStyles.headerRow}>
-            <div className={progStyles.tabsLeft}>
+            <div className={progStyles.tabsBox}>
               <button
                 onClick={() => setTab("geral")}
                 className={`${progStyles.tabButton} ${
@@ -107,7 +106,6 @@ const Progresso = () => {
                 Diagnóstico
               </button>
             </div>
-            
           </div>
 
           {tab === "geral" && erro && <Alert type="info">{erro}</Alert>}
@@ -164,7 +162,6 @@ const Progresso = () => {
             </div>
           </div>
         )}
-      </main>
 
       {confirmarSair && (
         <Modal

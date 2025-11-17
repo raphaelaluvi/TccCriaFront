@@ -11,29 +11,41 @@ const ProgressoDados = ({ data }) => {
   };
 
   return (
-    <main className={styles.main}>
       <div className={styles.container}>
+
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+
         <h2 className={styles.pageTitle}>Progresso da Criança</h2>
 
         <div className={styles.row}>
           {/* Coluna estatísticas gerais */}
           <div className={styles.col}>
             <h4>Estatísticas Gerais</h4>
-            <div className={styles.statCard}>
-              <p>Atividades concluídas</p>
-              <h3>{progresso.atividades_concluidas}</h3>
-            </div>
-            <div className={styles.statCard}>
-              <p>Total de Exercícios</p>
-              <h3>{progresso.total_exercicios}</h3>
-            </div>
-            <div className={styles.statCard}>
-              <p>Acertos</p>
-              <h3>{progresso.acertos}</h3>
-            </div>
-            <div className={styles.statCard}>
-              <p>Taxa de Acerto</p>
-              <h3>{progresso.taxa_acerto}%</h3>
+            <div className={styles.statsGrid}>
+              <div className={styles.statCard}>
+                <p>Atividades concluídas</p>
+                <h3>{progresso.atividades_concluidas}</h3>
+              </div>
+
+              <div className={styles.statCard}>
+                <p>Total de Exercícios</p>
+                <h3>{progresso.total_exercicios}</h3>
+              </div>
+
+              <div className={styles.statCard}>
+                <p>Acertos</p>
+                <h3>{progresso.acertos}</h3>
+              </div>
+
+              <div className={styles.statCard}>
+                <p>Taxa de Acerto</p>
+                <h3>{progresso.taxa_acerto}%</h3>
+              </div>
+
             </div>
           </div>
 
@@ -48,7 +60,7 @@ const ProgressoDados = ({ data }) => {
                     tipo.charAt(0).toUpperCase() + tipo.slice(1).replace(/_/g, " ");
 
                   return (
-                    <div key={tipo}>
+                    <div key={tipo} className={styles.progressWrapper}>
                       <p>
                         <strong>{nomeTipo}</strong>
                       </p>
@@ -70,7 +82,7 @@ const ProgressoDados = ({ data }) => {
           </div>
         </div>
       </div>
-    </main>
+
   );
 };
 

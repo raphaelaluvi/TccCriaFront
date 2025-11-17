@@ -1,24 +1,10 @@
-.main {
-  font-family: "Fredoka", sans-serif;
-  background-color: #f4f9f9;
-  min-height: 100vh;
-  padding: 1%;
-}
-
 .container {
   margin: 0 auto;
   max-width: 85%;
+  
 }
 
-/* TÍTULOS */
-.pageTitle {
-  text-align: center;
-  color: #2e7d32;
-  font-weight: bold;
-  padding-bottom: 2rem;
-  font-size: 1.6rem;
-  margin: 0 auto;
-}
+
 
 /* LAYOUT GERAL */
 .row {
@@ -62,7 +48,6 @@
 
 .progressBar {
   height: 100%;
-  background-color: #4caf50;
   text-align: center;
   color: white;
   font-weight: bold;
@@ -72,25 +57,22 @@
 }
 
 /* ÁREA SUPERIOR (TABS + TÍTULO) */
-.headerRow {
+.tabsBox {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  position: relative;
-  margin-bottom: 20px;
+  gap: 10px;
 }
 
-.tabsLeft {
-  position: absolute;
-  left: 0;
-  display: flex;
-  gap: 8px;
+.pageTitle {
+  color: #2e7d32;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 auto;
 }
 
 /* BOTÕES DAS TABS */
 .tabButton {
   padding: 8px 14px;
+  margin-top: 40px;
   border-radius: 20px;
   background: #eee;
   color: #333;
@@ -107,4 +89,72 @@
 .active {
   background: #8E24AA;
   color: #fff;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+/* Em telas menores, vira 1 coluna */
+@media (max-width: 600px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* === BOLHAS ANIMADAS === */
+.bolha {
+  position: absolute;
+  border-radius: 50%;
+  animation: flutuar infinite ease-in-out;
+  opacity: 0.7;
+  z-index: -1;
+}
+
+.bolha:nth-child(1) { width: 60px;  height: 60px;  left: 10%;  bottom: 20%;   background: rgba(255, 255, 149, 0.856); animation-duration: 8s; }
+.bolha:nth-child(2) { width: 100px; height: 100px; right: 5%;   bottom: 10%;  background: rgba(255, 220, 150, 0.979); animation-duration: 11s; }
+.bolha:nth-child(3) { width: 80px;  height: 80px;  left: 10%;  bottom: 5%;  background: rgba(200, 255, 200, 0.932); animation-duration: 13s; }
+.bolha:nth-child(4) { width: 120px; height: 120px; right: 25%; top: 25%;    background: rgba(255, 200, 255, 0.911); animation-duration: 10s; }
+.bolha:nth-child(5) { width: 50px;  height: 50px;  left: 20%;  bottom: 20%;   background: rgb(255, 214, 214); animation-duration: 9s; }
+
+@keyframes flutuar {
+  0%   { transform: translateY(0) translateX(0) scale(1); }
+  25%  { transform: translateY(-20px) translateX(10px) scale(1.05); }
+  50%  { transform: translateY(-40px) translateX(-10px) scale(1.1); }
+  75%  { transform: translateY(-20px) translateX(5px) scale(1.05); }
+  100% { transform: translateY(0) translateX(0) scale(1); }
+}
+
+.progressWrapper:nth-child(1) .progressBar {
+  background: #ff68b1d7; 
+}
+
+.progressWrapper:nth-child(2) .progressBar {
+  background: #ffc53ce8; 
+}
+
+.progressWrapper:nth-child(3) .progressBar {
+  background: #61c765c4; 
+}
+
+.progressWrapper:nth-child(4) .progressBar {
+  background: #36c6dab6; 
+}
+
+.progressWrapper:nth-child(5) .progressBar {
+  background: #ff68b1d7; 
+}
+
+.progressWrapper:nth-child(6) .progressBar {
+  background: #ffc53ce8; 
+}
+
+.progressWrapper:nth-child(7) .progressBar {
+  background: #61c765c4; 
+}
+
+.progressWrapper:nth-child(8) .progressBar {
+  background: #36c6dab6; 
 }
