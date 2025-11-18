@@ -32,20 +32,44 @@ const Atividades = () => {
     return () => { ativo = false };
   }, [atividadeId, preset]);
 
-  if (!atividadeId) return <main style={{ padding: 20 }}><p>Nenhuma atividade selecionada.</p></main>;
+  if (!atividadeId) return (
+    <main
+      style={{
+        minHeight: "100vh",
+        padding: "24px 8px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "#fdf6ff",
+      }}
+    >
+      <p>Nenhuma atividade selecionada.</p>
+    </main>
+  );
 
   return (
-    <main style={{ padding: "20px" }}>
-      {loading ? <p>Carregando...</p> : (
-        <AtividadeController
-          atividadeId={atividadeId}
-          exerciciosIniciais={exercicios}
-          onConcluir={() => {
-            if (returnTo) navigate(returnTo, { state: { refresh: Date.now() } });
-            else navigate(-1);
-          }}
-        />
-      )}
+    <main
+      style={{
+        minHeight: "100vh",
+        padding: "24px 8px !important",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "#fdf6ff",
+      }}
+    >
+      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+        {loading ? <p>Carregando...</p> : (
+          <AtividadeController
+            atividadeId={atividadeId}
+            exerciciosIniciais={exercicios}
+            onConcluir={() => {
+              if (returnTo) navigate(returnTo, { state: { refresh: Date.now() } });
+              else navigate(-1);
+            }}
+          />
+        )}
+      </div>
     </main>
   );
 };

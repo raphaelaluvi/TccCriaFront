@@ -22,3 +22,19 @@ export async function getDiagnostico(criancaId, nivel) {
   return data;
 }
 
+export async function getDiagnosticoLLM(criancaId, nivel) {
+  const { data } = await api.get('/progresso/diagnostico_llm/' + criancaId, {
+    params: nivel != null ? { nivel } : undefined,
+  });
+  return data;
+}
+
+export async function getProgressoTurma(turmaId) {
+  try {
+    const { data } = await api.get(`/progresso/turma/${turmaId}`);
+    return data;
+  } catch (err) {
+    if (err?.response?.status === 404) return null;
+    throw err;
+  }
+}

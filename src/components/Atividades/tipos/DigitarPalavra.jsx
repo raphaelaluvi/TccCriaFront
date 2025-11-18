@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "../Atividades.module.css";
+import TtsButton from "../TtsButton";
 
 const DigitarPalavra = ({ exercicio, onVerificar }) => {
   const [resposta, setResposta] = useState("");
@@ -11,10 +12,14 @@ const DigitarPalavra = ({ exercicio, onVerificar }) => {
     setResposta("");
   };
 
+  const palavraReferencia = (exercicio.palavra || "").toUpperCase();
+  const instrucoes = ["Digite a palavra completa", `Palavra referência: ${palavraReferencia}`];
+
   return (
     <div className={styles.digitarPalavra}>
       <p className={styles.descricao}>Digite a palavra completa:</p>
-      <h3 className={styles.palavraReferencia}>{exercicio.palavra}</h3>
+      <h3 className={styles.palavraReferencia}>{palavraReferencia}</h3>
+      <TtsButton text={instrucoes} />
 
       <input
         type="text"

@@ -1,12 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import FormEntrar from "../components/FormEntrar/FormEntrar";
-import { login as loginApi } from "../services/auth";
+import { login as loginApi, getDashboardRoute } from "../services/auth";
 import { useState } from "react";
 
 export default function Login() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [erro, setErro] = useState("");
+    const [tipo, setTipo] = useState("responsavel");
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -16,12 +17,13 @@ export default function Login() {
             const form = e.currentTarget;
             const email = form.email?.value?.trim();
             const senha = form.senha?.value;
+            const tipoSelecionado = form.tipo?.value || tipo;
             if (!email || !senha) {
                 setErro("Preencha e-mail e senha.");
                 return;
             }
-            await loginApi(email, senha);
-            navigate("/escolhercriancas");
+            await loginApi(email, senha, tipoSelecionado);
+            navigate(getDashboardRoute(tipoSelecionado));
         } catch (err) {
             const d = err?.response?.data;
             const msg = d?.detail || d?.mensagem || err?.message || "Erro ao entrar";
@@ -31,6 +33,20 @@ export default function Login() {
         }
     };
     const campos = [
+        {
+            id: "tipo",
+            name: "tipo",
+            label: "Entrar como",
+            type: "select",
+            required: true,
+            value: tipo,
+            onChange: (e) => setTipo(e.target.value),
+            options: [
+                { value: "responsavel", label: "Responsável" },
+                { value: "professor", label: "Professor" },
+                { value: "escola", label: "Escola" },
+            ],
+        },
         { id: "email", name: "email", label: "E-mail", type: "email", required: true },
         { id: "senha", name: "senha", label: "Senha", type: "password", required: true },
     ];

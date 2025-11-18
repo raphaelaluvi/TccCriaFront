@@ -212,7 +212,7 @@ const Trilha = () => {
             if (cta?.tipo === "refazer" && cta.atividade_id) {
               try {
                 await refazerAtividade(cta.atividade_id);
-                navigate(`/atividades?atividadeId=${cta.atividade_id}`, { state: { returnTo: `/trilha/${id}/${historiaSlug}` } });
+        navigate(`/atividades?atividadeId=${cta.atividade_id}`, { state: { returnTo: `/trilha/${id}/${historiaSlug}` } });
               } catch { setToastMsg("Erro ao refazer"); setTimeout(() => setToastMsg(""), 1800); }
             } else {
               await iniciarOuContinuar(numero, cta);

@@ -1,9 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from "../Atividades.module.css";
+import TtsButton from "../TtsButton";
+
+const toUpper = (value) => {
+  if (value == null) return "";
+  return String(value).toUpperCase();
+};
 
 const CorrigirOrdemAlfabeto = ({ exercicio, onVerificar }) => {
-  const [letras, setLetras] = useState([...exercicio.posicoes]);
+  const letrasOriginais = useMemo(
+    () => (exercicio?.posicoes || []).map(toUpper),
+    [exercicio]
+  );
+  const [letras, setLetras] = useState(letrasOriginais);
   const [selecionada, setSelecionada] = useState(null);
+
+  useEffect(() => {
+    setLetras(letrasOriginais);
+    setSelecionada(null);
+  }, [letrasOriginais]);
 
   const trocar = (index) => {
     if (selecionada === null) {
@@ -20,17 +35,18 @@ const CorrigirOrdemAlfabeto = ({ exercicio, onVerificar }) => {
 
   const reset = () => {
     setSelecionada(null);
-    setLetras([...exercicio.posicoes]);
+    setLetras(letrasOriginais);
   };
 
   const verificar = () => {
-    if (onVerificar) onVerificar(letras.join(""));
+    if (onVerificar) onVerificar(letras.map(toUpper).join(""));
   };
 
   return (
     <div className={styles.corrigirOrdem}>
       <h2>🔁 Corrija a ordem do alfabeto!</h2>
-      <p>Troque as letras de posição até o alfabeto ficar correto</p>
+      <p>Troque as letras de posição até o alfabeto ficar correto.</p>
+      <TtsButton text={["Corrija a ordem do alfabeto", "Troque as letras de posição até o alfabeto ficar correto"]} />
 
       <div className={styles.gridAlfabeto}>
         {letras.map((letra, i) => (
@@ -41,7 +57,7 @@ const CorrigirOrdemAlfabeto = ({ exercicio, onVerificar }) => {
             }`}
             onClick={() => trocar(i)}
           >
-            {letra}
+            {toUpper(letra)}
           </button>
         ))}
       </div>

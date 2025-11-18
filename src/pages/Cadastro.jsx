@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import FormEntrar from "../components/FormEntrar/FormEntrar";
 import { cadastrarResponsavel } from "../services/auth";
+import { cadastrarEscola } from "../services/escolas";
 import Modal from "../components/Modal/Modal";
 
 export default function Cadastro() {
@@ -10,7 +11,6 @@ export default function Cadastro() {
     const [erro, setErro] = useState("");
     const [sucesso, setSucesso] = useState(false);
 
-    // NOVO: tipo de usuário
     const [tipoUsuario, setTipoUsuario] = useState("responsavel");
 
     const maskCPF = (v) => {
@@ -30,6 +30,15 @@ export default function Cadastro() {
     };
 
     // CAMPOS DINÂMICOS
+    const maskCNPJ = (v) => {
+        v = (v || "").replace(/\D/g, "").slice(0, 14);
+        if (v.length > 12) return `${v.slice(0, 2)}.${v.slice(2, 5)}.${v.slice(5, 8)}/${v.slice(8, 12)}-${v.slice(12)}`;
+        if (v.length > 8) return `${v.slice(0, 2)}.${v.slice(2, 5)}.${v.slice(5, 8)}/${v.slice(8)}`;
+        if (v.length > 5) return `${v.slice(0, 2)}.${v.slice(2, 5)}.${v.slice(5)}`;
+        if (v.length > 2) return `${v.slice(0, 2)}.${v.slice(2)}`;
+        return v;
+    };
+
     const campos = [
         {
             id: "tipoUsuario",
@@ -38,14 +47,14 @@ export default function Cadastro() {
             required: true,
             options: [
                 { value: "responsavel", label: "Responsável" },
-                { value: "professor", label: "Professor" },
                 { value: "escola", label: "Escola" },
             ],
             onChange: (e) => setTipoUsuario(e.target.value),
+            value: tipoUsuario,
         },
 
-        // RESPONSÁVEL + PROFESSOR
-        ...(tipoUsuario !== "escola"
+        // RESPONSÁVEL
+        ...(tipoUsuario === "responsavel"
             ? [
                   {
                       id: "cpf",
@@ -72,26 +81,13 @@ export default function Cadastro() {
                       onInput: (e) => { e.target.value = maskTelefone(e.target.value); },
                   },
 
-                  // CAMPOS EXTRAS PARA PROFESSOR
-                  ...(tipoUsuario === "professor"
-                      ? [
-                            { id: "escola", name: "escola", label: "Escola", type: "text", required: true },
-                            { id: "turma", name: "turma", label: "Turma", type: "text", required: true },
-                        ]
-                      : []),
               ]
             : []),
 
         // CAMPOS EXCLUSIVOS PARA ESCOLA
         ...(tipoUsuario === "escola"
             ? [
-                  {
-                      id: "nomeInstituicao",
-                      name: "nomeInstituicao",
-                      label: "Nome da instituição",
-                      type: "text",
-                      required: true
-                  },
+                  { id: "nome", name: "nome", label: "Nome da instituição", type: "text", required: true },
                   {
                       id: "tipoInstituicao",
                       name: "tipoInstituicao",
@@ -100,7 +96,35 @@ export default function Cadastro() {
                       options: [
                           { value: "publica", label: "Pública" },
                           { value: "privada", label: "Privada" }
-                      ]
+                      ],
+                      defaultValue: "publica",
+                  },
+                  {
+                      id: "cnpj",
+                      name: "cnpj",
+                      label: "CNPJ",
+                      type: "text",
+                      required: true,
+                      maxLength: 18,
+                      inputMode: "numeric",
+                      onInput: (e) => { e.target.value = maskCNPJ(e.target.value); },
+                  },
+                  {
+                      id: "cidade",
+                      name: "cidade",
+                      label: "Cidade",
+                      type: "text",
+                      required: false
+                  },
+                  {
+                      id: "uf",
+                      name: "uf",
+                      label: "UF",
+                      type: "text",
+                      required: false,
+                      maxLength: 2,
+                      placeholder: "Ex: SP",
+                      style: { textTransform: "uppercase" },
                   },
                   {
                       id: "telefone",
@@ -112,7 +136,7 @@ export default function Cadastro() {
                       inputMode: "numeric",
                       onInput: (e) => { e.target.value = maskTelefone(e.target.value); },
                   },
-                  { id: "email", name: "email", label: "E-mail", type: "email", required: true },
+                  { id: "email", name: "email", label: "E-mail institucional", type: "email", required: true },
               ]
             : []),
 
@@ -153,41 +177,26 @@ export default function Cadastro() {
                 await cadastrarResponsavel({ cpf, nome, email, telefone, senha });
             }
 
-            // PROFESSOR
-            if (tipoUsuario === "professor") {
-                const cpf = (f.cpf?.value || '').replace(/\D/g, '');
-                const nome = f.nome?.value?.trim();
-                const email = f.email?.value?.trim();
-                const telefone = (f.telefone?.value || '').replace(/\D/g, '');
-                const escola = f.escola?.value?.trim();
-                const turma = f.turma?.value?.trim();
-
-                if (!escola || !turma)
-                    throw new Error("Preencha escola e turma");
-
-                await cadastrarResponsavel({
-                    tipo: "professor",
-                    cpf,
-                    nome,
-                    email,
-                    telefone,
-                    escola,
-                    turma,
-                    senha,
-                });
-            }
-
             // ESCOLA
             if (tipoUsuario === "escola") {
-                const nomeInstituicao = f.nomeInstituicao?.value?.trim();
+                const nome = f.nome?.value?.trim();
                 const tipoInstituicao = f.tipoInstituicao?.value;
                 const telefone = (f.telefone?.value || '').replace(/\D/g, '');
                 const email = f.email?.value?.trim();
+                const cnpj = (f.cnpj?.value || '').replace(/\D/g, '');
+                const cidade = f.cidade?.value?.trim();
+                const uf = f.uf?.value?.trim()?.toUpperCase();
 
-                await cadastrarResponsavel({
-                    tipo: "escola",
-                    nomeInstituicao,
-                    tipoInstituicao,
+                if (!cnpj || cnpj.length !== 14) {
+                    throw new Error("Informe um CNPJ válido (14 dígitos).");
+                }
+
+                await cadastrarEscola({
+                    nome,
+                    tipo: tipoInstituicao,
+                    cnpj,
+                    cidade: cidade || undefined,
+                    uf: uf || undefined,
                     telefone,
                     email,
                     senha,

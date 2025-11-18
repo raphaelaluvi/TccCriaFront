@@ -1,14 +1,24 @@
 import React, { useState } from "react";
 import styles from "../Atividades.module.css";
+import TtsButton from "../TtsButton";
+
+const numeros = "0123456789".split("");
 
 const QuantidadeLetras = ({ exercicio, onVerificar }) => {
   const [resposta, setResposta] = useState("");
-  const numeros = "0123456789".split("");
+  if (!exercicio) return null;
+
+  const palavra = (exercicio.palavra || "").toUpperCase();
+  const instrucoes = [
+    "Quantas letras tem esta palavra?",
+    `Palavra apresentada: ${palavra}`,
+  ];
 
   return (
     <div>
       <p className={styles.sub}>Quantas letras tem esta palavra?</p>
-      <h3 className={styles.palavra}>{exercicio.palavra}</h3>
+      <h3 className={styles.palavraReferencia}>{palavra}</h3>
+      <TtsButton text={instrucoes} />
       <input
         type="text"
         readOnly

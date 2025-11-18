@@ -66,7 +66,7 @@ const Crianca = () => {
     {
       img: cartuchosImg,
       tituloPequeno: "MERGULHE NO OCEANO",
-      tituloGrande: "Encantado",
+      tituloGrande: "Misterioso",
       bgColor: "#a6f2fc",
       borderColor: "#00bcd4",
       textColor: "#00bcd4",

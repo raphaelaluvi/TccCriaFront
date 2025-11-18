@@ -11,7 +11,7 @@
 .modal {
   background: #fff;
   border-radius: 8px;
-  width: min(420px, 92vw);
+  width: min(920px, 95vw);
   padding: 20px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
@@ -54,4 +54,3 @@
   background: transparent;
   color: #333;
 }
-

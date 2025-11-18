@@ -1,53 +1,70 @@
 import React, { useState } from "react";
 import styles from "../Atividades.module.css";
+import TtsButton from "../TtsButton";
+
+const toUpper = (value) => {
+  if (value == null) return "";
+  return String(value).toUpperCase();
+};
 
 const CompletarPalavra = ({ exercicio, onVerificar }) => {
   const [selecionadas, setSelecionadas] = useState({});
 
   if (!exercicio) return null;
 
-  const palavra = [...exercicio.posicoes];
-  const opcoes = palavra.includes("_") ? [...exercicio.palavra.split("")] : [];
+  const palavra = [...(exercicio.posicoes || [])];
+  const opcoes = palavra.includes("_")
+    ? [...((exercicio.palavra || "").split(""))]
+    : [];
 
-  // Renderiza os slots da palavra
   const renderSlots = () => (
     <div className={styles.gridAlfabeto}>
-      {palavra.map((l, i) => (
-        <div
-          key={i}
-          className={`${styles.slotLetra} ${
-            selecionadas[i] ? styles.slotSelecionado : ""
-          }`}
-        >
-          {selecionadas[i] ?? (l === "_" ? "?" : l)}
-        </div>
-      ))}
+      {palavra.map((l, i) => {
+        const raw = selecionadas[i] ?? (l === "_" ? "?" : l);
+        const display = raw === "?" ? "?" : toUpper(raw);
+        return (
+          <div
+            key={i}
+            className={`${styles.slotLetra} ${
+              selecionadas[i] ? styles.slotSelecionado : ""
+            }`}
+          >
+            {display}
+          </div>
+        );
+      })}
     </div>
   );
 
-  // Renderiza as opções de letras
   const renderOpcoes = () =>
-    opcoes.map((letra, idx) => (
-      <button
-        key={idx}
-        className={styles.btnLetra}
-        disabled={Object.values(selecionadas).includes(letra)}
-        onClick={() => {
-          const slotIndex = palavra.findIndex((l, idx) => l === "_" && !selecionadas[idx]);
-          if (slotIndex >= 0) {
-            setSelecionadas((prev) => ({ ...prev, [slotIndex]: letra }));
-          }
-        }}
-      >
-        {letra}
-      </button>
-    ));
+    opcoes.map((letra, idx) => {
+      const letraUpper = toUpper(letra);
+      const jaSelecionada = Object.values(selecionadas).includes(letraUpper);
+      return (
+        <button
+          key={idx}
+          className={styles.btnLetra}
+          disabled={jaSelecionada}
+          onClick={() => {
+            const slotIndex = palavra.findIndex(
+              (l, position) => l === "_" && !selecionadas[position]
+            );
+            if (slotIndex >= 0) {
+              setSelecionadas((prev) => ({ ...prev, [slotIndex]: letraUpper }));
+            }
+          }}
+        >
+          {letraUpper}
+        </button>
+      );
+    });
 
   const limpar = () => setSelecionadas({});
 
   const verificar = () => {
     const resposta = palavra
       .map((l, i) => (l === "_" ? selecionadas[i] ?? "?" : l))
+      .map((char) => (char === "?" ? "?" : toUpper(char)))
       .join("");
     if (onVerificar) onVerificar(resposta);
     limpar();
@@ -57,6 +74,7 @@ const CompletarPalavra = ({ exercicio, onVerificar }) => {
     <div className={styles.completarAlfabeto}>
       <h2>✏️ Complete a Palavra!</h2>
       <p>Clique nas letras faltando para completar a palavra!</p>
+      <TtsButton text={["Complete a palavra", "Clique nas letras faltando para completar a palavra"]} />
 
       {renderSlots()}
       <div className={styles.opcoesLetras}>{renderOpcoes()}</div>

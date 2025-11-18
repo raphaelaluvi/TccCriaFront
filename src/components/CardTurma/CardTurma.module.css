@@ -68,6 +68,31 @@
   margin: 0;
 }
 
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nome {
+  font-size: 1.4rem;
+  color: #8E24AA;
+  margin: 0;
+}
+
+.descricao {
+  margin: 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.meta {
+  margin: 0;
+  color: #8E24AA;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
 .adicionarCard {
   display: flex;
   flex-direction: column;

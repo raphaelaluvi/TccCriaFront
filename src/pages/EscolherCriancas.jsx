@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CardCriancas from "../components/CardCriancas/CardCriancas";
 import Header from "../components/Header/Header";
-import { logout, getUser } from "../services/auth";
+import { logout, getUser, getDashboardRoute } from "../services/auth";
 import { useNavigate } from "react-router-dom";
 import { listarCriancasDoResponsavel, cadastrarCrianca } from "../services/criancas";
 import Modal from "../components/Modal/Modal";
@@ -20,6 +20,10 @@ export default function EscolherCrianca() {
   useEffect(() => {
     const u = getUser();
     if (!u?.id) { navigate('/login'); return; }
+    if (u?.tipo && u.tipo !== 'responsavel') {
+      navigate(getDashboardRoute(u.tipo));
+      return;
+    }
     (async () => {
       try {
         const lista = await listarCriancasDoResponsavel(u.id);

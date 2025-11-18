@@ -18,6 +18,8 @@ import PerfilResp from "./pages/PerfilResp";
 import Progresso from "./pages/Progresso";
 import Atividades from "./pages/Atividades";
 import EscolherTurma from "./pages/EscolherTurma";
+import Turma from "./pages/Turma";
+import PainelEscola from "./pages/PainelEscola";
 
 function App() {
   return (
@@ -26,8 +28,6 @@ function App() {
         <Route element={<PublicLayout />}>
           <Route path="/" element={<Home />} />
 
-          {/* TESTE */}
-          <Route path="/escolherturma" element={<EscolherTurma />} />
           <Route path="/planos" element={<Planos />} />
           <Route path="/sobre" element={<Sobre />} />
           <Route path="/contato" element={<Contato />} />
@@ -44,6 +44,9 @@ function App() {
           <Route path="/perfilresponsavel" element={<PerfilResp />} />
           <Route path="/progresso/:id" element={<Progresso />} />
           <Route path="/atividades" element={<Atividades />} />
+          <Route path="/escolherturma" element={<EscolherTurma />} />
+          <Route path="/turma/:id" element={<Turma />} />
+          <Route path="/painel-escola" element={<PainelEscola />} />
         </Route>
       </Routes>
     </>

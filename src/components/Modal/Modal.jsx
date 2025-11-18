@@ -1,6 +1,6 @@
 import styles from './Modal.module.css';
 
-export default function Modal({ title = 'Aviso', children, onClose, primaryText = 'Fechar', onPrimary }) {
+export default function Modal({ title = 'Aviso', children, onClose, primaryText = 'Fechar', onPrimary, primaryDisabled = false }) {
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) onClose?.();
   };
@@ -19,10 +19,15 @@ export default function Modal({ title = 'Aviso', children, onClose, primaryText 
         </div>
         <div className={styles.content}>{children}</div>
         <div className={styles.actions}>
-          <button className={`${styles.btn} ${styles.btnPrimary}`} onClick={handlePrimary}>{primaryText}</button>
+          <button
+            className={`${styles.btn} ${styles.btnPrimary}`}
+            onClick={handlePrimary}
+            disabled={primaryDisabled}
+          >
+            {primaryText}
+          </button>
         </div>
       </div>
     </div>
   );
 }
-

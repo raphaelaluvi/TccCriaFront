@@ -1,10 +1,23 @@
 import { api } from './api';
 
-export async function login(email, senha) {
-    const { data } = await api.post('/auth/login', { email, senha});
-    localStorage.setItem('token', data.token);
-    localStorage.setItem('user', JSON.stringify(data.dados));
-    return data;
+const DASHBOARD_ROUTES = {
+  responsavel: '/escolhercriancas',
+  professor: '/escolherturma',
+  escola: '/painel-escola',
+};
+
+export function getDashboardRoute(tipo, fallback = '/escolhercriancas') {
+  return DASHBOARD_ROUTES[tipo] || fallback;
+}
+
+export async function login(email, senha, tipo = 'responsavel') {
+  const payload = { email, senha, tipo };
+  const { data } = await api.post('/auth/login', payload);
+  const resolvedTipo = data?.tipo || tipo || 'responsavel';
+  const usuario = { ...(data?.dados || {}), tipo: resolvedTipo };
+  localStorage.setItem('token', data.token);
+  localStorage.setItem('user', JSON.stringify(usuario));
+  return { ...data, dados: usuario };
 }
 
 export async function cadastrarResponsavel(payload) { 
@@ -17,13 +30,21 @@ export function logout() {
 }
 
 export function getUser() {
-    return JSON.parse(localStorage.getItem('user'));
+    try {
+        return JSON.parse(localStorage.getItem('user'));
+    } catch {
+        return null;
+    }
 }
 
 // Retorna usuário autenticado baseado no token
 export async function me() {
     const { data } = await api.get('/auth/me');
-    return data?.dados;
+    if (!data?.dados) return null;
+    const resolvedTipo = data?.tipo || data?.dados?.tipo;
+    const usuario = { ...data.dados, tipo: resolvedTipo };
+    localStorage.setItem('user', JSON.stringify(usuario));
+    return usuario;
 }
 
 // Solicita e-mail de recuperação de senha

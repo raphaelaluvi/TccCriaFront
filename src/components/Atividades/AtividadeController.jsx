@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { responderExercicio } from "../../services/exercicios";
-import { concluirAtividade, refazerAtividade, listarExerciciosDaAtividade } from "../../services/atividades";
+import {
+  concluirAtividade,
+  refazerAtividade,
+  listarExerciciosDaAtividade,
+} from "../../services/atividades";
 
-// Importa os tipos de atividades
 import CompletarAlfabeto from "./tipos/CompletarAlfabeto";
 import CompletarPalavra from "./tipos/CompletarPalavra";
 import CorrigirOrdemAlfabeto from "./tipos/CorrigirOrdemAlfabeto";
@@ -14,7 +17,24 @@ import QuantidadeLetras from "./tipos/QuantidadeLetras";
 
 import styles from "./Atividades.module.css";
 
-const AtividadeController = ({ atividadeId, exerciciosIniciais = [], onConcluir }) => {
+const bubbleClasses = [
+  styles.bolha1,
+  styles.bolha2,
+  styles.bolha3,
+  styles.bolha4,
+  styles.bolha5,
+  styles.bolha6,
+  styles.bolha7,
+  styles.bolha8,
+  styles.bolha9,
+  styles.bolha10,
+];
+
+const AtividadeController = ({
+  atividadeId,
+  exerciciosIniciais = [],
+  onConcluir,
+}) => {
   const [etapa, setEtapa] = useState("inicio"); // inicio | exercicio | fim
   const [exercicios, setExercicios] = useState(exerciciosIniciais);
   const [indice, setIndice] = useState(0);
@@ -26,10 +46,9 @@ const AtividadeController = ({ atividadeId, exerciciosIniciais = [], onConcluir 
     setExercicios(exerciciosIniciais);
   }, [exerciciosIniciais]);
 
-  // Inicia o jogo
   const iniciar = () => {
     if (!exercicios || exercicios.length === 0) {
-      setFeedback('Nenhum exercício disponível.');
+      setFeedback("Nenhum exercício disponível.");
       return;
     }
     setEtapa("exercicio");
@@ -37,7 +56,6 @@ const AtividadeController = ({ atividadeId, exerciciosIniciais = [], onConcluir 
     setFeedback("");
   };
 
-  // Avança para o próximo exercício
   const proximo = () => {
     if (indice + 1 < (exercicios?.length || 0)) {
       setIndice((prev) => prev + 1);
@@ -47,30 +65,33 @@ const AtividadeController = ({ atividadeId, exerciciosIniciais = [], onConcluir 
     }
   };
 
-  // Verifica a resposta
   const verificarResposta = async (resposta) => {
     if (enviando) return;
     const ex = exercicios?.[indice];
     if (!ex) {
-      // Estado intermediário: evita erro de acesso indefinido
-      setFeedback('Carregando exercício...');
+      setFeedback("Carregando exercício...");
       return;
     }
+    const respostaNormalizada =
+      typeof resposta === "string" ? resposta.toLowerCase() : resposta;
     try {
       setEnviando(true);
-      const r = await responderExercicio(ex.id, resposta);
+      const r = await responderExercicio(ex.id, respostaNormalizada);
       const correta = !!r?.correta;
       const restantes = Math.max(0, r?.tentativas_restantes ?? 0);
-      setFeedback(correta ? "✅ Resposta correta!" : `❌ Tente novamente! (${restantes} tentativas restantes)`);
+      setFeedback(
+        correta
+          ? "✅ Resposta correta!"
+          : `❌ Tente novamente! (${restantes} tentativas restantes)`
+      );
       if (correta || restantes === 0) setTimeout(proximo, 900);
     } catch (e) {
-      setFeedback('Erro ao enviar resposta');
+      setFeedback("Erro ao enviar resposta");
     } finally {
       setEnviando(false);
     }
   };
 
-  // Escolhe qual componente renderizar conforme o tipo
   const renderExercicio = () => {
     const ex = exercicios?.[indice];
     if (!ex) return <p>Carregando exercício...</p>;
@@ -100,91 +121,92 @@ const AtividadeController = ({ atividadeId, exerciciosIniciais = [], onConcluir 
     }
   };
 
-  // Renderização principal
   return (
-    <div className={styles.container}>
-      <div className={`${styles.bolha} ${styles.bolha1}`}></div>
-      <div className={`${styles.bolha} ${styles.bolha2}`}></div>
-      <div className={`${styles.bolha} ${styles.bolha3}`}></div>
-      <div className={`${styles.bolha} ${styles.bolha4}`}></div>
-      <div className={`${styles.bolha} ${styles.bolha5}`}></div>
-      <div className={`${styles.bolha} ${styles.bolha6}`}></div>
-      <div className={`${styles.bolha} ${styles.bolha7}`}></div>
-      <div className={`${styles.bolha} ${styles.bolha8}`}></div>
-      <div className={`${styles.bolha} ${styles.bolha9}`}></div>
-      <div className={`${styles.bolha} ${styles.bolha10}`}></div>
-      {etapa === "inicio" && (
-        <>
-          <h2 className={styles.titulo}>🎮 Jogo de Atividades</h2>
-          <p className={styles.sub}>Clique no botão abaixo para começar!</p>
-          <button className={styles.btn} onClick={iniciar}>
-            Iniciar
-          </button>
-        </>
-      )}
-
-      {etapa === "exercicio" && (
-        <>
-          {renderExercicio()}
-          <p className={styles.feedback}>{feedback}</p>
-        </>
-      )}
-
-      {etapa === "fim" && (
-        <div className={styles.fimContainer}>
-          <h3 className={styles.titulo}>🎉 Parabéns! Você concluiu todas!</h3>
-
-          {finalInfo && (
-            <p className={styles.sub}>Taxa de acerto: {finalInfo.taxa_acerto}%</p>
-          )}
-
-          {atividadeId && (
-            <div className={styles.botoesFim}>
-              <button
-                className={styles.btn}
-                onClick={async () => {
-                  try {
-                    const r = await concluirAtividade(atividadeId);
-                    setFinalInfo(r);
-                    if (onConcluir) onConcluir();
-                  } catch { }
-                }}
-              >
-                Concluir atividade
-              </button>
-
-              <button
-                className={styles.btn}
-                onClick={async () => {
-                  try {
-                    await refazerAtividade(atividadeId);
-                    const data = await listarExerciciosDaAtividade(atividadeId);
-                    setExercicios(data.exercicios || []);
-                    setIndice(0);
-                    setFeedback("");
-                    setFinalInfo(null);
-                    setEtapa("exercicio");
-                  } catch {
-                    setFeedback("Erro ao refazer atividade");
-                  }
-                }}
-              >
-                Refazer
-              </button>
-            </div>
-          )}
-
-          {!atividadeId && onConcluir && (
-            <button className={styles.btn} onClick={onConcluir}>
-              Voltar à trilha
+    <div className={styles.wrapper}>
+      <div className={styles.bolhaLayer} aria-hidden="true">
+        {bubbleClasses.map((classe, idx) => (
+          <div key={idx} className={`${styles.bolha} ${classe}`}></div>
+        ))}
+      </div>
+      <div className={styles.container}>
+        {etapa === "inicio" && (
+          <>
+            <h2 className={styles.titulo}>🎮 Jogo de Atividades</h2>
+            <p className={styles.sub}>Clique no botão abaixo para começar!</p>
+            <button className={styles.btn} onClick={iniciar}>
+              Iniciar
             </button>
-          )}
+          </>
+        )}
 
-          <button className={styles.btn} onClick={() => setEtapa("inicio")}>
-            Jogar novamente
-          </button>
-        </div>
-      )}
+        {etapa === "exercicio" && (
+          <>
+            {renderExercicio()}
+            <p className={styles.feedback}>{feedback}</p>
+          </>
+        )}
+
+        {etapa === "fim" && (
+          <div className={styles.fimContainer}>
+            <h3 className={styles.titulo}>🎉 Parabéns! Você concluiu todas!</h3>
+
+            {finalInfo && (
+              <p className={styles.sub}>
+                Taxa de acerto: {finalInfo.taxa_acerto}%
+              </p>
+            )}
+
+            {atividadeId && (
+              <div className={styles.botoesFim}>
+                <button
+                  className={styles.btn}
+                  onClick={async () => {
+                    try {
+                      const r = await concluirAtividade(atividadeId);
+                      setFinalInfo(r);
+                      if (onConcluir) onConcluir();
+                    } catch {
+                      setFeedback("Erro ao concluir atividade");
+                    }
+                  }}
+                >
+                  Finalizar atividade
+                </button>
+
+                <button
+                  className={styles.btn}
+                  onClick={async () => {
+                    try {
+                      await refazerAtividade(atividadeId);
+                      const data = await listarExerciciosDaAtividade(atividadeId);
+                      setExercicios(data.exercicios || []);
+                      setIndice(0);
+                      setFeedback("");
+                      setFinalInfo(null);
+                      setEtapa("exercicio");
+                    } catch {
+                      setFeedback("Erro ao refazer atividade");
+                    }
+                  }}
+                >
+                  Refazer
+                </button>
+              </div>
+            )}
+
+            {!atividadeId && onConcluir && (
+              <button
+                className={styles.btn}
+                onClick={() => {
+                  onConcluir();
+                }}
+              >
+                Voltar à trilha
+              </button>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
