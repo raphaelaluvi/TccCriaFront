@@ -7,7 +7,7 @@ const planosData = [
     itens: [
       {
         nome: "Plano Individual",
-        preco: "R$8,99/mês",
+        preco: "R$6,00/mês",
         modalId: "plano1",
         tipo: "individual",
         detalhes: [
@@ -20,7 +20,7 @@ const planosData = [
       },
       {
         nome: "Plano Família",
-        preco: "R$12,00/mês",
+        preco: "R$8,00/mês",
         modalId: "plano2",
         tipo: "familia",
         detalhes: [
@@ -33,7 +33,7 @@ const planosData = [
       },
       {
         nome: "Plano Escola 1",
-        preco: "R$15,00/mês",
+        preco: "R$210,00/mês",
         modalId: "plano3",
         tipo: "escola",
         detalhes: [
@@ -46,7 +46,7 @@ const planosData = [
       },
       {
         nome: "Plano Escola 2",
-        preco: "R$18,00/mês",
+        preco: "R$420,00/mês",
         modalId: "plano4",
         tipo: "escola2",
         detalhes: [
@@ -64,7 +64,7 @@ const planosData = [
     itens: [
       {
         nome: "Plano Individual Completo",
-        preco: "R$11,50/mês",
+        preco: "R$9,90/mês",
         modalId: "plano5",
         tipo: "individual",
         detalhes: [
@@ -77,7 +77,7 @@ const planosData = [
       },
       {
         nome: "Plano Família Completo",
-        preco: "R$15,70/mês",
+        preco: "R$12,00/mês",
         modalId: "plano6",
         tipo: "familia",
         detalhes: [
@@ -90,7 +90,7 @@ const planosData = [
       },
       {
         nome: "Plano Escola 1 Completo",
-        preco: "R$16,00/mês",
+        preco: "R$320,00/mês",
         modalId: "plano7",
         tipo: "escola",
         detalhes: [
@@ -103,7 +103,7 @@ const planosData = [
       },
       {
         nome: "Plano Escola 2 Completo",
-        preco: "R$19,10/mês",
+        preco: "R$640,00/mês",
         modalId: "plano8",
         tipo: "escola2",
         detalhes: [
