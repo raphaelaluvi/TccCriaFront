@@ -1,15 +1,15 @@
 .infoSobre {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 50px;
-  padding: 40px 180px;
-  flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+    padding: 40px 180px;
+    flex-wrap: wrap;
 }
 
 .texto {
-  flex: 1;
-  max-width: 500px;
+    flex: 1;
+    max-width: 500px;
 }
 
 p {
@@ -23,29 +23,50 @@ h2 {
     font-size: 1.7rem;
 }
 
-.carrossel {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    width: 500px;
-    height: 500px;
+.galeriaContainer {
+    width: 400px; 
+    height: 500px; 
     margin: 0 auto;
-    border-radius: 20px;
+    position: relative; 
+    border-radius: 20px; 
+    overflow: visible; 
+}
+
+.galeriaGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    grid-template-rows: repeat(3, 1fr); 
+    width: 100%;
+    height: 100%;
+    gap: 15px; /* Ajuste o espaçamento */
+}
+
+.galeriaItem {
+    position: relative;
+    border-radius: 10px; 
     overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* faz o último item (o 5º) ocupar as duas colunas */
+.galeriaGrid > div:nth-child(5) {
+    grid-column: 1 / span 2; 
 }
 
 .imagem {
-    position: absolute;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0;
-    transform: scale(1.05);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-    border-radius: 20px;
+    border-radius: 10px;
+    transition: all 0.5s ease-in-out; 
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0); 
+    z-index: 10;
 }
 
 .active {
-    opacity: 1;
-    transform: scale(1);
+    /* Efeito de Destaque (Flutuando) */
+    transform: scale(1.1) translateY(-5px); 
+    box-shadow: 0 10px 20px rgba(142, 36, 170, 0.5), 0 0 0 5px rgba(255, 255, 255, 0.8);
+    z-index: 20; 
 }

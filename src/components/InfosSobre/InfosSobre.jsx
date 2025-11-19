@@ -13,6 +13,7 @@ export default function InfoSobre() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
+    // Mantém a animação de índice para o destaque
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % imagens.length);
     }, 2500);
@@ -21,15 +22,21 @@ export default function InfoSobre() {
 
   return (
     <section className={styles.infoSobre}>
-      <div className={styles.carrossel}>
-        {imagens.map((img, i) => (
-          <img
-            key={i}
-            src={img}
-            alt={`Integrante ${i + 1}`}
-            className={`${styles.imagem} ${i === index ? styles.active : ""}`}
-          />
-        ))}
+      <div className={styles.galeriaContainer}>
+        <div className={styles.galeriaGrid}>
+          {imagens.map((img, i) => (
+            <div 
+              key={i} 
+              className={styles.galeriaItem} // Removemos 'itemCentral', ele será tratado pelo CSS Grid
+            >
+              <img
+                src={img}
+                alt={`Integrante ${i + 1}`}
+                className={`${styles.imagem} ${i === index ? styles.active : ""}`}
+              />
+            </div>
+          ))}
+        </div>
       </div>
       <div className={styles.texto}>
         <h2>Nossa História</h2>
