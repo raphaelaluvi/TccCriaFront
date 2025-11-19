@@ -3,7 +3,26 @@ import styles from "./Infoplano.module.css";
 import familiaIcon from "../../assets/planos/familia.png";
 import escolaIcon from "../../assets/planos/escola.png";
 import acordIcon from "../../assets/planos/acordo.png";
-import criancasImg from "../../assets/img-criancaslivros.jpeg";
+import imgFases from "../../assets/imgFases.png";
+
+const fasesAlfabetizacao = [
+  { 
+    title: '1. Pré-Silábica', 
+    description: 'A criança ainda não estabelece relação entre a escrita e a fala. A escrita pode aparecer como rabiscos ou desenhos.' 
+  },
+  { 
+    title: '2. Silábica', 
+    description: 'A criança atribui um valor sonoro a cada sílaba, mesmo que aleatório. Escrita tem o mesmo número de letras da pronúncia.' 
+  },
+  { 
+    title: '3. Silábico-Alfabética', 
+    description: 'Combinação de sons silábicos e alfabéticos. Algumas partes da palavra por sílaba, e outras, por sonoridade.' 
+  },
+  { 
+    title: '4. Alfabética', 
+    description: 'A criança compreende que a escrita representa os sons. Consegue escrever palavras de forma clara.' 
+  },
+];
 
 // Componente Card reutilizável
 function Card({ title, icon, color, link }) {
@@ -14,6 +33,27 @@ function Card({ title, icon, color, link }) {
       </div>
       <h3>{title}</h3>
       <a href={link}>Veja Mais →</a>
+    </div>
+  );
+}
+
+function LinhaDoTempo() {
+  return (
+    <div className={styles["linhadotempo-wrapper"]}>
+      {fasesAlfabetizacao.map((fase, index) => (
+        <div key={index} className={styles["linhadotempo-item-alfa"]}>
+          {/* O ponto é a chave visual */}
+          <div className={styles["linhadotempo-dot-alfa"]}></div>
+          
+          <div className={styles["linhadotempo-content-alfa"]}>
+            <h3 className={styles["linhadotempo-title-alfa"]}>{fase.title}</h3>
+            <p className={styles["linhadotempo-description-alfa"]}>{fase.description}</p>
+          </div>
+          
+          {/* Linha conectora, exceto para o último item */}
+          {index < fasesAlfabetizacao.length - 1 && <div className={styles["linhadotempo-line-alfa"]}></div>}
+        </div>
+      ))}
     </div>
   );
 }
@@ -52,34 +92,27 @@ export default function InfoPlano() {
       <section className={styles.why}>
         <div className={styles["why-text"]}>
           <h2>
-            Por que a <span>Alfabetização?</span>
+            Por que a <span>alfabetização?</span>
           </h2>
           <p>
             A alfabetização é muito mais do que aprender a juntar letras e formar palavras.
             <br />
             É a porta de entrada para o conhecimento, a autonomia e a imaginação.
             <br />
-            Quando a criança é alfabetizada:
           </p>
-
-          <ul>
-            <li>Desenvolve o raciocínio e a capacidade de resolver problemas.</li>
-            <li>Amplia a comunicação e aprende a expressar sentimentos e ideias.</li>
-            <li>Explora a criatividade, criando suas próprias histórias.</li>
-            <li>Ganha confiança para interagir em casa, na escola e no mundo.</li>
-            <li>Constrói bases sólidas para todos os aprendizados futuros.</li>
-          </ul>
-
-          <p>
-            Investir na alfabetização desde cedo é oferecer ao seu filho uma ferramenta de transformação para a vida inteira.
-          </p>
-          <a href="/sobre" className={styles.btn}>
-            Leia Mais
-          </a>
         </div>
         <div className={styles["why-img"]}>
-          <img src={criancasImg} alt="Crianças felizes" />
+          <img src={imgFases} alt="Animal feliz porque sabe ler" />
         </div>
+
+        <div className={styles["alfabetizacao-fases-container"]}>
+            <h2 className={styles["fases-title"]}> 
+                Fases da <span>alfabetização </span>
+            </h2>
+            {/* INSERÇÃO DO COMPONENTE AQUI */}
+            <LinhaDoTempo /> 
+        </div>
+
       </section>
     </div>
   );

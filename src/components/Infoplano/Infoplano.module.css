@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   /* empilha o título e os cards */
+  background: #f3fdf0;
   align-items: center;
   padding: 60px 30px;
   gap: 40px;
@@ -83,7 +84,6 @@
   justify-content: center;
   align-items: center;
   padding: 60px 50px;
-  background: #f3fdf0;
   flex-wrap: wrap;
   gap: 20px;
 }
@@ -93,6 +93,10 @@
 }
 
 .why-text h2 span {
+  color: #e91e63;
+}
+
+.alfabetizacao-fases-container h2 span {
   color: #e91e63;
 }
 
@@ -107,7 +111,7 @@
 .why-img img {
   max-width: 400px;
   border-radius: 12px;
-
+  background-color: transparent;
 }
 
 .btn {
@@ -128,4 +132,167 @@
 .btn:hover {
   filter: brightness(0.9);
   transform: translateY(-3px) scale(1.1) rotate(-3deg);
+}
+
+.alfabetizacao-fases-container {
+  width: 100%;
+  /* Ocupa toda a largura da seção 'why' */
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #ccc;
+  text-align: center;
+}
+
+.fases-title {
+  margin-bottom: 40px !important;
+  /* Mais espaço abaixo do título */
+}
+
+/* O wrapper usa Flexbox para a disposição horizontal */
+.linhadotempo-wrapper {
+  display: flex;
+  justify-content: space-around;
+  /* Distribui o espaço */
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 10px 50px;
+  position: relative;
+}
+
+/* Item individual da linha do tempo */
+.linhadotempo-item-alfa {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-basis: 22%;
+  /* Garante que os 4 itens caibam */
+  text-align: center;
+  position: relative;
+}
+
+/* Ponto (círculo) de cada fase */
+.linhadotempo-dot-alfa {
+  width: 24px;
+  height: 24px;
+  background-color: #8e24aa;
+  /* Roxo do seu tema */
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 0 0 0 3px #e91e63;
+  /* Rosa do seu tema como contorno */
+  z-index: 10;
+  margin-bottom: 15px;
+}
+
+/* Linha conectora entre os pontos */
+.linhadotempo-line-alfa {
+  position: absolute;
+  height: 4px;
+  background-color: #e91e63;
+  /* Rosa do seu tema */
+  top: 16px;
+  /* Ajusta a posição vertical */
+  left: calc(50% + 12px);
+  right: calc(-50% + 12px);
+  width: 100%;
+  z-index: 5;
+}
+
+/* Conteúdo da fase */
+.linhadotempo-content-alfa {
+  margin-top: 10px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #fcfcfc;
+  border: 1px solid #8e24aa44;
+  text-align: left;
+  height: 140px;
+  /* Altura fixa para alinhar as caixas */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.linhadotempo-title-alfa {
+  color: #8e24aa;
+  /* Roxo */
+  font-size: 1.1em;
+  margin: 0 0 8px 0;
+  border-bottom: 2px solid #e91e6366;
+  padding-bottom: 5px;
+}
+
+.linhadotempo-description-alfa {
+  font-size: 0.9em;
+  color: #555;
+  margin: 0;
+}
+
+/*Responsividade (vertical em telas menores) */
+@media (max-width: 900px) {
+
+  /* Ajusta a seção WHY para que o texto e a imagem fiquem em cima e a timeline embaixo */
+  .why {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .why-text {
+    max-width: 90%;
+    width: 100%;
+    order: 1;
+    /* Garante que o texto venha primeiro */
+    text-align: center;
+  }
+
+  .why-img {
+    order: 2;
+    /* Garante que a imagem venha depois do texto */
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .alfabetizacao-fases-container {
+    order: 3;
+    /* Garante que a linha do tempo seja a última */
+  }
+
+  /* Estilos para a linha do tempo vertical */
+  .linhadotempo-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    border-left: 4px solid #e91e63;
+    /* A linha vertical principal */
+    padding-left: 30px;
+    padding-bottom: 0;
+    width: 95%;
+    margin: 20px auto;
+  }
+
+  .linhadotempo-item-alfa {
+    flex-basis: auto;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    width: 100%;
+  }
+
+  .linhadotempo-dot-alfa {
+    margin: 0;
+    position: absolute;
+    left: -38px;
+    /* Ajuste para centralizar na linha vertical */
+    top: 0;
+  }
+
+  .linhadotempo-line-alfa {
+    display: none;
+    /* Esconde as linhas horizontais */
+  }
+
+  .linhadotempo-content-alfa {
+    margin-left: 20px;
+    margin-top: 0;
+    height: auto;
+  }
 }
