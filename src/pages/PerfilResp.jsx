@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { getUser, logout, me } from "../services/auth";
 import { listarCriancasDoResponsavel } from "../services/criancas";
 import { atualizarResponsavel } from "../services/responsaveis";
+import styles from "../components/ProgressoDados/ProgressoDados.module.css";
 
 const PerfilResp = () => {
   const [resp, setResp] = useState({ nome: '', email: '', telefone: '' });
@@ -95,13 +96,20 @@ const PerfilResp = () => {
     <div>
       <Header links={links} />
       <main style={{ paddingBottom: 80 }}>
+
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+
         {loading ? (
           <p>Carregando...</p>
         ) : (
           <>
             {msg && <Alert type={msg.startsWith('Erro') ? 'error' : 'success'}>{msg}</Alert>}
             <Dados tipo="responsavel" dados={dadosParaEdicao} onSalvar={handleSalvar} onEditar={() => setMsg('')} onCancelar={() => setMsg('')} />
-            
+
             <section style={{ maxWidth: 600, margin: '20px auto' }}>
               <h3>Crianças cadastradas</h3>
               {criancas?.length ? (
@@ -115,7 +123,7 @@ const PerfilResp = () => {
                 <p>Nenhuma criança cadastrada.</p>
               )}
             </section>
-            
+
           </>
         )}
       </main>

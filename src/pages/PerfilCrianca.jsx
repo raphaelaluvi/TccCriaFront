@@ -6,6 +6,7 @@ import Alert from "../components/Alert/Alert";
 import Dados from "../components/Dados/Dados";
 import { logout, getUser } from "../services/auth";
 import { buscarCrianca, atualizarCrianca } from "../services/criancas";
+import styles from "../components/ProgressoDados/ProgressoDados.module.css";
 
 const PerfilCrianca = () => {
   const { id } = useParams();
@@ -19,7 +20,7 @@ const PerfilCrianca = () => {
   const links = [
     { label: 'Suas histórias', to: `/crianca/${id}` },
     { label: 'Progresso', to: `/progresso/${id}` },
-    { label: 'Perfil', to: `/perfilcrianca/${id}`},
+    { label: 'Perfil', to: `/perfilcrianca/${id}` },
     { label: 'Sair', onClick: () => setConfirmarSair(true) }
   ];
 
@@ -49,7 +50,7 @@ const PerfilCrianca = () => {
       let dataIso = String(formData.dataNascimento ?? crianca.dataNascimento ?? '');
       if (dataIso && !/^\d{4}-\d{2}-\d{2}$/.test(dataIso)) {
         const d = new Date(dataIso);
-        if (!isNaN(d)) dataIso = d.toISOString().slice(0,10);
+        if (!isNaN(d)) dataIso = d.toISOString().slice(0, 10);
       }
       const tipoNorm = (formData.tipoEscola ?? crianca.tipoEscola ?? 'publica')
         .toLowerCase()
@@ -100,6 +101,13 @@ const PerfilCrianca = () => {
     <div>
       <Header links={links} />
       <main style={{ paddingBottom: 80 }}>
+
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+
         {loading ? <p>Carregando...</p> : (
           <>
             {msg && <Alert type={msgType}>{msg}</Alert>}
