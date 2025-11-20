@@ -6,6 +6,7 @@ import Alert from "../components/Alert/Alert";
 import { getDashboardRoute, getUser, logout } from "../services/auth";
 import { buscarTurma, listarCriancasDaTurma } from "../services/turmas";
 import { getProgressoTurma, getDiagnostico, getDiagnosticoLLM } from "../services/progresso";
+import styles from "../components/ProgressoDados/ProgressoDados.module.css";
 
 const defaultStats = {
   atividades_concluidas: 0,
@@ -233,6 +234,13 @@ export default function Turma() {
     <div>
       <Header links={links} />
       <main style={{ maxWidth: 1100, margin: "30px auto 60px", padding: "0 24px" }}>
+
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+
         <button
           onClick={() => navigate("/escolherturma")}
           style={{
