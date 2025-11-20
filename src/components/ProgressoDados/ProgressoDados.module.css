@@ -29,6 +29,22 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+p{
+  font-size: 1.1rem;
+  margin: 0;
+  color: #555;
+}
+
+.statCardDiagnostico {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 10px 0;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .statCard h3 {
   font-size: 1.8rem;
   margin: 10px 0;
@@ -105,9 +121,19 @@
   gap: 16px;
 }
 
+.statsGridDiagnostico {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+
 /* Em telas menores, vira 1 coluna */
 @media (max-width: 600px) {
   .statsGrid {
+    grid-template-columns: 1fr;
+  }
+  .statsGridDiagnostico {
     grid-template-columns: 1fr;
   }
 }

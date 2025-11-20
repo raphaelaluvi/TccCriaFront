@@ -132,30 +132,18 @@ const Progresso = () => {
       {tab === "diagnostico" && !diagLoading && diagDados && (
         <div className={styles.container}>
           <h2 className={styles.pageTitle}>Diagnóstico</h2>
-          <p>
+          <h4> <strong>
             Taxa geral: {diagDados.taxa_acerto}% · Exercícios: {diagDados.total_exercicios}
-          </p>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-              gap: 16,
-              marginTop: 16,
-            }}
-          >
+          </strong>
+          </h4>
+          <div className={styles.statsGridDiagnostico}>
             {Array.isArray(diagDados.mensagem_blocos) &&
               diagDados.mensagem_blocos.map((bloco, i) => (
                 <div
                   key={i}
-                  style={{
-                    background: "#fff",
-                    borderRadius: 12,
-                    boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
-                    padding: 16,
-                  }}
+                  className={styles.statCardDiagnostico}
                 >
-                  <h4 style={{ marginTop: 0, color: "#8E24AA" }}>{bloco.titulo}</h4>
+                  <p> <strong>{bloco.titulo}</strong></p>
                   {(bloco.linhas || []).map((l, idx) => (
                     <p key={idx} style={{ margin: "6px 0", color: "#333" }}>
                       {l}
