@@ -11,7 +11,7 @@
 .modal {
   background: #fff;
   border-radius: 8px;
-  width: min(920px, 95vw);
+  width: min(500px, 95vw);
   padding: 20px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
@@ -45,9 +45,17 @@
   cursor: pointer;
 }
 
-.btnPrimary {
-  background: #4f46e5;
-  color: white;
+.btnRoxo {
+  color: #fff;
+  border: 1px solid #600779;
+  background-color: #9C27B0;
+  border-radius: 50px;
+}
+
+.btnRoxo:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px) scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
 }
 
 .btnGhost {

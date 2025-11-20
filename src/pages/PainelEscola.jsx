@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/Header/Header";
 import Modal from "../components/Modal/Modal";
 import Alert from "../components/Alert/Alert";
+import styles from "../components/ProgressoDados/ProgressoDados.module.css";
 import { getDashboardRoute, getUser, logout } from "../services/auth";
 import {
   listarProfessoresDaEscola,
@@ -697,6 +698,13 @@ export default function PainelEscola() {
     <div>
       <Header links={links} />
       <main style={{ maxWidth: 1100, margin: "30px auto 60px", padding: "0 24px" }}>
+
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+
         <section style={{ marginBottom: 24 }}>
           <h2 style={{ color: "#8E24AA", marginBottom: 8 }}>Bem-vindo(a), {nomeEscola}!</h2>
           <p style={{ color: "#555" }}>Gerencie professores, turmas e crianças do plano escolar em um só lugar.</p>

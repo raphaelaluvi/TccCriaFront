@@ -20,7 +20,7 @@ export default function Modal({ title = 'Aviso', children, onClose, primaryText 
         <div className={styles.content}>{children}</div>
         <div className={styles.actions}>
           <button
-            className={`${styles.btn} ${styles.btnPrimary}`}
+            className={`${styles.btn} ${styles.btnRoxo}`}
             onClick={handlePrimary}
             disabled={primaryDisabled}
           >

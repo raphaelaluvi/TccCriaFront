@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { getUser, logout, me } from "../services/auth";
 import { listarCriancasDoResponsavel } from "../services/criancas";
 import { atualizarResponsavel } from "../services/responsaveis";
+import styles from "../components/ProgressoDados/ProgressoDados.module.css";
 
 const PerfilResp = () => {
   const [resp, setResp] = useState({ nome: '', email: '', telefone: '' });
@@ -95,6 +96,12 @@ const PerfilResp = () => {
     <div>
       <Header links={links} />
       <main style={{ paddingBottom: 80 }}>
+
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
 
         {loading ? (
           <p>Carregando...</p>

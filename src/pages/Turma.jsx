@@ -244,119 +244,125 @@ export default function Turma() {
         <button
           onClick={() => navigate("/escolherturma")}
           style={{
+            color: "#8E24AA",
+            fontWeight: "bold",
+            transition: "all 0.4s cubic-bezier(0.25, 1, 0.5, 1)",
+            fontSize: "1rem",
+            padding: "6px 12px",
+            fontFamily: "inherit",
             background: "transparent",
             border: "none",
-            color: "#8E24AA",
             cursor: "pointer",
-            marginBottom: 16,
-            fontWeight: 600,
+            marginTop: "25px",
           }}
         >
-          ← Voltar para turmas
-        </button>
+        ← Voltar para turmas
+      </button>
 
-        {loading ? (
-          <p>Carregando informações da turma...</p>
-        ) : erro ? (
-          <Alert type="error">{erro}</Alert>
-        ) : (
-          <>
-            <section style={{ marginBottom: 24 }}>
-              <h2 style={{ color: "#8E24AA", marginBottom: 8 }}>{turma?.nome || "Turma"}</h2>
-              <p style={{ margin: "4px 0", color: "#555" }}>
-                {turma?.descricao || turma?.serie || turma?.nivel || "Sem descrição"}
-              </p>
-              {turma?.turno && <p style={{ margin: "4px 0", color: "#555" }}>Turno: {turma.turno}</p>}
-            </section>
+      {loading ? (
+        <p>Carregando informações da turma...</p>
+      ) : erro ? (
+        <Alert type="error">{erro}</Alert>
+      ) : (
+        <>
+          <section style={{ marginBottom: 24 }}>
+            <h2 style={{ color: "#8E24AA", marginBottom: 8 }}>{turma?.nome || "Turma"}</h2>
+            <p style={{ margin: "4px 0", color: "#555" }}>
+              {turma?.descricao || turma?.serie || turma?.nivel || "Sem descrição"}
+            </p>
+            {turma?.turno && <p style={{ margin: "4px 0", color: "#555" }}>Turno: {turma.turno}</p>}
+          </section>
 
-            <section style={{ marginBottom: 32 }}>
-              <h3 style={{ marginBottom: 12 }}>Resumo da turma</h3>
-              {renderResumo()}
-            </section>
+          <section style={{ marginBottom: 32 }}>
+            <h3 style={{ marginBottom: 12 }}>Resumo da turma</h3>
+            {renderResumo()}
+          </section>
 
-            <section>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
-                <h3 style={{ margin: 0 }}>Crianças</h3>
-                <span style={{ color: "#777" }}>{criancas.length} criança(s)</span>
+          <section>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
+              <h3 style={{ margin: 0 }}>Crianças</h3>
+              <span style={{ color: "#777" }}>{criancas.length} criança(s)</span>
+            </div>
+            {criancas.length === 0 ? (
+              <Alert type="info">Nenhuma criança vinculada a esta turma ainda.</Alert>
+            ) : (
+              <div style={{ overflowX: "auto" }}>
+                <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 700 }}>
+                  <thead>
+                    <tr style={{ textAlign: "left", color: "#777", fontSize: 14 }}>
+                      <th style={{ padding: "8px 4px" }}>Nome</th>
+                      <th style={{ padding: "8px 4px" }}>Atividades</th>
+                      <th style={{ padding: "8px 4px" }}>Exercícios</th>
+                      <th style={{ padding: "8px 4px" }}>Acertos</th>
+                      <th style={{ padding: "8px 4px" }}>Taxa</th>
+                      <th style={{ padding: "8px 4px" }}>Diagnóstico</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {criancas.map((crianca) => {
+                      const stats = statsPorCrianca[crianca.id] || defaultStats;
+                      return (
+                        <tr key={crianca.id} style={{ borderTop: "1px solid #eee" }}>
+                          <td style={{ padding: "10px 4px" }}>{crianca.nome}</td>
+                          <td style={{ padding: "10px 4px" }}>{stats.atividades_concluidas}</td>
+                          <td style={{ padding: "10px 4px" }}>{stats.total_exercicios}</td>
+                          <td style={{ padding: "10px 4px" }}>{stats.acertos}</td>
+                          <td style={{ padding: "10px 4px" }}>{stats.taxa_acerto}%</td>
+                          <td style={{ padding: "10px 4px" }}>
+                            <button
+                              onClick={() => abrirDiagnostico(crianca, "heuristico")}
+                              style={{
+                                border: "none",
+                                background: "#8E24AA",
+                                color: "#fff",
+                                borderRadius: 8,
+                                padding: "6px 10px",
+                                cursor: "pointer",
+                                marginRight: 6,
+                              }}
+                            >
+                              Heurístico
+                            </button>
+                            <button
+                              onClick={() => abrirDiagnostico(crianca, "llm")}
+                              style={{
+                                border: "none",
+                                background: "#E91E63",
+                                color: "#fff",
+                                borderRadius: 8,
+                                padding: "6px 10px",
+                                cursor: "pointer",
+                              }}
+                            >
+                              IA
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
               </div>
-              {criancas.length === 0 ? (
-                <Alert type="info">Nenhuma criança vinculada a esta turma ainda.</Alert>
-              ) : (
-                <div style={{ overflowX: "auto" }}>
-                  <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 700 }}>
-                    <thead>
-                      <tr style={{ textAlign: "left", color: "#777", fontSize: 14 }}>
-                        <th style={{ padding: "8px 4px" }}>Nome</th>
-                        <th style={{ padding: "8px 4px" }}>Atividades</th>
-                        <th style={{ padding: "8px 4px" }}>Exercícios</th>
-                        <th style={{ padding: "8px 4px" }}>Acertos</th>
-                        <th style={{ padding: "8px 4px" }}>Taxa</th>
-                        <th style={{ padding: "8px 4px" }}>Diagnóstico</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {criancas.map((crianca) => {
-                        const stats = statsPorCrianca[crianca.id] || defaultStats;
-                        return (
-                          <tr key={crianca.id} style={{ borderTop: "1px solid #eee" }}>
-                            <td style={{ padding: "10px 4px" }}>{crianca.nome}</td>
-                            <td style={{ padding: "10px 4px" }}>{stats.atividades_concluidas}</td>
-                            <td style={{ padding: "10px 4px" }}>{stats.total_exercicios}</td>
-                            <td style={{ padding: "10px 4px" }}>{stats.acertos}</td>
-                            <td style={{ padding: "10px 4px" }}>{stats.taxa_acerto}%</td>
-                            <td style={{ padding: "10px 4px" }}>
-                              <button
-                                onClick={() => abrirDiagnostico(crianca, "heuristico")}
-                                style={{
-                                  border: "none",
-                                  background: "#8E24AA",
-                                  color: "#fff",
-                                  borderRadius: 8,
-                                  padding: "6px 10px",
-                                  cursor: "pointer",
-                                  marginRight: 6,
-                                }}
-                              >
-                                Heurístico
-                              </button>
-                              <button
-                                onClick={() => abrirDiagnostico(crianca, "llm")}
-                                style={{
-                                  border: "none",
-                                  background: "#E91E63",
-                                  color: "#fff",
-                                  borderRadius: 8,
-                                  padding: "6px 10px",
-                                  cursor: "pointer",
-                                }}
-                              >
-                                IA
-                              </button>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </section>
-          </>
-        )}
-      </main>
-
-      {diagModal.aberta && renderDiagModal()}
-
-      {confirmarSair && (
-        <Modal
-          title="Sair da conta?"
-          primaryText="Sair"
-          onPrimary={() => { setConfirmarSair(false); logout(); navigate("/login"); }}
-          onClose={() => setConfirmarSair(false)}
-        >
-          <p>Tem certeza que deseja sair?</p>
-        </Modal>
+            )}
+          </section>
+        </>
       )}
-    </div>
+    </main>
+
+      { diagModal.aberta && renderDiagModal() }
+
+  {
+    confirmarSair && (
+      <Modal
+        title="Sair da conta?"
+        primaryText="Sair"
+        onPrimary={() => { setConfirmarSair(false); logout(); navigate("/login"); }}
+        onClose={() => setConfirmarSair(false)}
+      >
+        <p>Tem certeza que deseja sair?</p>
+      </Modal>
+    )
+  }
+    </div >
   );
 }
