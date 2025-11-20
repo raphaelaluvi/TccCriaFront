@@ -1,0 +1,136 @@
+/* Fundo (Backdrop) do modal */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* O Card/Corpo do Modal */
+.cardModal {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px #c58fd4;
+  position: relative;
+  max-width: 500px; /* Adaptei para uma largura razoável para formulários */
+  width: 90%;
+  max-height: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHeader {
+    padding: 16px 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    margin: 0;
+    color: #333;
+    font-size: 1.25rem;
+}
+
+/* Botão de Fechar no canto superior do card */
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+  padding: 0;
+}
+
+.closeButton:hover {
+  color: #c00;
+}
+
+/* Área para o conteúdo interno (children) */
+.cardContent {
+  padding: 20px;
+  overflow-y: auto; /* Permite rolagem apenas no conteúdo */
+  flex-grow: 1;
+}
+
+/* Rodapé com botões de ação */
+.cardActions {
+    padding: 16px 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end; /* Alinhar botões à direita */
+    gap: 12px;
+}
+
+/* Estilos dos botões */
+.primaryButton, .secondaryButton {
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+.primaryButton {
+    background-color: #8E24AA; /* Cor principal da sua aplicação */
+    color: #fff;
+    border: none;
+}
+
+.primaryButton:hover:not(:disabled) {
+    background-color: #6A1B9A;
+}
+
+.primaryButton.danger {
+    background-color: #E53935; /* Cor de alerta/remoção */
+}
+
+.primaryButton.danger:hover:not(:disabled) {
+    background-color: #C62828;
+}
+
+.secondaryButton {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.secondaryButton:hover:not(:disabled) {
+    background-color: #e0e0e0;
+}
+
+.primaryButton:disabled, .secondaryButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Estilos de inputs no modal (para substituir os inline styles) */
+.modalInput {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-top: 4px;
+    box-sizing: border-box; /* Garante que padding e border estejam incluídos na largura */
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: #fff; /* Fundo branco ou similar */
+}
+
+.modalInput:disabled {
+    background-color: #eee;
+}
+
+/* Estilo para selects múltiplos */
+.modalSelectMultiple {
+    min-height: 100px;
+    resize: vertical;
+}

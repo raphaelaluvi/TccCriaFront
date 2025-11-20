@@ -1,9 +1,13 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header/Header";
-import Modal from "../components/Modal/Modal";
+// import Modal from "../components/Modal/Modal"; // ❌ Removido
 import Alert from "../components/Alert/Alert";
 import styles from "../components/ProgressoDados/ProgressoDados.module.css";
+// Importa o novo componente CardEscola e seu CSS modular
+import CardEscola from "../components/CardEscola/CardEscola"; 
+import stylesCard from "../components/CardEscola/CardEscola.module.css"; 
+
 import { getDashboardRoute, getUser, logout } from "../services/auth";
 import {
   listarProfessoresDaEscola,
@@ -40,12 +44,17 @@ const formatTelefone = (value) => {
 
 const digits = (value, limit) => (value || "").replace(/\D/g, "").slice(0, limit);
 
+// Estilo de input inline original (não mais usado nos modais)
 const inputStyle = {
-  width: "100%",
-  padding: 10,
-  borderRadius: 8,
-  border: "1px solid #ddd",
-  marginTop: 4,
+  width: "100%", /* Faz o input ocupar 100% da largura do contêiner pai (.modal) */
+  padding: "10px",
+  border: "1px solid #ccc",
+  borderRadius: "6px",
+  boxSizing: "border-box", /* **Crucial:** Garante que padding e border sejam incluídos na largura de 100% */
+  fontSize: "1rem",
+  fontFamily: "inherit",
+  /* Você pode adicionar estilos específicos da sua aplicação, como a cor de fundo */
+  backgroundColor: "#f7f3f9",
 };
 
 export default function PainelEscola() {
@@ -720,8 +729,12 @@ export default function PainelEscola() {
         {aba === "criancas" && renderCriancas()}
       </main>
 
+      {/* --- MODAIS COM CARDESCOLA --- */}
+
+      {/* 1. Modal Professor (Cadastro/Edição) */}
       {modalProfessor && (
-        <Modal
+        <CardEscola // 👈 SUBSTITUIÇÃO
+          isOpen={modalProfessor}
           title={editandoProfessor ? "Editar professor" : "Novo professor"}
           primaryText={salvandoProfessor ? "Salvando..." : "Salvar"}
           primaryDisabled={salvandoProfessor}
@@ -736,7 +749,7 @@ export default function PainelEscola() {
                 name="nome"
                 value={formProfessor.nome}
                 onChange={handleChangeProfessor}
-                style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #ddd", marginTop: 4 }}
+                className={stylesCard.modalInput} // 👈 Uso do CSS modular
               />
             </label>
             <label style={{ fontWeight: 600 }}>
@@ -749,7 +762,7 @@ export default function PainelEscola() {
                 maxLength={14}
                 inputMode="numeric"
                 disabled={!!editandoProfessor}
-                style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #ddd", marginTop: 4 }}
+                className={stylesCard.modalInput} // 👈 Uso do CSS modular
               />
             </label>
             <label style={{ fontWeight: 600 }}>
@@ -759,7 +772,7 @@ export default function PainelEscola() {
                 name="email"
                 value={formProfessor.email}
                 onChange={handleChangeProfessor}
-                style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #ddd", marginTop: 4 }}
+                className={stylesCard.modalInput} // 👈 Uso do CSS modular
               />
             </label>
             <label style={{ fontWeight: 600 }}>
@@ -771,7 +784,7 @@ export default function PainelEscola() {
                 onChange={handleChangeProfessor}
                 maxLength={15}
                 inputMode="numeric"
-                style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #ddd", marginTop: 4 }}
+                className={stylesCard.modalInput} // 👈 Uso do CSS modular
               />
             </label>
             {!editandoProfessor && (
@@ -783,7 +796,7 @@ export default function PainelEscola() {
                   value={formProfessor.senha}
                   onChange={handleChangeProfessor}
                   minLength={6}
-                  style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #ddd", marginTop: 4 }}
+                  className={stylesCard.modalInput} // 👈 Uso do CSS modular
                 />
               </label>
             )}
@@ -791,11 +804,14 @@ export default function PainelEscola() {
               <p style={{ color: "#d32f2f", marginTop: 4 }}>{mensagemModalProfessor}</p>
             )}
           </div>
-        </Modal>
+        </CardEscola>
       )}
 
+      {/* 2. Modal Exclusão Professor */}
       {professorParaExcluir && (
-        <Modal
+        <CardEscola // 👈 SUBSTITUIÇÃO
+          isOpen={!!professorParaExcluir}
+          isAlert={true} // Para estilizar o botão primário como 'danger'
           title="Remover professor"
           primaryText={removendoProfessor ? "Removendo..." : "Remover"}
           primaryDisabled={removendoProfessor}
@@ -804,11 +820,13 @@ export default function PainelEscola() {
         >
           <p>Deseja remover o acesso de <strong>{professorParaExcluir.nome}</strong>? Esta ação não pode ser desfeita.</p>
           {erroExcluirProfessor && <p style={{ color: "#d32f2f", marginTop: 8 }}>{erroExcluirProfessor}</p>}
-        </Modal>
+        </CardEscola>
       )}
 
+      {/* 3. Modal Turma (Cadastro/Edição) */}
       {modalTurma && (
-        <Modal
+        <CardEscola // 👈 SUBSTITUIÇÃO
+          isOpen={modalTurma}
           title={editandoTurma ? "Editar turma" : "Nova turma"}
           primaryText={salvandoTurma ? "Salvando..." : "Salvar"}
           primaryDisabled={salvandoTurma}
@@ -823,7 +841,7 @@ export default function PainelEscola() {
                 name="nome"
                 value={formTurma.nome}
                 onChange={handleChangeTurma}
-                style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #ddd", marginTop: 4 }}
+                className={stylesCard.modalInput} // 👈 Uso do CSS modular
               />
             </label>
             <label style={{ fontWeight: 600 }}>
@@ -833,7 +851,7 @@ export default function PainelEscola() {
                 name="descricao"
                 value={formTurma.descricao}
                 onChange={handleChangeTurma}
-                style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #ddd", marginTop: 4 }}
+                className={stylesCard.modalInput} // 👈 Uso do CSS modular
               />
             </label>
             <label style={{ fontWeight: 600 }}>
@@ -844,7 +862,7 @@ export default function PainelEscola() {
                 value={formTurma.nivel}
                 onChange={handleChangeTurma}
                 placeholder="Ex: 1º ano"
-                style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #ddd", marginTop: 4 }}
+                className={stylesCard.modalInput} // 👈 Uso do CSS modular
               />
             </label>
             <label style={{ fontWeight: 600 }}>
@@ -855,7 +873,7 @@ export default function PainelEscola() {
                 value={formTurma.turno}
                 onChange={handleChangeTurma}
                 placeholder="Ex: Manhã"
-                style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #ddd", marginTop: 4 }}
+                className={stylesCard.modalInput} // 👈 Uso do CSS modular
               />
             </label>
             <label style={{ fontWeight: 600 }}>
@@ -864,22 +882,30 @@ export default function PainelEscola() {
                 multiple
                 value={formTurma.professores}
                 onChange={handleProfessoresTurma}
-                style={{ width: "100%", minHeight: 90, borderRadius: 8, border: "1px solid #ddd", marginTop: 4, padding: 8 }}
+                className={stylesCard.modalSelectMultiple} // 👈 Uso do CSS modular para select
               >
-                {professores.map((p) => (
-                  <option key={p.id} value={p.id}>{p.nome}</option>
+                {professores.map((prof) => (
+                  <option key={prof.id} value={prof.id}>
+                    {prof.nome}
+                  </option>
                 ))}
               </select>
+              <small style={{ color: "#666", display: "block", marginTop: 4 }}>
+                Use CTRL/CMD para selecionar múltiplos.
+              </small>
             </label>
             {erroModalTurma && (
               <p style={{ color: "#d32f2f", marginTop: 4 }}>{erroModalTurma}</p>
             )}
           </div>
-        </Modal>
+        </CardEscola>
       )}
 
+      {/* 4. Modal Exclusão Turma */}
       {turmaParaExcluir && (
-        <Modal
+        <CardEscola // 👈 SUBSTITUIÇÃO
+          isOpen={!!turmaParaExcluir}
+          isAlert={true} // Para estilizar o botão primário como 'danger'
           title="Remover turma"
           primaryText={removendoTurma ? "Removendo..." : "Remover"}
           primaryDisabled={removendoTurma}
@@ -887,38 +913,34 @@ export default function PainelEscola() {
           onClose={() => setTurmaParaExcluir(null)}
         >
           <p>
-            Deseja remover a turma <strong>{turmaParaExcluir.nome}</strong>? Crianças vinculadas precisarão ser realocadas antes.
+            Deseja remover a turma <strong>{turmaParaExcluir.nome}</strong>?
+            Todas as crianças associadas a esta turma ficarão sem turma. Esta ação não pode ser desfeita.
           </p>
           {erroExcluirTurma && <p style={{ color: "#d32f2f", marginTop: 8 }}>{erroExcluirTurma}</p>}
-        </Modal>
+        </CardEscola>
       )}
 
+      {/* 5. Modal Criança (Cadastro) */}
       {modalCrianca && (
-        <Modal
-          title="Cadastrar criança"
-          primaryText={salvandoCrianca ? "Salvando..." : "Salvar"}
+        <CardEscola // 👈 SUBSTITUIÇÃO
+          isOpen={modalCrianca}
+          title="Cadastrar nova criança"
+          primaryText={salvandoCrianca ? "Salvando..." : "Cadastrar"}
           primaryDisabled={salvandoCrianca}
           onPrimary={handleSalvarCrianca}
           onClose={() => setModalCrianca(false)}
         >
-          <div
-            style={{
-              display: "grid",
-              gap: 20,
-              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-              alignItems: "start",
-            }}
-          >
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <h4 style={{ margin: 0, color: "#8E24AA" }}>Dados da criança</h4>
-              <label style={{ fontWeight: 600 }}>
-                Nome
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <h4 style={{ margin: 0 }}>Dados da Criança</h4>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              <label style={{ fontWeight: 600, gridColumn: "span 2" }}>
+                Nome Completo
                 <input
                   type="text"
                   name="nome"
                   value={formCrianca.nome}
                   onChange={handleChangeCrianca}
-                  style={inputStyle}
+                  className={stylesCard.modalInput} // 👈 Uso do CSS modular
                 />
               </label>
               <label style={{ fontWeight: 600 }}>
@@ -930,54 +952,54 @@ export default function PainelEscola() {
                   onChange={handleChangeCrianca}
                   maxLength={14}
                   inputMode="numeric"
-                  style={inputStyle}
+                  className={stylesCard.modalInput} // 👈 Uso do CSS modular
                 />
               </label>
               <label style={{ fontWeight: 600 }}>
-                Data de nascimento
+                Data de Nascimento
                 <input
                   type="date"
                   name="data_nascimento"
                   value={formCrianca.data_nascimento}
                   onChange={handleChangeCrianca}
-                  style={inputStyle}
+                  className={stylesCard.modalInput} // 👈 Uso do CSS modular
                 />
               </label>
               <label style={{ fontWeight: 600 }}>
-                Tipo de escola
+                Tipo de Escola
                 <select
                   name="tipo_escola"
                   value={formCrianca.tipo_escola}
                   onChange={handleChangeCrianca}
-                  style={inputStyle}
+                  className={stylesCard.modalInput} // 👈 Uso do CSS modular
                 >
                   <option value="publica">Pública</option>
                   <option value="privada">Privada</option>
                 </select>
               </label>
               <label style={{ fontWeight: 600 }}>
-                Turma
+                Turma (Opcional)
                 <select
                   name="turma_id"
                   value={formCrianca.turma_id}
                   onChange={handleChangeCrianca}
-                  style={inputStyle}
+                  className={stylesCard.modalInput} // 👈 Uso do CSS modular
                 >
-                  <option value="">Selecione</option>
+                  <option value="">Nenhuma</option>
                   {turmas.map((t) => (
                     <option key={t.id} value={t.id}>{t.nome}</option>
                   ))}
                 </select>
               </label>
               <label style={{ fontWeight: 600 }}>
-                Professor responsável (opcional)
+                Professor (Opcional)
                 <select
                   name="professor_id"
                   value={formCrianca.professor_id}
                   onChange={handleChangeCrianca}
-                  style={inputStyle}
+                  className={stylesCard.modalInput} // 👈 Uso do CSS modular
                 >
-                  <option value="">Selecione</option>
+                  <option value="">Nenhum</option>
                   {professores.map((p) => (
                     <option key={p.id} value={p.id}>{p.nome}</option>
                   ))}
@@ -985,16 +1007,16 @@ export default function PainelEscola() {
               </label>
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <h4 style={{ margin: 0, color: "#8E24AA" }}>Responsável</h4>
-              <label style={{ fontWeight: 600 }}>
-                Nome
+            <h4 style={{ margin: "16px 0 0" }}>Dados do Responsável (será criado um usuário)</h4>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              <label style={{ fontWeight: 600, gridColumn: "span 2" }}>
+                Nome Completo
                 <input
                   type="text"
                   name="responsavel_nome"
                   value={formCrianca.responsavel_nome}
                   onChange={handleChangeCrianca}
-                  style={inputStyle}
+                  className={stylesCard.modalInput} // 👈 Uso do CSS modular
                 />
               </label>
               <label style={{ fontWeight: 600 }}>
@@ -1006,17 +1028,7 @@ export default function PainelEscola() {
                   onChange={handleChangeCrianca}
                   maxLength={14}
                   inputMode="numeric"
-                  style={inputStyle}
-                />
-              </label>
-              <label style={{ fontWeight: 600 }}>
-                Email
-                <input
-                  type="email"
-                  name="responsavel_email"
-                  value={formCrianca.responsavel_email}
-                  onChange={handleChangeCrianca}
-                  style={inputStyle}
+                  className={stylesCard.modalInput} // 👈 Uso do CSS modular
                 />
               </label>
               <label style={{ fontWeight: 600 }}>
@@ -1028,10 +1040,20 @@ export default function PainelEscola() {
                   onChange={handleChangeCrianca}
                   maxLength={15}
                   inputMode="numeric"
-                  style={inputStyle}
+                  className={stylesCard.modalInput} // 👈 Uso do CSS modular
                 />
               </label>
-              <label style={{ fontWeight: 600 }}>
+              <label style={{ fontWeight: 600, gridColumn: "span 2" }}>
+                Email
+                <input
+                  type="email"
+                  name="responsavel_email"
+                  value={formCrianca.responsavel_email}
+                  onChange={handleChangeCrianca}
+                  className={stylesCard.modalInput} // 👈 Uso do CSS modular
+                />
+              </label>
+              <label style={{ fontWeight: 600, gridColumn: "span 2" }}>
                 Senha inicial
                 <input
                   type="password"
@@ -1039,27 +1061,35 @@ export default function PainelEscola() {
                   value={formCrianca.responsavel_senha}
                   onChange={handleChangeCrianca}
                   minLength={6}
-                  style={inputStyle}
+                  className={stylesCard.modalInput} // 👈 Uso do CSS modular
                 />
               </label>
             </div>
+            {erroModalCrianca && (
+              <p style={{ color: "#d32f2f", marginTop: 4 }}>{erroModalCrianca}</p>
+            )}
           </div>
-          {erroModalCrianca && (
-            <p style={{ color: "#d32f2f", marginTop: 12 }}>{erroModalCrianca}</p>
-          )}
-        </Modal>
+        </CardEscola>
       )}
 
+      {/* 6. Modal Confirmação Sair */}
       {confirmarSair && (
-        <Modal
-          title="Sair da conta?"
+        <CardEscola // 👈 SUBSTITUIÇÃO
+          isOpen={confirmarSair}
+          isAlert={true}
+          title="Confirmação"
           primaryText="Sair"
-          onPrimary={() => { setConfirmarSair(false); logout(); navigate("/login"); }}
+          primaryDisabled={false}
+          onPrimary={() => {
+            logout();
+            navigate("/login");
+          }}
           onClose={() => setConfirmarSair(false)}
         >
-          <p>Tem certeza de que deseja sair?</p>
-        </Modal>
+          <p>Tem certeza que deseja sair?</p>
+        </CardEscola>
       )}
+
     </div>
   );
 }
