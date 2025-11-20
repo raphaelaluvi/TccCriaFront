@@ -15,6 +15,7 @@
 /* O Card/Corpo do Modal */
 .cardModal {
   background-color: white;
+  color: #333;
   border-radius: 8px;
   box-shadow: 0 10px 30px #c58fd4;
   position: relative;
