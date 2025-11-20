@@ -5,7 +5,7 @@ import Modal from "../components/Modal/Modal";
 import ProgressoDados from "../components/ProgressoDados/ProgressoDados";
 import Alert from "../components/Alert/Alert";
 import { getProgressoGeral, getDiagnostico } from "../services/progresso";
-import progStyles from "../components/ProgressoDados/ProgressoDados.module.css";
+import styles from "../components/ProgressoDados/ProgressoDados.module.css";
 
 const Progresso = () => {
   const { id } = useParams();
@@ -83,85 +83,89 @@ const Progresso = () => {
   return (
     <div>
       <Header links={links} />
-        <div className={progStyles.container}>
+      <div className={styles.container}>
 
-          {/* TABS + título alinhado */}
-          <div className={progStyles.headerRow}>
-            <div className={progStyles.tabsBox}>
-              <button
-                onClick={() => setTab("geral")}
-                className={`${progStyles.tabButton} ${
-                  tab === "geral" ? progStyles.active : ""
-                }`}
-              >
-                Geral
-              </button>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
+        <div className={styles.bolha}></div>
 
-              <button
-                onClick={() => setTab("diagnostico")}
-                className={`${progStyles.tabButton} ${
-                  tab === "diagnostico" ? progStyles.active : ""
+        {/* TABS + título alinhado */}
+        <div className={styles.headerRow}>
+          <div className={styles.tabsBox}>
+            <button
+              onClick={() => setTab("geral")}
+              className={`${styles.tabButton} ${tab === "geral" ? styles.active : ""
                 }`}
-              >
-                Diagnóstico
-              </button>
-            </div>
+            >
+              Geral
+            </button>
+
+            <button
+              onClick={() => setTab("diagnostico")}
+              className={`${styles.tabButton} ${tab === "diagnostico" ? styles.active : ""
+                }`}
+            >
+              Diagnóstico
+            </button>
           </div>
-
-          {tab === "geral" && erro && <Alert type="info">{erro}</Alert>}
-          {tab === "diagnostico" && diagErro && <Alert type="info">{diagErro}</Alert>}
-          {tab === "diagnostico" && diagLoading && <p>Carregando...</p>}
         </div>
 
-        {tab === "geral" && (
-          <>
-            {loading ? (
-              <div className={progStyles.container}>
-                <p>Carregando...</p>
-              </div>
-            ) : (
-              <ProgressoDados data={dados} />
-            )}
-          </>
-        )}
+        {tab === "geral" && erro && <Alert type="info">{erro}</Alert>}
+        {tab === "diagnostico" && diagErro && <Alert type="info">{diagErro}</Alert>}
+        {tab === "diagnostico" && diagLoading && <p>Carregando...</p>}
+      </div>
 
-        {tab === "diagnostico" && !diagLoading && diagDados && (
-          <div className={progStyles.container}>
-            <h2 className={progStyles.pageTitle}>Diagnóstico</h2>
-            <p style={{ textAlign: "center", color: "#555" }}>
-              Taxa geral: {diagDados.taxa_acerto}% · Exercícios: {diagDados.total_exercicios}
-            </p>
-
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-                gap: 16,
-                marginTop: 16,
-              }}
-            >
-              {Array.isArray(diagDados.mensagem_blocos) &&
-                diagDados.mensagem_blocos.map((bloco, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      background: "#fff",
-                      borderRadius: 12,
-                      boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
-                      padding: 16,
-                    }}
-                  >
-                    <h4 style={{ marginTop: 0, color: "#8E24AA" }}>{bloco.titulo}</h4>
-                    {(bloco.linhas || []).map((l, idx) => (
-                      <p key={idx} style={{ margin: "6px 0", color: "#333" }}>
-                        {l}
-                      </p>
-                    ))}
-                  </div>
-                ))}
+      {tab === "geral" && (
+        <>
+          {loading ? (
+            <div className={styles.container}>
+              <p>Carregando...</p>
             </div>
+          ) : (
+            <ProgressoDados data={dados} />
+          )}
+        </>
+      )}
+
+      {tab === "diagnostico" && !diagLoading && diagDados && (
+        <div className={styles.container}>
+          <h2 className={styles.pageTitle}>Diagnóstico</h2>
+          <p>
+            Taxa geral: {diagDados.taxa_acerto}% · Exercícios: {diagDados.total_exercicios}
+          </p>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+              gap: 16,
+              marginTop: 16,
+            }}
+          >
+            {Array.isArray(diagDados.mensagem_blocos) &&
+              diagDados.mensagem_blocos.map((bloco, i) => (
+                <div
+                  key={i}
+                  style={{
+                    background: "#fff",
+                    borderRadius: 12,
+                    boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
+                    padding: 16,
+                  }}
+                >
+                  <h4 style={{ marginTop: 0, color: "#8E24AA" }}>{bloco.titulo}</h4>
+                  {(bloco.linhas || []).map((l, idx) => (
+                    <p key={idx} style={{ margin: "6px 0", color: "#333" }}>
+                      {l}
+                    </p>
+                  ))}
+                </div>
+              ))}
           </div>
-        )}
+        </div>
+      )}
 
       {confirmarSair && (
         <Modal

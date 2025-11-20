@@ -13,12 +13,6 @@ const ProgressoDados = ({ data }) => {
   return (
       <div className={styles.container}>
 
-        <div className={styles.bolha}></div>
-        <div className={styles.bolha}></div>
-        <div className={styles.bolha}></div>
-        <div className={styles.bolha}></div>
-        <div className={styles.bolha}></div>
-
         <h2 className={styles.pageTitle}>Progresso da Criança</h2>
 
         <div className={styles.row}>
@@ -27,22 +21,22 @@ const ProgressoDados = ({ data }) => {
             <h4>Estatísticas Gerais</h4>
             <div className={styles.statsGrid}>
               <div className={styles.statCard}>
-                <p>Atividades concluídas</p>
+                <p><strong>Atividades concluídas</strong></p>
                 <h3>{progresso.atividades_concluidas}</h3>
               </div>
 
               <div className={styles.statCard}>
-                <p>Total de Exercícios</p>
+                <p><strong>Total de Exercícios</strong></p>
                 <h3>{progresso.total_exercicios}</h3>
               </div>
 
               <div className={styles.statCard}>
-                <p>Acertos</p>
+                <p><strong>Acertos</strong></p>
                 <h3>{progresso.acertos}</h3>
               </div>
 
               <div className={styles.statCard}>
-                <p>Taxa de Acerto</p>
+                <p><strong>Taxa de Acerto</strong></p>
                 <h3>{progresso.taxa_acerto}%</h3>
               </div>
 
