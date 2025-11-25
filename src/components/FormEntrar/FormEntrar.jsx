@@ -1,6 +1,6 @@
 import styles from './FormEntrar.module.css';
 
-export default function FormEntrar({ title, campos, textoBotao, links, onSubmit }) {
+export default function FormEntrar({ title, campos, textoBotao, links, onSubmit, erros = {} }) {
   return (
     <div className={styles.container}>
       {/* Bolhas flutuantes */}
@@ -26,6 +26,9 @@ export default function FormEntrar({ title, campos, textoBotao, links, onSubmit 
             } else if (campo.defaultValue !== undefined) {
               valueProps.defaultValue = campo.defaultValue;
             }
+
+            // ⬇️ Função para exibir erro do campo
+            const erroCampo = erros[campo.name];
 
             if (campo.type === "radio-group") {
               const selectedValue = campo.value;
@@ -57,6 +60,9 @@ export default function FormEntrar({ title, campos, textoBotao, links, onSubmit 
                       );
                     })}
                   </div>
+                  {erroCampo && (
+                    <p className={styles.erro}>{erroCampo}</p>
+                  )}
                 </div>
               );
             }
@@ -80,6 +86,11 @@ export default function FormEntrar({ title, campos, textoBotao, links, onSubmit 
                       </option>
                     ))}
                   </select>
+
+                  {/* ⬇️ EXIBIR ERRO DO SELECT */}
+                  {erroCampo && (
+                    <p className={styles.erro}>{erroCampo}</p>
+                  )}
                 </div>
               );
             }
@@ -104,9 +115,18 @@ export default function FormEntrar({ title, campos, textoBotao, links, onSubmit 
                   style={campo.style}
                   {...valueProps}
                 />
+
+                {/* ⬇️ EXIBIR ERRO DO INPUT */}
+                {erroCampo && (
+                  <p className={styles.erro}>{erroCampo}</p>
+                )}
               </div>
             );
           })}
+
+          {erros.geral && (
+            <p className={styles.erro}>{erros.geral}</p>
+          )}
 
           <button type="submit" className={styles.btn}>
             {textoBotao}
