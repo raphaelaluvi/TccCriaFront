@@ -5,41 +5,6 @@
     padding: 0 20px;
 }
 
-/* 1. Gradiente suave */
-.containerGradiente {
-    background: linear-gradient(to bottom right, #ffefff, #e0f7fa);
-}
-
-/* 2. Imagem de fundo sutil */
-.containerImagem {
-    background: url('../../assets/Banner-Criakids2.png') no-repeat center center;
-    background-size: cover;
-    opacity: 1.0;
-    /* leve transparência para não poluir */
-}
-
-/* 3. Padrão repetitivo */
-.containerPadrao {
-    background: url('../../assets/circo.png') repeat;
-    background-size: 50px 50px;
-    /* tamanho dos ícones */
-}
-
-/* 4. Cor sólida alegre */
-.containerCorSolida {
-    background-color: #e6e0ff;
-    /* lilás clarinho de exemplo */
-}
-
-/* 5. Efeito de sombra ou vinheta */
-.containerSombra {
-    background-color: #fff;
-    box-shadow: inset 0 0 100px rgb(1, 97, 38);
-    /* vinheta suave */
-}
-
-
-
 .titulo {
     font-size: 2rem;
     color: #222;
@@ -72,7 +37,7 @@
 
 .card {
     flex: 1 1 250px;
-    max-width: 350px;
+    max-width: 300px;
     border-radius: 16px;
     box-shadow: 0 4px 10px rgba(6, 56, 1, 0.1);
     padding: 20px 15px;
@@ -110,13 +75,13 @@
 }
 
 .card img {
-    height: 100px;
+    width: 40%;
     margin-bottom: 15px;
     transition: transform 0.4s ease;
 }
 
 .card:hover img {
-    transform: rotate(-6deg) scale(1.5);
+    transform: rotate(-4deg) scale(1.5);
 }
 
 

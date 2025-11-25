@@ -5,10 +5,10 @@ import HistoriaCard from "../components/CardHistorias/CardHistorias";
 import styles from "../components/CardHistorias/CardHistorias.module.css";
 import Modal from "../components/Modal/Modal";
 
-import circoImg from "../assets/circo/circo.png";
-import esquiloImg from "../assets/floresta/esquilo.png";
-import galaxiaImg from "../assets/universo/galaxia.png";
-import cartuchosImg from "../assets/oceano/concha.png";
+import circoImg from "../assets/circo/circoMascote.png";
+import escoteiro from "../assets/floresta/escoteiro.png";
+import astronauta from "../assets/universo/astronauta.png";
+import mergulhador from "../assets/oceano/mergulhador.png";
 import { proximaAtividade } from "../services/atividades";
 
 const Crianca = () => {
@@ -46,7 +46,7 @@ const Crianca = () => {
       historia: "circo",
     },
     {
-      img: esquiloImg,
+      img: escoteiro,
       tituloPequeno: "DESVENDE OS SEGREDOS DA",
       tituloGrande: "Floresta Encantada",
       bgColor: "#c2ecc3",
@@ -55,7 +55,7 @@ const Crianca = () => {
       historia: "floresta",
     },
     {
-      img: galaxiaImg,
+      img: astronauta,
       tituloPequeno: "VIAJE PELAS ESTRELAS COM OS",
       tituloGrande: "Astronautas",
       bgColor: "#f8dc9b",
@@ -64,7 +64,7 @@ const Crianca = () => {
       historia: "astronautas",
     },
     {
-      img: cartuchosImg,
+      img: mergulhador,
       tituloPequeno: "MERGULHE NO OCEANO",
       tituloGrande: "Misterioso",
       bgColor: "#a6f2fc",

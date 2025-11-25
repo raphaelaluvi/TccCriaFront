@@ -102,25 +102,25 @@
 
 /* Cores de fundo conforme história */
 .trilha-rosa {
-  background: linear-gradient(180deg, #ffe0f2 0%, #ffd3ec 35%, #fff 100%);
+  background: #ffc7e2;
   min-height: 100vh;
   background-attachment: fixed;
 }
 
 .trilha-verde {
-  background: linear-gradient(180deg, #d7f9d2 0%, #c0f1be 35%, #fff 100%);
-  min-height: 100vh;
-  background-attachment: fixed;
-}
-
-.trilha-amarela {
-  background: linear-gradient(180deg, #fff6cc 0%, #ffe8a2 35%, #fff 100%);
+  background: #c2ecc3;
   min-height: 100vh;
   background-attachment: fixed;
 }
 
 .trilha-azul {
-  background: linear-gradient(180deg, #c9f4ff 0%, #aee8ff 35%, #fff 100%);
+  background: #f8dc9b;
+  min-height: 100vh;
+  background-attachment: fixed;
+}
+
+.trilha-amarela {
+  background: #a6f2fc;
   min-height: 100vh;
   background-attachment: fixed;
 }
