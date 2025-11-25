@@ -5,8 +5,8 @@ import Header from "../components/Header/Header";
 import Alert from "../components/Alert/Alert";
 import styles from "../components/ProgressoDados/ProgressoDados.module.css";
 // Importa o novo componente CardEscola e seu CSS modular
-import CardEscola from "../components/CardEscola/CardEscola"; 
-import stylesCard from "../components/CardEscola/CardEscola.module.css"; 
+import CardEscola from "../components/CardEscola/CardEscola";
+import stylesCard from "../components/CardEscola/CardEscola.module.css";
 
 import { getDashboardRoute, getUser, logout } from "../services/auth";
 import {
@@ -128,9 +128,11 @@ export default function PainelEscola() {
     setCarregandoProfessores(true);
     setErroProfessores("");
     try {
-      const lista = await listarProfessoresDaEscola(id);
-      setProfessores(Array.isArray(lista) ? lista : []);
+      const lista = await listarProfessoresDaEscola(id); // <-- chamada correta
+      console.log("DEBUG listarProfessoresDaEscola:", lista);
+      setProfessores(Array.isArray(lista) ? lista : (lista && Array.isArray(lista.professores) ? lista.professores : []));
     } catch (e) {
+      console.error("Erro ao carregar professores", e);
       const d = e?.response?.data;
       setErroProfessores(d?.detail || d?.mensagem || "Erro ao listar professores.");
       setProfessores([]);
@@ -138,6 +140,7 @@ export default function PainelEscola() {
       setCarregandoProfessores(false);
     }
   }, []);
+
 
   const carregarTurmas = useCallback(async (id) => {
     if (!id) return;
@@ -205,10 +208,14 @@ export default function PainelEscola() {
   const nomeEscola = usuario?.nome || usuario?.nomeInstituicao || "Escola";
 
   const mapaProfessores = useMemo(() => {
-    const map = {};
-    professores.forEach((p) => { map[p.id] = p.nome; });
-    return map;
-  }, [professores]);
+  const map = {};
+  professores.forEach((p) => {
+    const key = p.id || p._id || (p._id && p._id.$oid) || "";
+    map[key] = p.nome || p.nomeCompleto || "-";
+  });
+  return map;
+}, [professores]);
+
 
   const mapaCriancasPorTurma = useMemo(() => {
     const map = {};
@@ -692,7 +699,7 @@ export default function PainelEscola() {
                     <td style={{ padding: "12px 4px" }}>{formatCPF(crianca.cpf)}</td>
                     <td style={{ padding: "12px 4px" }}>{turmaNome || "-"}</td>
                     <td style={{ padding: "12px 4px" }}>{professorNome}</td>
-                    <td style={{ padding: "12px 4px" }}>{crianca.responsavel_nome || crianca.responsavel_email || "-"}</td>
+                    <td style={{ padding: "12px 4px" }}>{crianca.responsavel_nome || "-"}</td>
                   </tr>
                 );
               })}

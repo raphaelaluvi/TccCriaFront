@@ -2,67 +2,72 @@ import React, { useState } from "react";
 import styles from "../Atividades.module.css";
 import TtsButton from "../TtsButton";
 
-const toUpper = (value) => {
-  if (value == null) return "";
-  return String(value).toUpperCase();
-};
+const toUpper = (value) => (value == null ? "" : String(value).toUpperCase());
 
 const FormarPalavra = ({ exercicio, onVerificar }) => {
-  const letras = (exercicio?.opcoes || []).map(toUpper);
+  const opcoes = (exercicio?.opcoes || []).map(toUpper);
   const palavraCorreta = toUpper(exercicio?.resposta_correta || "");
-  const [resposta, setResposta] = useState("");
 
-  const totalPorLetra = letras.reduce((acc, l) => {
-    acc[l] = (acc[l] || 0) + 1;
-    return acc;
-  }, {});
+  // Agora resposta é um array de instâncias:
+  // [{ idx: number, letra: string }]
+  const [resposta, setResposta] = useState([]);
 
-  const usadosPorLetra = resposta.split("").reduce((acc, l) => {
-    acc[l] = (acc[l] || 0) + 1;
-    return acc;
-  }, {});
-
-  const handleLetra = (letra) => {
-    const letraUpper = toUpper(letra);
+  const handleLetra = (idx, letra) => {
     if (resposta.length < palavraCorreta.length) {
-      setResposta((prev) => prev + letraUpper);
+      setResposta((prev) => [...prev, { idx, letra }]);
     }
   };
 
-  const apagar = () => setResposta((prev) => prev.slice(0, -1));
-  const limpar = () => setResposta("");
+  const apagar = () => {
+    setResposta((prev) => prev.slice(0, -1));
+  };
+
+  const limpar = () => setResposta([]);
 
   const verificar = () => {
-    if (onVerificar) onVerificar(resposta);
+    const respostaString = resposta.map((r) => r.letra).join("");
+    if (onVerificar) onVerificar(respostaString);
     limpar();
   };
+
+  const respostaString = resposta.map((r) => r.letra).join("");
 
   return (
     <div className={styles.formarPalavra}>
       <p className={styles.descricao}>
         Forme a palavra usando as letras abaixo:
       </p>
+
       <h3 className={styles.palavraReferencia}>{palavraCorreta}</h3>
-      <TtsButton text={["Forme a palavra usando as letras abaixo", `A palavra correta tem ${palavraCorreta.length} letras`]} />
+
+      <TtsButton
+        text={[
+          "Forme a palavra usando as letras abaixo",
+          `A palavra correta tem ${palavraCorreta.length} letras`,
+        ]}
+      />
 
       <input
         type="text"
         readOnly
-        value={resposta}
+        value={respostaString}
         className={styles.inputExercicio}
       />
 
       <div className={styles.teclado}>
-        {letras.map((letra, i) => (
-          <button
-            key={`${letra}-${i}`}
-            className={styles.btnLetra}
-            disabled={(usadosPorLetra[letra] || 0) >= (totalPorLetra[letra] || 0)}
-            onClick={() => handleLetra(letra)}
-          >
-            {letra}
-          </button>
-        ))}
+        {opcoes.map((letra, idx) => {
+          const instanciaUsada = resposta.some((r) => r.idx === idx);
+          return (
+            <button
+              key={idx}
+              className={styles.btnLetra}
+              disabled={instanciaUsada}
+              onClick={() => handleLetra(idx, letra)}
+            >
+              {letra}
+            </button>
+          );
+        })}
       </div>
 
       <div className={styles.botoesContainer}>

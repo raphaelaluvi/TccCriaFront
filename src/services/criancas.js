@@ -15,12 +15,10 @@ export async function cadastrarCrianca(payload) {
   return data?.dados;
 }
 
-export async function listarCriancasDaEscola(escolaId) {
+export async function listarCriancasDaEscola(id) {
   try {
-    const { data } = await api.get('/professores/minhas-criancas', {
-      params: { escola_id: escolaId },
-    });
-    return data?.criancas || [];
+    const { data } = await api.get(`/escolas/${id}/criancas`);
+    return Array.isArray(data.criancas) ? data.criancas : (data || []);
   } catch (err) {
     const mensagem = err?.response?.data?.detail || err?.message || '';
     const erroConhecido =
@@ -33,8 +31,8 @@ export async function listarCriancasDaEscola(escolaId) {
       const { data } = await api.get('/criancas/');
       const lista =
         Array.isArray(data?.dados) ? data.dados :
-        Array.isArray(data) ? data :
-        [];
+          Array.isArray(data) ? data :
+            [];
       return lista.filter((c) => String(c.escola_id) === String(escolaId));
     }
     throw err;

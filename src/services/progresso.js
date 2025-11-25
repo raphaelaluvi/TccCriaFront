@@ -23,10 +23,17 @@ export async function getDiagnostico(criancaId, nivel) {
 }
 
 export async function getDiagnosticoLLM(criancaId, nivel) {
-  const { data } = await api.get('/progresso/diagnostico_llm/' + criancaId, {
-    params: nivel != null ? { nivel } : undefined,
-  });
-  return data;
+  try {
+    const { data } = await api.get('/progresso/diagnostico_llm/' + criancaId, {
+      params: nivel != null ? { nivel } : undefined,
+    });
+    return data;
+  } catch (err) {
+    if (err?.response?.data) {
+      return err.response.data;
+    }
+    throw err;
+  }
 }
 
 export async function getProgressoTurma(turmaId) {

@@ -8,11 +8,17 @@ const toUpper = (value) => {
 };
 
 const CompletarPalavra = ({ exercicio, onVerificar }) => {
+  // selecionadas: mapa slotIndex -> letraUpper escolhida
   const [selecionadas, setSelecionadas] = useState({});
+  // usedOptionIndices: lista de indices das opcoes (instancias) que ja foram usadas/consumidas
+  const [usedOptionIndices, setUsedOptionIndices] = useState([]);
 
   if (!exercicio) return null;
 
+  // 'palavra' = posicoes (ex: ["a","_","c","_"])
   const palavra = [...(exercicio.posicoes || [])];
+
+  // 'opcoes' = letras da palavra completa (mantem duplicatas e ordem)
   const opcoes = palavra.includes("_")
     ? [...((exercicio.palavra || "").split(""))]
     : [];
@@ -39,18 +45,23 @@ const CompletarPalavra = ({ exercicio, onVerificar }) => {
   const renderOpcoes = () =>
     opcoes.map((letra, idx) => {
       const letraUpper = toUpper(letra);
-      const jaSelecionada = Object.values(selecionadas).includes(letraUpper);
+
+      const isUsed = usedOptionIndices.includes(idx); // essa instancia ja foi usada?
+
       return (
         <button
           key={idx}
           className={styles.btnLetra}
-          disabled={jaSelecionada}
+          disabled={isUsed}
           onClick={() => {
+            if (isUsed) return;
+            // encontra o primeiro slot "_" que ainda nao foi preenchido
             const slotIndex = palavra.findIndex(
               (l, position) => l === "_" && !selecionadas[position]
             );
             if (slotIndex >= 0) {
               setSelecionadas((prev) => ({ ...prev, [slotIndex]: letraUpper }));
+              setUsedOptionIndices((prev) => [...prev, idx]); // consome essa instancia
             }
           }}
         >
@@ -59,7 +70,10 @@ const CompletarPalavra = ({ exercicio, onVerificar }) => {
       );
     });
 
-  const limpar = () => setSelecionadas({});
+  const limpar = () => {
+    setSelecionadas({});
+    setUsedOptionIndices([]);
+  };
 
   const verificar = () => {
     const resposta = palavra
