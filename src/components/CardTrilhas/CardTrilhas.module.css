@@ -11,6 +11,10 @@
   width: 180px;
 }
 
+.titulo{
+  color: #333;
+}
+
 .nivel:hover {
   transform: scale(1.05);
 }
@@ -70,12 +74,16 @@
 
 .trilhaContainer {
   text-align: center;
-  padding: 60px 20px 80px;
   font-family: "Fredoka", sans-serif;
   min-height: 100vh;
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centraliza o conteúdo verticalmente */
+  align-items: center;
 }
 
 .niveis {
@@ -88,7 +96,9 @@
 
 .voltar {
   background: #8e24aa;
+  font-size: 1rem;
   color: #fff;
+  font-weight: bold;
   padding: 10px 20px;
   border-radius: 12px;
   border: none;

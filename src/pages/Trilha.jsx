@@ -159,7 +159,7 @@ const Trilha = () => {
 
   return (
     <main className={`${styles.trilhaContainer} ${styles[historia.bgClass]}`}>
-      <h2>{historia.titulo}</h2>
+      <h2 className={styles.titulo}>{historia.titulo}</h2>
       <p>{historia.descricao}</p>
 
       <div className={styles.niveis}>
