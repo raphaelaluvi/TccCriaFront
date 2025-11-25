@@ -40,7 +40,7 @@ const PrimeiraLetra = ({ exercicio, onVerificar }) => {
 
       <div className={styles.controls}>
         <button className={styles.btnVerificar} onClick={() => onVerificar(resposta)}>
-          Verificar
+          ✓
         </button>
       </div>
     </div>

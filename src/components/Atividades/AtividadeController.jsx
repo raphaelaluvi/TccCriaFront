@@ -17,19 +17,6 @@ import QuantidadeLetras from "./tipos/QuantidadeLetras";
 
 import styles from "./Atividades.module.css";
 
-const bubbleClasses = [
-  styles.bolha1,
-  styles.bolha2,
-  styles.bolha3,
-  styles.bolha4,
-  styles.bolha5,
-  styles.bolha6,
-  styles.bolha7,
-  styles.bolha8,
-  styles.bolha9,
-  styles.bolha10,
-];
-
 const AtividadeController = ({
   atividadeId,
   exerciciosIniciais = [],
@@ -123,11 +110,14 @@ const AtividadeController = ({
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.bolhaLayer} aria-hidden="true">
+
+      
+
+      {/* <div className={styles.bolhaLayer} aria-hidden="true">
         {bubbleClasses.map((classe, idx) => (
           <div key={idx} className={`${styles.bolha} ${classe}`}></div>
         ))}
-      </div>
+      </div> */}
       <div className={styles.container}>
         {etapa === "inicio" && (
           <>

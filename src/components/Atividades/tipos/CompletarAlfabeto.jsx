@@ -82,7 +82,7 @@ const CompletarAlfabeto = ({ exercicio, onVerificar }) => {
           Limpar
         </button>
         <button onClick={verificar} className={`btn ${styles.btnVerificar}`}>
-          Verificar
+          ✓
         </button>
       </div>
     </div>
