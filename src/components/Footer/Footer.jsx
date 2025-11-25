@@ -9,9 +9,9 @@ export default function Footer() {
         {/* Contato */}
         <div className={styles.section}>
           <h3>Contato</h3>
-          <p>Rua Exemplo, 123, Bairro, Cidade</p>
-          <p>Telefone: (11) 1234-5678</p>
-          <p>Email: contato@criakids.com</p>
+          <p>Rua Bélgica, 88, Jardim Alvorada, Ribeirão Pires - SP, CEP 09402-060</p>
+          <p>Telefone: (11) 9999-9999</p>
+          <p>Email: tcccriakids@gmail.com</p>
         </div>
 
         {/* Links importantes */}
