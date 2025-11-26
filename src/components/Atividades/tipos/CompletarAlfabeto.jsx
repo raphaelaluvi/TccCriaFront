@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styles from "../Atividades.module.css";
 import TtsButton from "../TtsButton";
 
+const cliqueSom = new Audio("/sons/somClique.mp3");
+
 const toUpper = (value) => {
   if (value == null) return "";
   return String(value).toUpperCase();
@@ -49,7 +51,8 @@ const CompletarAlfabeto = ({ exercicio, onVerificar }) => {
             );
             if (slotIndex >= 0) {
               setSelecionadas((prev) => ({ ...prev, [slotIndex]: letraUpper }));
-            }
+            };
+            cliqueSom.play();
           }}
         >
           {letraUpper}
@@ -82,7 +85,7 @@ const CompletarAlfabeto = ({ exercicio, onVerificar }) => {
           Limpar
         </button>
         <button onClick={verificar} className={`btn ${styles.btnVerificar}`}>
-          ✓
+          Responder ✓
         </button>
       </div>
     </div>

@@ -41,7 +41,7 @@ export default function CardTurma({ turmas = [], onSelect }) {
       <div className={styles.bolha}></div>
       <div className={styles.bolha}></div>
 
-      <h2>Suas Turmas</h2>
+      <h2 style={{marginBlock: '3rem'}} >Suas Turmas</h2>
 
       {turmas.length === 0 ? (
         <p style={{ marginTop: 40, color: "#666", textAlign: "center" }}>

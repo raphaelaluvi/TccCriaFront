@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styles from "../Atividades.module.css";
 import TtsButton from "../TtsButton";
 
+const cliqueSom = new Audio("/sons/somClique.mp3");
+
 const toUpper = (value) => {
   if (value == null) return "";
   return String(value).toUpperCase();
@@ -62,7 +64,8 @@ const CompletarPalavra = ({ exercicio, onVerificar }) => {
             if (slotIndex >= 0) {
               setSelecionadas((prev) => ({ ...prev, [slotIndex]: letraUpper }));
               setUsedOptionIndices((prev) => [...prev, idx]); // consome essa instancia
-            }
+            };
+            cliqueSom.play();
           }}
         >
           {letraUpper}
@@ -98,7 +101,7 @@ const CompletarPalavra = ({ exercicio, onVerificar }) => {
           Limpar
         </button>
         <button onClick={verificar} className={`btn ${styles.btnVerificar}`}>
-          ✓
+          Responder ✓
         </button>
       </div>
     </div>

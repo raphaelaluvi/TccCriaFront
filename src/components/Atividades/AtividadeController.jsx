@@ -1,5 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { responderExercicio } from "../../services/exercicios";
+import imgFases from "../../assets/imgFases.png";
+import mascoteHappy from "../../assets/certo.png";
+import mascoteSad from "../../assets/errado.png";
+
 import {
   concluirAtividade,
   refazerAtividade,
@@ -17,6 +21,15 @@ import QuantidadeLetras from "./tipos/QuantidadeLetras";
 
 import styles from "./Atividades.module.css";
 
+const FEEDBACK_DURATION = 1500; // ms 
+
+const tocarSom = (tipo) => {
+  const audio = new Audio(
+    tipo === "sucesso" ? "/sons/somAcerto.mp3" : "/sons/somErro.mp3"
+  );
+  audio.play();
+};
+
 const AtividadeController = ({
   atividadeId,
   exerciciosIniciais = [],
@@ -28,10 +41,32 @@ const AtividadeController = ({
   const [feedback, setFeedback] = useState("");
   const [enviando, setEnviando] = useState(false);
   const [finalInfo, setFinalInfo] = useState(null);
+  const [feedbackTentativas, setFeedbackTentativas] = useState(null);
+
+  // NOVOS estados para feedback visual "mascote"
+  const [mostrandoFeedback, setMostrandoFeedback] = useState(false);
+  const [feedbackTipo, setFeedbackTipo] = useState(null); // "sucesso" | "erro"
+  const feedbackTimeoutRef = useRef(null);
+
+  useEffect(() => {
+    if (etapa === "fim") {
+      const audio = new Audio("/sons/somConclusao.mp3");
+      audio.play();
+    }
+  }, [etapa]);
 
   useEffect(() => {
     setExercicios(exerciciosIniciais);
   }, [exerciciosIniciais]);
+
+  useEffect(() => {
+    return () => {
+      if (feedbackTimeoutRef.current) {
+        clearTimeout(feedbackTimeoutRef.current);
+        feedbackTimeoutRef.current = null;
+      }
+    };
+  }, []);
 
   const iniciar = () => {
     if (!exercicios || exercicios.length === 0) {
@@ -52,26 +87,57 @@ const AtividadeController = ({
     }
   };
 
+  const mostrarFeedbackVisual = (tipo, duracao = FEEDBACK_DURATION) => {
+    if (feedbackTimeoutRef.current) {
+      clearTimeout(feedbackTimeoutRef.current);
+      feedbackTimeoutRef.current = null;
+    }
+    setMostrandoFeedback(true);
+    setFeedbackTipo(tipo);
+
+    feedbackTimeoutRef.current = setTimeout(() => {
+      setMostrandoFeedback(false);
+      setFeedbackTipo(null);
+      feedbackTimeoutRef.current = null;
+    }, duracao);
+  };
+
   const verificarResposta = async (resposta) => {
-    if (enviando) return;
+    if (enviando || mostrandoFeedback) return;
+
     const ex = exercicios?.[indice];
     if (!ex) {
       setFeedback("Carregando exercício...");
       return;
     }
+
     const respostaNormalizada =
       typeof resposta === "string" ? resposta.toLowerCase() : resposta;
+
     try {
       setEnviando(true);
       const r = await responderExercicio(ex.id, respostaNormalizada);
       const correta = !!r?.correta;
       const restantes = Math.max(0, r?.tentativas_restantes ?? 0);
+
+      setFeedbackTentativas(restantes);
+      tocarSom(correta ? "sucesso" : "erro");
+
       setFeedback(
         correta
           ? "✅ Resposta correta!"
-          : `❌ Tente novamente! (${restantes} tentativas restantes)`
+          : restantes > 0
+            ? `❌ Tente novamente! (${restantes} tentativas restantes)`
+            : "❌ Acabaram as tentativas!"
       );
-      if (correta || restantes === 0) setTimeout(proximo, 900);
+
+      mostrarFeedbackVisual(correta ? "sucesso" : "erro", FEEDBACK_DURATION);
+
+      if (correta || restantes === 0) {
+        setTimeout(() => {
+          proximo();
+        }, FEEDBACK_DURATION);
+      }
     } catch (e) {
       setFeedback("Erro ao enviar resposta");
     } finally {
@@ -88,7 +154,6 @@ const AtividadeController = ({
       case "completar_alfabeto":
         return <CompletarAlfabeto {...props} />;
       case "completar_palavra":
-        return <CompletarPalavra {...props} />;
       case "completar_letras":
         return <CompletarPalavra {...props} />;
       case "corrigir_ordem_alfabeto":
@@ -110,18 +175,18 @@ const AtividadeController = ({
 
   return (
     <div className={styles.wrapper}>
-
-      
-
-      {/* <div className={styles.bolhaLayer} aria-hidden="true">
-        {bubbleClasses.map((classe, idx) => (
-          <div key={idx} className={`${styles.bolha} ${classe}`}></div>
+      {/* CAMADA DE BOLHAS ANIMADAS */}
+      <div className={styles.bolhaLayer}>
+        {[...Array(10)].map((_, i) => (
+          <div key={i} className={`${styles.bolha} ${styles[`bolha${i+1}`]}`}></div>
         ))}
-      </div> */}
+      </div>
+
       <div className={styles.container}>
         {etapa === "inicio" && (
           <>
-            <h2 className={styles.titulo}>🎮 Jogo de Atividades</h2>
+            <h2 className={styles.titulo}>🎮 Vamos jogar e aprender!</h2>
+            <img src={imgFases} alt="Mascote" />
             <p className={styles.sub}>Clique no botão abaixo para começar!</p>
             <button className={styles.btn} onClick={iniciar}>
               Iniciar
@@ -131,14 +196,32 @@ const AtividadeController = ({
 
         {etapa === "exercicio" && (
           <>
-            {renderExercicio()}
-            <p className={styles.feedback}>{feedback}</p>
+            {mostrandoFeedback ? (
+              <div className={styles.feedbackMascote}>
+                <img
+                  src={feedbackTipo === "sucesso" ? mascoteHappy : mascoteSad}
+                  alt={feedbackTipo === "sucesso" ? "Mascote feliz" : "Mascote triste"}
+                  className={styles.imgFeedback}
+                />
+                <div className={styles.textoFeedback}>
+                  {feedbackTipo === "sucesso" && "Muito bem! 👏"}
+                  {feedbackTipo === "erro" && feedbackTentativas > 0 && "Quase lá — tente novamente 😊"}
+                  {feedbackTipo === "erro" && feedbackTentativas === 0 && "Acabaram as tentativas 😢"}
+                </div>
+              </div>
+            ) : (
+              <>
+                {renderExercicio()}
+                <p className={styles.feedback}>{feedback}</p>
+              </>
+            )}
           </>
         )}
 
         {etapa === "fim" && (
           <div className={styles.fimContainer}>
-            <h3 className={styles.titulo}>🎉 Parabéns! Você concluiu todas!</h3>
+            <h3 className={styles.titulo}>🎉 Parabéns! Você concluiu todos os exercícios!</h3>
+            <img src={imgFases} alt="Mascote" />
 
             {finalInfo && (
               <p className={styles.sub}>

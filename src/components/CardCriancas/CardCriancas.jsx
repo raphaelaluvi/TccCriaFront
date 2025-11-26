@@ -50,7 +50,7 @@ export default function CardCriancas({ items = [], onCadastrar }) {
       <div className={styles.bolha}></div>
       <div className={styles.bolha}></div>
       <div className={styles.bolha}></div>
-      <h2>Escolha a criança que irá aprender!</h2>
+      <h2 style={{margin: '4rem'}} >Escolha a criança que irá aprender!</h2>
 
       {/* Lista de crianças */}
       {lista.length > 0 ? (

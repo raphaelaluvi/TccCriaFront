@@ -1,4 +1,5 @@
 .nivel {
+  position: relative; /* <--- ESSENCIAL: contexto de posicionamento para a badge */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,44 +10,36 @@
   cursor: pointer;
   transition: transform 0.3s ease, opacity 0.3s;
   width: 180px;
-}
-
-.titulo{
-  color: #333;
+  box-sizing: border-box;
+  overflow: visible; /* garante que a badge não seja cortada ao aplicar transform no hover */
 }
 
 .nivel:hover {
   transform: scale(1.05);
 }
 
+/* garante proporção da imagem sem empurrar o layout do card */
 .nivel img {
   width: 100%;
   border-radius: 12px;
   margin-bottom: 8px;
+  display: block;
 }
 
 .nivel span {
   font-weight: 500;
   text-align: center;
   color: #333;
+  display: block;
+  padding: 0 4px;
 }
 
+/* .feito agora só muda visual, sem precisar position */
 .feito {
   opacity: 0.8;
-  position: relative;
 }
 
-.feito .badge {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: #4caf50;
-  color: #fff;
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 12px;
-}
-
+/* badge: única definição, absoluta, relativa ao .nivel */
 .badge {
   position: absolute;
   top: 8px;
@@ -56,21 +49,29 @@
   padding: 4px 8px;
   border-radius: 6px;
   font-size: 12px;
+  z-index: 20;
+  white-space: nowrap;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
 }
 
+/* variações visuais */
 .badgeAndamento {
   background: #ffb300;
+  color: #3a2b00;
 }
 
 .badgeBloqueado {
   background: #757575;
+  color: #fff;
 }
 
+/* trancado estilização permanece */
 .trancado {
   filter: grayscale(1);
   opacity: 0.6;
   pointer-events: none;
 }
+
 
 .trilhaContainer {
   text-align: center;
@@ -98,12 +99,13 @@
   background: #8e24aa;
   font-size: 1rem;
   color: #fff;
-  font-weight: bold;
+  /* font-weight: bold; */
   padding: 10px 20px;
   border-radius: 12px;
   border: none;
   cursor: pointer;
   transition: transform 0.2s;
+  font-family: "Fredoka", sans-serif;
 }
 
 .voltar:hover {

@@ -1,10 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header/Header";
-// import Modal from "../components/Modal/Modal"; // ❌ Removido
 import Alert from "../components/Alert/Alert";
 import styles from "../components/ProgressoDados/ProgressoDados.module.css";
-// Importa o novo componente CardEscola e seu CSS modular
 import CardEscola from "../components/CardEscola/CardEscola";
 import stylesCard from "../components/CardEscola/CardEscola.module.css";
 
@@ -558,13 +556,13 @@ export default function PainelEscola() {
                   <td style={{ padding: "12px 4px" }}>
                     <button
                       onClick={() => abrirEdicaoProfessor(prof)}
-                      style={{ border: "none", background: "transparent", color: "#8E24AA", cursor: "pointer", marginRight: 12 }}
+                      style={{ border: "none", background: "transparent", color: "#8E24AA", cursor: "pointer", marginRight: 12, fontFamily: "Fredoka" }}
                     >
                       Editar
                     </button>
                     <button
                       onClick={() => confirmarExclusaoProfessor(prof)}
-                      style={{ border: "none", background: "transparent", color: "#E53935", cursor: "pointer" }}
+                      style={{ border: "none", background: "transparent", color: "#E53935", cursor: "pointer", fontFamily: "Fredoka" }}
                     >
                       Remover
                     </button>
@@ -631,13 +629,13 @@ export default function PainelEscola() {
                     <td style={{ padding: "12px 4px" }}>
                       <button
                         onClick={() => abrirEdicaoTurma(turma)}
-                        style={{ border: "none", background: "transparent", color: "#8E24AA", cursor: "pointer", marginRight: 12 }}
+                        style={{ border: "none", background: "transparent", color: "#8E24AA", cursor: "pointer", marginRight: 12, fontFamily: "Fredoka" }}
                       >
                         Editar
                       </button>
                       <button
                         onClick={() => confirmarExcluirTurma(turma)}
-                        style={{ border: "none", background: "transparent", color: "#E53935", cursor: "pointer" }}
+                        style={{ border: "none", background: "transparent", color: "#E53935", cursor: "pointer", fontFamily: "Fredoka" }}
                       >
                         Remover
                       </button>
@@ -679,7 +677,7 @@ export default function PainelEscola() {
         <p style={{ marginTop: 24 }}>Nenhuma criança cadastrada no plano escolar.</p>
       ) : (
         <div style={{ marginTop: 20, overflowX: "auto" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 720 }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 720, marginBottom: '2rem' }}>
             <thead>
               <tr style={{ textAlign: "left", color: "#777", fontSize: 14 }}>
                 <th style={{ padding: "8px 4px" }}>Nome</th>
@@ -724,7 +722,7 @@ export default function PainelEscola() {
         <section style={{ marginBottom: 24 }}>
           <h2 style={{ color: "#8E24AA", marginBottom: 8 }}>Bem-vindo(a), {nomeEscola}!</h2>
           <p style={{ color: "#555" }}>Gerencie professores, turmas e crianças do plano escolar em um só lugar.</p>
-          <div style={{ marginTop: 16, display: "flex", gap: 12, flexWrap: "wrap" }}>
+          <div style={{ marginTop: 16, display: "flex", gap: 12, flexWrap: "wrap", fontFamily: 'Fredoka' }}>
             {tabButton("professores", "Professores")}
             {tabButton("turmas", "Turmas")}
             {tabButton("criancas", "Crianças")}

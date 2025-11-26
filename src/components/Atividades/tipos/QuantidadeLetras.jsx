@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styles from "../Atividades.module.css";
 import TtsButton from "../TtsButton";
 
+const cliqueSom = new Audio("/sons/somClique.mp3");
+
 const numeros = "0123456789".split("");
 
 const QuantidadeLetras = ({ exercicio, onVerificar }) => {
@@ -31,7 +33,7 @@ const QuantidadeLetras = ({ exercicio, onVerificar }) => {
           <button
             key={n}
             className={styles.btnLetra}
-            onClick={() => setResposta(n)}
+            onClick={() => { setResposta(n); cliqueSom.play()}}
           >
             {n}
           </button>
@@ -40,7 +42,7 @@ const QuantidadeLetras = ({ exercicio, onVerificar }) => {
 
       <div className={styles.controls}>
         <button className={styles.btnVerificar} onClick={() => onVerificar(resposta)}>
-          ✓
+          Responder ✓
         </button>
       </div>
     </div>

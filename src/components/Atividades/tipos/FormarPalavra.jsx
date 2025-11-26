@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styles from "../Atividades.module.css";
 import TtsButton from "../TtsButton";
 
+const cliqueSom = new Audio("/sons/somClique.mp3");
+
 const toUpper = (value) => (value == null ? "" : String(value).toUpperCase());
 
 const FormarPalavra = ({ exercicio, onVerificar }) => {
@@ -62,7 +64,7 @@ const FormarPalavra = ({ exercicio, onVerificar }) => {
               key={idx}
               className={styles.btnLetra}
               disabled={instanciaUsada}
-              onClick={() => handleLetra(idx, letra)}
+              onClick={() => { handleLetra(idx, letra); cliqueSom.play() }}
             >
               {letra}
             </button>
@@ -78,7 +80,7 @@ const FormarPalavra = ({ exercicio, onVerificar }) => {
           Limpar
         </button>
         <button onClick={verificar} className={`btn ${styles.btnVerificar}`}>
-          ✓
+          Responder ✓
         </button>
       </div>
     </div>

@@ -9,6 +9,12 @@
     margin: 0 auto;
 }
 
+@keyframes gradientAnim {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .container,
 #atividade-container {
     font-family: "Fredoka", sans-serif;
@@ -27,10 +33,12 @@
 
 .bolhaLayer {
     position: absolute;
-    inset: 0;
+    inset: 0; /* top:0; right:0; bottom:0; left:0 */
     pointer-events: none;
     overflow: hidden;
+    z-index: 0;
 }
+
 
 /* =============================
    TÍTULOS E TEXTOS
@@ -50,10 +58,10 @@ h2 {
 .palavraReferencia,
 #palavra,
 #palavra-formada {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     color: #333;
-    margin: 10px 0 20px;
-    font-weight: bold;
+    margin: 10px 0 10px;
+    font-weight: bolder;
     text-transform: uppercase;
 }
 
@@ -191,12 +199,13 @@ input#resposta {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-top: 25px;
+    margin-top: 0.5rem;
     flex-wrap: wrap;
 }
 
 .btn {
     padding: 10px 20px;
+    margin-top: 5px;
     font-size: 1rem;
     border: none;
     border-radius: 10px;
@@ -207,6 +216,11 @@ input#resposta {
     color: #fff;
 }
 
+.btn:hover{
+    background-color: #8E24AA;
+    transform: scale(1.1);
+}
+
 .btn:disabled,
 .btnLetra:disabled,
 .btnCircular:disabled {
@@ -214,19 +228,37 @@ input#resposta {
     cursor: not-allowed;
 }
 
-/* Botões específicos */
-.btnVerificar {
+.btnLimpar {
     font-size: 1.1rem;
-    background-color: #81c784;
     color: #fff;
-    border: 2px solid #589b5c;
     padding: 10px 20px;
     margin-top: 20px;
     border-radius: 12px;
 }
 
+.btnApagar {
+    font-size: 1.1rem;
+    color: #fff;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 12px;
+}
+
+/* Botões específicos */
+.btnVerificar {
+    font-size: 1.1rem;
+    background-color: #75ca7a;
+    color: #fff;
+    border: 2px solid #589b5c;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
 .btnVerificar:hover {
-    background-color: #C2185B;
+    background-color: #81c784;
+    transform: scale(1.1);
 }
 
 /* Botões circulares */
@@ -259,9 +291,13 @@ input#resposta {
 .inputExercicio,
 .palavraReferencia,
 .palavra,
+.btn,
+.btnLimpar,
+.btnVerificar,
 .palavraReferencia * {
     font-family: "Baloo 2", "Fredoka", sans-serif;
 }
+
 
 .btnLetra,
 .btnCircular,
@@ -281,7 +317,7 @@ input#resposta {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    margin: 6px auto 14px;
+    margin-block: 1rem;
     font-size: 0.95rem;
     font-family: "Fredoka", sans-serif;
 }
@@ -494,4 +530,60 @@ input#resposta {
     }
 }
 
+/* garante que padding/border entrem no cálculo de largura */
+.wrapper, .container {
+  box-sizing: border-box;
+}
 
+/* corrige o card que está com width:100% + padding */
+.container {
+  width: 100%;
+  max-width: 1100px;   /* ajuste conforme o design */
+  margin: 0 auto;      /* centraliza o container */
+  padding: 24px;       /* opcional: mantenha o espaçamento interno desejado */
+}
+
+/* caso os nomes hashed apareçam no inspector, o box-sizing global garante correção */
+
+/* ============== FEEDBACK (mascote) ============== */
+
+/* área que aparece durante o feedback — ocupa espaço e evita pulo */
+.feedbackMascote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px; /* reserva espaço estável — ajuste conforme layout */
+  gap: 12px;
+  animation: fadeInScale 220ms ease;
+}
+
+/* imagem do mascote */
+.imgFeedback {
+  width: 160px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(142, 36, 170, 0.12);
+}
+
+/* texto grande e claro para crianças */
+.textoFeedback {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #5e3483;
+  text-align: center;
+}
+
+/* mantém a mensagem textual de feedback (menor) */
+.feedback {
+  margin-top: 10px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* animação suave */
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}

@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import styles from "../Atividades.module.css";
 import TtsButton from "../TtsButton";
 
+const cliqueSom = new Audio("/sons/somClique.mp3");
+
 const toUpper = (value) => {
   if (value == null) return "";
   return String(value).toUpperCase();
@@ -55,7 +57,7 @@ const CorrigirOrdemAlfabeto = ({ exercicio, onVerificar }) => {
             className={`${styles.btnCircular} ${
               selecionada === i ? styles.selecionado : ""
             }`}
-            onClick={() => trocar(i)}
+            onClick={() => { trocar(i); cliqueSom.play() }}
           >
             {toUpper(letra)}
           </button>
@@ -67,7 +69,7 @@ const CorrigirOrdemAlfabeto = ({ exercicio, onVerificar }) => {
           Limpar
         </button>
         <button onClick={verificar} className={`btn ${styles.btnVerificar}`}>
-          ✓
+          Responder ✓
         </button>
       </div>
     </div>

@@ -116,7 +116,7 @@ const PerfilResp = () => {
                 criancas.map((c) => (
                   <div key={c.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid #eee' }}>
                     <span>{c.nome}</span>
-                    <button onClick={() => navigate(`/perfilcrianca/${c.id}`)} style={{ padding: '6px 10px', borderRadius: 8, border: 'none', background: '#8E24AA', color: '#fff', cursor: 'pointer' }}>Ver perfil</button>
+                    <button onClick={() => navigate(`/perfilcrianca/${c.id}`)} style={{ fontFamily: 'Fredoka', padding: '6px 10px', borderRadius: 8, border: 'none', background: '#8E24AA', color: '#fff', cursor: 'pointer' }}>Ver perfil</button>
                   </div>
                 ))
               ) : (

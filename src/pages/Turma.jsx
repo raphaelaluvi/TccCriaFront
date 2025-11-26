@@ -355,7 +355,7 @@ export default function Turma() {
                 <Alert type="info">Nenhuma criança vinculada a esta turma ainda.</Alert>
               ) : (
                 <div style={{ overflowX: "auto" }}>
-                  <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 700 }}>
+                  <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 700, marginBottom: '2rem' }}>
                     <thead>
                       <tr style={{ textAlign: "left", color: "#777", fontSize: 14 }}>
                         <th style={{ padding: "8px 4px" }}>Nome</th>
@@ -382,6 +382,7 @@ export default function Turma() {
                                 disabled={loadingCriancaId === crianca.id && loadingTipo === "heuristico"}
                                 style={{
                                   border: "none",
+                                  fontFamily: "Fredoka",
                                   background: "#8E24AA",
                                   color: "#fff",
                                   borderRadius: 8,

@@ -33,7 +33,7 @@ const Atividades = () => {
   }, [atividadeId, preset]);
 
   if (!atividadeId) return (
-    <main
+    <main className="atividadesPage"
       style={{
         minHeight: "100vh",
         padding: "24px 8px",
@@ -55,7 +55,8 @@ const Atividades = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "#fdf6ff",
+        background: "linear-gradient(270deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb)",
+        animation: "gradientAnim 15s ease infinite",
       }}
     >
       <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
